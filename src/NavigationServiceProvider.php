@@ -8,19 +8,17 @@
 
 namespace mamorunl\AdminCMS\Navigation;
 
-
 use Illuminate\Support\ServiceProvider;
 
-class NavigationServiceProvider extends ServiceProvider {
+class NavigationServiceProvider extends ServiceProvider
+{
 
     /**
      * Register the service provider.
-     *
      * @return void
      */
     public function register()
     {
-
     }
 
     public function boot()
@@ -28,9 +26,14 @@ class NavigationServiceProvider extends ServiceProvider {
         $this->setupTemplateFinder();
 
         $this->setupTemplateParser();
+
+        $this->setupViews();
+
+        $this->setupTranslationFiles();
     }
 
-    protected function setupTemplateFinder() {
+    protected function setupTemplateFinder()
+    {
         $this->app->singleton('mamorunl\AdminCMS\Navigation\TemplateFinder', function ($app) {
             return new TemplateFinder($app['config'], $app['files']);
         });
@@ -41,5 +44,15 @@ class NavigationServiceProvider extends ServiceProvider {
         $this->app->singleton('mamorunl\AdminCMS\Navigation\TemplateParser', function ($app) {
             return new TemplateParser();
         });
+    }
+
+    protected function setupViews()
+    {
+        $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'admincms-navigation');
+    }
+
+    protected function setupTranslationFiles()
+    {
+        $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'admincms-navigation');
     }
 }

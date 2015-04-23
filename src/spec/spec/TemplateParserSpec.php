@@ -19,7 +19,6 @@ class TemplateParserSpec extends LaravelObjectBehavior
      * Test if the example template is parsed correctly
      */
     function it_parses_a_template_to_a_fillable_form() {
-        $htmlString = "";
-        $this->parseForm('double')->shouldReturn($htmlString);
+        $this->parseForm('double')->shouldBeString();
     }
 }

@@ -35,7 +35,7 @@ class TemplateParser
 
                 $parser = new $object->parser($xpo_id, $object);
 
-                $parsed_string = $parser->parse();
+                $parsed_string = $parser->parseForForms((array)$object);
                 $template = str_replace($html_string, $parsed_string, $template);
             }
 
