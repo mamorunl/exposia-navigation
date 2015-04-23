@@ -32,6 +32,13 @@ class ImageParser implements ParserInterface
         $this->json_data = $json_data;
     }
 
+    /**
+     * Generates a form with values to fill
+     *
+     * @param array $values
+     *
+     * @return string the parsed view
+     */
     public function parseForForms($values = [])
     {
         return View::make('admincms-navigation::partials.image_parser_modal', [
