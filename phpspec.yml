@@ -1,0 +1,9 @@
+suites:
+    main:
+        namespace: mamorunl\AdminCMS\Navigation
+        psr4_prefix: mamorunl\AdminCMS\Navigation
+        src_path: src
+        spec_path: src/spec
+
+extensions:
+  - PhpSpec\Laravel\Extension\laravelExtension
