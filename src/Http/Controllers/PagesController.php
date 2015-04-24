@@ -32,6 +32,15 @@ class PagesController extends Controller
      */
     public function store()
     {
+        $template_array = json_decode(Input::get('serialized_template'));
+        foreach ($template_array as $row) {
+            echo "---start row ---<br>\n";
+            foreach ($row as $column) {
+                echo $column[0] . " is length and name is " . $column[1] . "<br>\n";
+            }
+            echo "---stop row ---<br>\n";
+        }
+die();
         $inputFields = (Input::except(['_token', 'serialized_template', 'template_name']));
         $template_name = Input::get('template_name');
         foreach ($inputFields as $key => &$inputField) {
