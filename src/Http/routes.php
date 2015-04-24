@@ -6,4 +6,6 @@
  * Time: 14:48
  */
 
-Route::resource('admin/pages', 'PagesController');
+Route::group(['prefix' => 'admin'], function() {
+    Route::resource('pages', 'PagesController');
+});
