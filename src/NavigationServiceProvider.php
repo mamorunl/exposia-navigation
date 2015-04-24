@@ -8,6 +8,7 @@
 
 namespace mamorunl\AdminCMS\Navigation;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class NavigationServiceProvider extends ServiceProvider
@@ -30,6 +31,10 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupViews();
 
         $this->setupTranslationFiles();
+
+        $this->setupPublishers();
+
+        $this->setupRoutes();
     }
 
     protected function setupTemplateFinder()
@@ -54,5 +59,20 @@ class NavigationServiceProvider extends ServiceProvider
     protected function setupTranslationFiles()
     {
         $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'admincms-navigation');
+    }
+
+    protected function setupPublishers()
+    {
+        $this->publishes([
+            realpath(__DIR__ . '/database/migrations') => $this->app->databasePath() . '/migrations',
+            realpath(__DIR__ . '/assets')              => $this->app->publicPath() . '/backend/assets'
+        ]);
+    }
+
+    protected function setupRoutes()
+    {
+        $this->app->router->group(['namespace' => 'mamorunl\AdminCMS\Navigation\Http\Controllers'], function (Router $router) {
+            require __DIR__ . '/Http/routes.php';
+        });
     }
 }
