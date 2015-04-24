@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Facade;
 class TemplateParser extends Facade {
     public static function getFacadeAccessor()
     {
-        return 'mamorunl\AdminCMS\Navigation\TemplateParser';
+        return 'mamorunl\AdminCMS\Navigation\Models\TemplateParser';
     }
 }

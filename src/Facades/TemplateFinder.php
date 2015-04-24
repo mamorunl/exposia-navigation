@@ -15,6 +15,6 @@ class TemplateFinder extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return 'mamorunl\AdminCMS\Navigation\TemplateFinder';
+        return 'mamorunl\AdminCMS\Navigation\Models\TemplateFinder';
     }
 }

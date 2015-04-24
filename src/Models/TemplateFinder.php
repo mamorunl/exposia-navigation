@@ -6,7 +6,7 @@
  * Time: 14:29
  */
 
-namespace mamorunl\AdminCMS\Navigation;
+namespace mamorunl\AdminCMS\Navigation\Models;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository;

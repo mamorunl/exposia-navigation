@@ -1,6 +1,6 @@
 <?php
 
-namespace mamorunl\AdminCMS\Navigation;
+namespace mamorunl\AdminCMS\Navigation\Models;
 
 use mamorunl\AdminCMS\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
 
