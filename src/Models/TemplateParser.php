@@ -12,13 +12,12 @@ class TemplateParser
      *
      * @return mixed
      */
-    public function parseForm($template_name = "")
+    public function parseForInput($template_name = "")
     {
         $template = TemplateFinderFacade::readTemplate($template_name);
         $json = TemplateFinderFacade::readConfig($template_name);
 
-        $result = null;
-        preg_match_all('/<xpo\s*id="([^"]*)"[^>]*>(?:[^<])*(?:<\/xpo>)?/i', $template, $result);
+        $result = $this->getAllXpoTags($template);
 
         // Result 0 = Full strings,
         // Result 1 = Just the keys
@@ -43,5 +42,33 @@ class TemplateParser
         }
 
         return $template;
+    }
+
+    /**
+     * @param string $template_name
+     * @param array  $data
+     */
+    public function parseForDatabase($template_name = "", $data = [])
+    {
+        $json = TemplateFinderFacade::readConfig($template_name);
+
+        foreach ($json as $id => $object) {
+            if(class_exists($object->parser)) {
+                $parser = new $object->parser;
+                $fields[$id] = $parser->parseForDatabase((array)$object, $data[$id]);
+            }
+        }
+    }
+
+    /**
+     * @param $template
+     *
+     * @return mixed
+     */
+    private function getAllXpoTags($template)
+    {
+        preg_match_all('/<xpo\s*id="([^"]*)"[^>]*>(?:[^<])*(?:<\/xpo>)?/i', $template, $result);
+
+        return $result;
     }
 }

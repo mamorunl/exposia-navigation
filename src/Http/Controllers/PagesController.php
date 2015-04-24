@@ -9,7 +9,9 @@
 namespace mamorunl\AdminCMS\Navigation\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
 use Input;
+use mamorunl\AdminCMS\Navigation\Facades\TemplateParser;
 use mamorunl\AdminCMS\Navigation\Models\Page;
 
 class PagesController extends Controller
@@ -24,12 +26,22 @@ class PagesController extends Controller
 
         $this->page = $page;
     }
+
     /**
      *
      */
     public function store()
     {
-        $this->page->fill(Input::all());
+        $inputFields = (Input::except(['_token', 'serialized_template', 'template_name']));
+        $template_name = Input::get('template_name');
+        foreach ($inputFields as $key => &$inputField) {
+            if(Request::hasFile($key)) {
+                $inputField['file'] = Request::file($key);
+            }
+        }
+
+        TemplateParser::parseForDatabase($template_name, $inputFields);
+
         return $this->page;
     }
 }

@@ -1,4 +1,4 @@
-<input type="hidden" value="{{ $xpo_id }}" name="{{ $key }}['xpo_id']">
+<input type="hidden" value="{{ $xpo_id }}" name="{{ $key }}[xpo_id]">
 <div style="overflow: hidden; display: block;">
     <a href="#modal_{{ $key }}" data-toggle="modal" data-target="#modal_{{ $key }}" style="display: block;{{ $attributes }}">
         <img src="{{ $values['src'] }}" alt="" id="{{ $key }}">
@@ -17,7 +17,7 @@
                     <img src="{{ $values['src'] }}" alt="" class="img-responsive" id="preview_image_{{ $key }}">
                     <div class="file-select btn btn-primary btn-block">
                         @lang('admincms-navigation::parsers.image.select_file')
-                        <input type="file" id="upload_{{ $key }}" class="form-control" name="{{ $key }}['file']" onchange="changepreview{{ $key }}();">
+                        <input type="file" id="upload_{{ $key }}" class="form-control" name="{{ $key }}[file]" onchange="changepreview{{ $key }}();">
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -35,19 +35,19 @@
                             <div class="tab-pane active" id="image-tab" role="tabpanel">
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.alt')</label>
-                                    <input type="text" name="{{ $key }}['alt']" class="form-control" value="{{ $values['alt'] }}">
+                                    <input type="text" name="{{ $key }}[alt]" class="form-control" value="{{ $values['alt'] }}">
                                 </div>
                             </div>
 
                             <div class="tab-pane" id="link-tab" role="tabpanel">
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.href')</label>
-                                    <input type="text" name="{{ $key }}['href']" class="form-control" value="{{ $values['href'] }}">
+                                    <input type="text" name="{{ $key }}[href]" class="form-control" value="{{ $values['href'] }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.target')</label>
-                                    <select name="{{ $key }}['target']" class="form-control">
+                                    <select name="{{ $key }}[target]" class="form-control">
                                         <option value="_self"{{ ($values['target'] == "_self" || $values['target'] == "" ? " selected" : "") }}>@lang('admincms-navigation::parsers.image.fields.target_self')</option>
                                         <option value="_blank"{{ ($values['target'] == "_blank" ? " selected" : "") }}>@lang('admincms-navigation::parsers.image.fields.target_blank')</option>
                                     </select>
@@ -55,7 +55,7 @@
 
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.title')</label>
-                                    <input type="text" name="{{ $key }}['title']" class="form-control" value="{{ $values['title'] }}">
+                                    <input type="text" name="{{ $key }}[title]" class="form-control" value="{{ $values['title'] }}">
                                 </div>
                             </div>
                         </div>
