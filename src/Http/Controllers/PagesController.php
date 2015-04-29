@@ -25,7 +25,6 @@ class PagesController extends Controller
 
     public function __construct(Page $page)
     {
-
         $this->page = $page;
     }
 
