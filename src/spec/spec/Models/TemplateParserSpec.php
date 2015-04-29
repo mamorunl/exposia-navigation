@@ -23,27 +23,5 @@ class TemplateParserSpec extends LaravelObjectBehavior
         $this->parseforInput('double')->shouldBeString();
     }
 
-    function it_parses_an_array_of_fields_to_a_json_string()
-    {
-        $fieldData = [
-            'img001abc' => [
-                "xpo_id" => "img001",
-                "alt"    => "",
-                "href"   => "",
-                "target" => "_self",
-                "title"  => ""
-            ],
-            'img001def' => [
-                "xpo_id" => "img001",
-                "alt"    => "",
-                "href"   => "",
-                "target" => "_self",
-                "title"  => ""
-            ]
-        ];
 
-        $result = json_encode($fieldData, JSON_HEX_QUOT | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS);
-
-        $this->parseForDatabase('double', $fieldData)->shouldReceive($result);
-    }
 }

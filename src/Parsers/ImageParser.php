@@ -49,9 +49,9 @@ class ImageParser implements ParserInterface
         ])->render();
     }
 
-    public function parseForDatabase()
+    public function parseForDatabase($values = [])
     {
-        // TODO: Implement parseForDatabase() method.
+        return $this->getValues($values);
     }
 
     public function parseForDisplay()

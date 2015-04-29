@@ -15,7 +15,7 @@ class Page extends Model {
     protected $table = "cms_pages";
 
     protected $fillable = [
-        'name',
+        'title',
         'template_name',
         'template_data',
         'node_id'

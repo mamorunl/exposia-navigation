@@ -51,13 +51,17 @@ class TemplateParser
     public function parseForDatabase($template_name = "", $data = [])
     {
         $json = TemplateFinderFacade::readConfig($template_name);
+        $fields = [];
 
-        foreach ($json as $id => $object) {
+        foreach ($json as $xpo_id => $object) {
             if(class_exists($object->parser)) {
-                $parser = new $object->parser;
-                $fields[$id] = $parser->parseForDatabase((array)$object, $data[$id]);
+                $parser = new $object->parser($xpo_id, $object);
+                $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
+                $fields[$data_for_xpo_id['id']] = $parser->parseForDatabase($data_for_xpo_id);
             }
         }
+
+        return $fields;
     }
 
     /**
@@ -70,5 +74,15 @@ class TemplateParser
         preg_match_all('/<xpo\s*id="([^"]*)"[^>]*>(?:[^<])*(?:<\/xpo>)?/i', $template, $result);
 
         return $result;
+    }
+
+    private function getDataForXPOId($xpo_id = "", $data = [])
+    {
+        foreach ($data as $key => $options) {
+            if(!strcmp($xpo_id, $options['xpo_id'])) {
+                $options['id'] = $key;
+                return $options;
+            }
+        }
     }
 }

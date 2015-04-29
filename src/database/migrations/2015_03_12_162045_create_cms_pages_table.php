@@ -16,7 +16,6 @@ class CreateCMSPagesTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('title');
-            $table->string('template_name');
             $table->text('template_data');
             $table->integer('node_id');
 			$table->timestamps();

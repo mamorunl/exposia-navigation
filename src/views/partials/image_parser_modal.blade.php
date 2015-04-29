@@ -24,22 +24,22 @@
                     <div role="tabpanel">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active">
-                                <a href="#image-tab" data-toggle="tab" role="tab"><i class="fa fa-picture-o"></i> @lang('admincms-navigation::parsers.image.tabs.image')</a>
+                                <a href="#image-tab-for-{{ $key }}" data-toggle="tab" role="tab"><i class="fa fa-picture-o"></i> @lang('admincms-navigation::parsers.image.tabs.image')</a>
                             </li>
                             <li role="presentation">
-                                <a href="#link-tab" data-toggle="tab" role="tab"><i class="fa fa-external-link"></i> @lang('admincms-navigation::parsers.image.tabs.link')</a>
+                                <a href="#link-tab-for-{{ $key }}" data-toggle="tab" role="tab"><i class="fa fa-external-link"></i> @lang('admincms-navigation::parsers.image.tabs.link')</a>
                             </li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane active" id="image-tab" role="tabpanel">
+                            <div class="tab-pane active" id="image-tab-for-{{ $key }}" role="tabpanel">
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.alt')</label>
                                     <input type="text" name="{{ $key }}[alt]" class="form-control" value="{{ $values['alt'] }}">
                                 </div>
                             </div>
 
-                            <div class="tab-pane" id="link-tab" role="tabpanel">
+                            <div class="tab-pane" id="link-tab-for-{{ $key }}" role="tabpanel">
                                 <div class="form-group">
                                     <label>@lang('admincms-navigation::parsers.image.fields.href')</label>
                                     <input type="text" name="{{ $key }}[href]" class="form-control" value="{{ $values['href'] }}">
