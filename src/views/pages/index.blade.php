@@ -1,7 +1,7 @@
 @extends('admincms::index')
 
 @section('title')
- Pagina's
+ Pagina's <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i>Nieuwe pagina</a>
 @stop
 
 @section('content')

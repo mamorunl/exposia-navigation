@@ -83,7 +83,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = PageRepository::orderBy('title')->get();
+        $pages = PageRepository::index();
 
         return view('admincms-navigation::pages.index', compact("pages"));
     }

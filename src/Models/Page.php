@@ -20,4 +20,7 @@ class Page extends Model {
         'template_data',
         'node_id'
     ];
+
+    public $order_column = "title";
+    public $order_direction = "asc";
 }

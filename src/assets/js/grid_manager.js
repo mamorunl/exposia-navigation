@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var gmEditholder;
     $("#mycanvas").gridmanager({
-        debug: 1,
+        debug: 0,
         colSelectEnabled: false,
         editableRegionEnabled: false,
         autoEdit: false,
@@ -32,7 +32,7 @@ $(document).ready(function () {
     });
 
     $('body').on('click', '.btn-select-template', function (e) {
-        gmEditholder = $(this).parent();
+        gmEditholder = $(this);
         $('#set-template-modal').modal();
     });
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         $.get("/ajax/gettemplate/" + $(this).data('templateid'), function (data) {
-            gmEditholder.html(data);
+            gmEditholder.replaceWith(data);
             $('#set-template-modal').modal('hide');
         });
     });
