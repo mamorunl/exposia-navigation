@@ -13,21 +13,11 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
+use mamorunl\AdminCMS\Navigation\Facades\PageRepository;
 use mamorunl\AdminCMS\Navigation\Facades\TemplateParser;
-use mamorunl\AdminCMS\Navigation\Models\Page;
 
 class PagesController extends Controller
 {
-    /**
-     * @var Page
-     */
-    private $page;
-
-    public function __construct(Page $page)
-    {
-        $this->page = $page;
-    }
-
     /**
      * @return View
      */
@@ -74,7 +64,7 @@ class PagesController extends Controller
         $json_parsed_data = json_encode($parsedForDatabase,
             JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG);
 
-        $page = $this->page->create([
+        $page = PageRepository::create([
             'title'         => 'Test',
             'template_data' => $json_parsed_data
         ]);
@@ -93,7 +83,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $pages = $this->page->orderBy('title')->get();
+        $pages = PageRepository::orderBy('title')->get();
 
         return view('admincms-navigation::pages.index', compact("pages"));
     }
