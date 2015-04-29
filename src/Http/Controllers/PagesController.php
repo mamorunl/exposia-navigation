@@ -29,6 +29,14 @@ class PagesController extends Controller
         $this->page = $page;
     }
 
+    /**
+     * @return View
+     */
+    public function create()
+    {
+        return view('admincms-navigation::pages.create');
+    }
+
 
     /**
      * Store the page details from the create page
@@ -82,12 +90,12 @@ class PagesController extends Controller
 
     /**
      * Display all pages in a table-format
-     * @return mixed
+     * @return View
      */
     public function index()
     {
-        $pages = Page::orderBy('title')->get();
+        $pages = $this->page->orderBy('title')->get();
 
-        return View::make('admincms-navigation::pages.index', compact("pages"));
+        return view('admincms-navigation::pages.index', compact("pages"));
     }
 }

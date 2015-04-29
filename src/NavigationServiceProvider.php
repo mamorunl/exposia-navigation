@@ -10,6 +10,8 @@ namespace mamorunl\AdminCMS\Navigation;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use mamorunl\AdminCMS\Navigation\Models\TemplateFinder;
+use mamorunl\AdminCMS\Navigation\Models\TemplateParser;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -39,14 +41,14 @@ class NavigationServiceProvider extends ServiceProvider
 
     protected function setupTemplateFinder()
     {
-        $this->app->singleton('mamorunl\AdminCMS\Navigation\TemplateFinder', function ($app) {
+        $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateFinder', function ($app) {
             return new TemplateFinder($app['config'], $app['files']);
         });
     }
 
     protected function setupTemplateParser()
     {
-        $this->app->singleton('mamorunl\AdminCMS\Navigation\TemplateParser', function ($app) {
+        $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateParser', function ($app) {
             return new TemplateParser();
         });
     }
