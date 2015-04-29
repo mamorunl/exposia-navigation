@@ -10,8 +10,10 @@ namespace mamorunl\AdminCMS\Navigation;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use mamorunl\AdminCMS\Navigation\Models\Page;
 use mamorunl\AdminCMS\Navigation\Models\TemplateFinder;
 use mamorunl\AdminCMS\Navigation\Models\TemplateParser;
+use mamorunl\AdminCMS\Navigation\Repositories\PageRepository;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -24,11 +26,16 @@ class NavigationServiceProvider extends ServiceProvider
     {
     }
 
+    /**
+     * The boot method gets ran when the app is booted up
+     */
     public function boot()
     {
         $this->setupTemplateFinder();
 
         $this->setupTemplateParser();
+
+        $this->setupPageRepository();
 
         $this->setupViews();
 
@@ -39,6 +46,9 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupRoutes();
     }
 
+    /**
+     * Setup the template finder
+     */
     protected function setupTemplateFinder()
     {
         $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateFinder', function ($app) {
@@ -46,6 +56,9 @@ class NavigationServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Setup the template parser
+     */
     protected function setupTemplateParser()
     {
         $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateParser', function ($app) {
@@ -53,16 +66,36 @@ class NavigationServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Setup the page repository
+     */
+    protected function setupPageRepository()
+    {
+        $this->app->singleton('mamorunl\AdminCMS\Navigation\Repositories\PageRepository', function ($app) {
+            return new PageRepository(new Page);
+        });
+    }
+
+    /**
+     * Tell the app where to find our view files
+     */
     protected function setupViews()
     {
         $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'admincms-navigation');
     }
 
+    /**
+     * Tell the app where to find our translation files
+     */
     protected function setupTranslationFiles()
     {
         $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'admincms-navigation');
     }
 
+    /**
+     * Publish the files to the app when the command
+     * vendor:publish is ran from artisan
+     */
     protected function setupPublishers()
     {
         $this->publishes([
@@ -71,10 +104,14 @@ class NavigationServiceProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * Setup the routes associated with this package
+     */
     protected function setupRoutes()
     {
-        $this->app->router->group(['namespace' => 'mamorunl\AdminCMS\Navigation\Http\Controllers'], function (Router $router) {
-            require __DIR__ . '/Http/routes.php';
-        });
+        $this->app->router->group(['namespace' => 'mamorunl\AdminCMS\Navigation\Http\Controllers'],
+            function (Router $router) {
+                require __DIR__ . '/Http/routes.php';
+            });
     }
 }
