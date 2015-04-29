@@ -75,7 +75,7 @@ class PagesController extends Controller
         $json_parsed_data = json_encode($parsedForDatabase,
             JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG);
 
-        $page = Page::create([
+        $page = $this->page->create([
             'title'         => 'Test',
             'template_data' => $json_parsed_data
         ]);
