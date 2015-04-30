@@ -37,7 +37,7 @@ class PagesController extends Controller
     public function store()
     {
         $template_array = json_decode(Input::get('serialized_template'));
-        $json_parsed_data = PageRepository::preCreate($template_array);
+        $json_parsed_data = PageRepository::beforeCreate($template_array);
 
         $page = PageRepository::create([
             'title'         => 'Test',
@@ -45,7 +45,7 @@ class PagesController extends Controller
         ]);
 
         if ($page) {
-            return Redirect::route('pages.index')
+            return Redirect::route('admin.pages.index')
                 ->with('success', 'Page saved');
         }
 

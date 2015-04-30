@@ -34,9 +34,13 @@ class TemplateParser
             if (class_exists($object->parser)) {
 
                 $parser = new $object->parser($xpo_id, $object);
-                $key = key($default_values);
-                $values = $default_values[$key];
-                $parsed_string = $parser->parseForForms((array)$object + $values, $key);
+                $values = [];
+                $key_object = null;
+                if(isset($default_values) && count($default_values) > 0) {
+                    $values = $this->getDataForXPOId($xpo_id, $default_values);
+                    $key_object = $values['id'];
+                }
+                $parsed_string = $parser->parseForForms((array)$object + $values, $key_object);
                 $template = str_replace($html_string, $parsed_string, $template);
             }
 
@@ -60,6 +64,7 @@ class TemplateParser
         foreach ($json as $xpo_id => $object) {
             if(class_exists($object->parser)) {
                 $parser = new $object->parser($xpo_id, $object);
+
                 $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
                 $fields[$data_for_xpo_id['id']] = $parser->parseForDatabase($data_for_xpo_id);
                 $fields[$data_for_xpo_id['id']]['xpo_id'] = $xpo_id;
@@ -81,6 +86,12 @@ class TemplateParser
         return $result;
     }
 
+    /**
+     * @param string $xpo_id
+     * @param array  $data
+     *
+     * @return null
+     */
     private function getDataForXPOId($xpo_id = "", $data = [])
     {
         foreach ($data as $key => $options) {
@@ -89,5 +100,6 @@ class TemplateParser
                 return $options;
             }
         }
+        return null;
     }
 }

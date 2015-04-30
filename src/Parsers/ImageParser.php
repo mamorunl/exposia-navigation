@@ -41,7 +41,7 @@ class ImageParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('admincms-navigation::partials.image_parser_modal', [
+        return View::make('admincms-navigation::partials.image_parser', [
             'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'attributes' => $this->getAttributes(),
             'values'     => $this->getValues($values),
