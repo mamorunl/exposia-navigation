@@ -37,35 +37,7 @@ class PagesController extends Controller
     public function store()
     {
         $template_array = json_decode(Input::get('serialized_template'));
-        $parsedForDatabase = [];
-        foreach ($template_array as $key => $row) {
-            // Row
-            $parsedForDatabase[$key] = [
-                "class"   => "NA",
-                "columns" => []
-            ];
-            foreach ($row as $col_key => $column) {
-                // Column[0] = length
-                // Column[1] = Template name
-                // Column[2] = Fields
-                $input = [];
-                foreach ($column[2] as $field) {
-                    $input[$field] = Input::get($field);
-                    if (Request::hasFile($field . ".file")) {
-                        $input[$field]['file'] = Request::file($field . ".file");
-                    }
-                }
-
-                $parsedForDatabase[$key]['columns'][$col_key] = [
-                    'class'         => trim($column[0]),
-                    'template_name' => trim($column[1]),
-                    'template_data' => TemplateParser::parseForDatabase($column[1], $input)
-                ];
-            }
-        }
-
-        $json_parsed_data = json_encode($parsedForDatabase,
-            JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_TAG);
+        $json_parsed_data = PageRepository::preCreate($template_array);
 
         $page = PageRepository::create([
             'title'         => 'Test',
@@ -101,5 +73,25 @@ class PagesController extends Controller
         $template_data = PageRepository::renderForEdit($page);
 
         return view('admincms-navigation::pages.edit', compact("page", "templates", "template_data"));
+    }
+
+    public function update($id)
+    {
+        $page = PageRepository::find($id);
+        $template_array = json_decode(Input::get('serialized_template'));
+        $json_parsed_data = PageRepository::beforeUpdate($template_array);
+
+        if (PageRepository::update($id, [
+            'title'         => 'Updated test',
+            'template_data' => $json_parsed_data
+        ])
+        ) {
+            return Redirect::route('admin.pages.index')
+                ->with('success', 'Page updated');
+        }
+
+        return Redirect::back()
+            ->withInput()
+            ->with('error', 'Error while updating page');
     }
 }

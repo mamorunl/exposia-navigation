@@ -1,7 +1,7 @@
 @extends('admincms::index')
 
 @section('title')
-    Nieuwe pagina
+    Pagina wijzigen
 @stop
 
 @section('content')

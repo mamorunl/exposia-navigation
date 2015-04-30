@@ -27,7 +27,6 @@ class ImageParser implements ParserInterface
      */
     public function __construct($xpo_id, $json_data)
     {
-
         $this->xpo_id = $xpo_id;
         $this->json_data = $json_data;
     }
