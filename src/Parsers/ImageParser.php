@@ -36,13 +36,14 @@ class ImageParser implements ParserInterface
      * Generates a form with values to fill
      *
      * @param array $values
+     * @param null  $key
      *
      * @return string the parsed view
      */
-    public function parseForForms($values = [])
+    public function parseForForms($values = [], $key = null)
     {
         return View::make('admincms-navigation::partials.image_parser_modal', [
-            'key'        => $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
+            'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'attributes' => $this->getAttributes(),
             'values'     => $this->getValues($values),
             'xpo_id'     => $this->xpo_id

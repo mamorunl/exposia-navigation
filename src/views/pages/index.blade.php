@@ -22,7 +22,7 @@
                     <td></td>
                     <td>{{ $page->updated_at->format("d F Y @ H:i") }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
                         <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Destroy</a>
                     </td>
                 </tr>

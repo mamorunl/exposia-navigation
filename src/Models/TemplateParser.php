@@ -9,10 +9,11 @@ class TemplateParser
 
     /**
      * @param string $template_name
+     * @param array  $default_values
      *
      * @return mixed
      */
-    public function parseForInput($template_name = "")
+    public function parseForInput($template_name = "", $default_values = [])
     {
         $template = TemplateFinderFacade::readTemplate($template_name);
         $json = TemplateFinderFacade::readConfig($template_name);
@@ -33,8 +34,9 @@ class TemplateParser
             if (class_exists($object->parser)) {
 
                 $parser = new $object->parser($xpo_id, $object);
-
-                $parsed_string = $parser->parseForForms((array)$object);
+                $key = key($default_values);
+                $values = $default_values[$key];
+                $parsed_string = $parser->parseForForms((array)$object + $values, $key);
                 $template = str_replace($html_string, $parsed_string, $template);
             }
 
@@ -47,6 +49,8 @@ class TemplateParser
     /**
      * @param string $template_name
      * @param array  $data
+     *
+     * @return array
      */
     public function parseForDatabase($template_name = "", $data = [])
     {
@@ -58,6 +62,7 @@ class TemplateParser
                 $parser = new $object->parser($xpo_id, $object);
                 $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
                 $fields[$data_for_xpo_id['id']] = $parser->parseForDatabase($data_for_xpo_id);
+                $fields[$data_for_xpo_id['id']]['xpo_id'] = $xpo_id;
             }
         }
 

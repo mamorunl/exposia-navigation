@@ -14,6 +14,10 @@ class PagesControllerSpec extends LaravelObjectBehavior
 
     function it_returns_a_view_with_pages_on_index()
     {
-        $this->index()->shouldBeCalled();
+        $this->index()->shouldReturnAnInstanceOf("Illuminate\\View\\View");
+    }
+
+    function it_returns_a_view_on_edit() {
+        $this->edit(1)->shouldReturnAnInstanceOf("Illuminate\\View\\View");
     }
 }

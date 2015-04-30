@@ -10,9 +10,9 @@ namespace mamorunl\AdminCMS\Navigation\Parsers;
 
 
 interface ParserInterface {
-    public function parseForForms();
+    public function parseForForms($values = [], $key = null);
 
-    public function parseForDatabase();
+    public function parseForDatabase($values = []);
 
     public function parseForDisplay();
 }

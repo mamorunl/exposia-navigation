@@ -92,4 +92,14 @@ class PagesController extends Controller
 
         return view('admincms-navigation::pages.index', compact("pages"));
     }
+
+    public function edit($id)
+    {
+        $page = PageRepository::find($id);
+        $templates = TemplateFinder::getTemplates();
+
+        $template_data = PageRepository::renderForEdit($page);
+
+        return view('admincms-navigation::pages.edit', compact("page", "templates", "template_data"));
+    }
 }
