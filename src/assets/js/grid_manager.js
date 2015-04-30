@@ -39,7 +39,7 @@ $(document).ready(function () {
     $('#template_picker a').click(function (e) {
         e.preventDefault();
 
-        $.get("/ajax/gettemplate/" + $(this).data('templateid'), function (data) {
+        $.get("/ajax/gettemplate/" + $(this).data('templatename'), function (data) {
             gmEditholder.replaceWith(data);
             $('#set-template-modal').modal('hide');
         });

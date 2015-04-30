@@ -1,7 +1,7 @@
 @extends('admincms::index')
 
 @section('title')
- Pagina's <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i>Nieuwe pagina</a>
+ Pagina's <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Nieuwe pagina</a>
 @stop
 
 @section('content')
@@ -9,10 +9,10 @@
         <table class="table-striped table">
             <thead>
             <tr>
-                <th>Titel</th>
-                <th>Slug</th>
-                <th>Laatste wijziging</th>
-                <th>&nbsp;</th>
+                <th class="col-xs-4">Titel</th>
+                <th class="col-xs-4">Slug</th>
+                <th class="col-xs-2">Laatste wijziging</th>
+                <th class="col-xs-2">&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -23,6 +23,7 @@
                     <td>{{ $page->updated_at->format("d F Y @ H:i") }}</td>
                     <td>
                         <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Destroy</a>
                     </td>
                 </tr>
             @endforeach

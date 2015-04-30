@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use mamorunl\AdminCMS\Navigation\Facades\PageRepository;
+use mamorunl\AdminCMS\Navigation\Facades\TemplateFinder;
 use mamorunl\AdminCMS\Navigation\Facades\TemplateParser;
 
 class PagesController extends Controller
@@ -23,7 +24,9 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('admincms-navigation::pages.create');
+        $templates = TemplateFinder::getTemplates();
+
+        return view('admincms-navigation::pages.create', compact('templates'));
     }
 
 
@@ -70,11 +73,13 @@ class PagesController extends Controller
         ]);
 
         if ($page) {
-            return Redirect::to('/');
+            return Redirect::route('pages.index')
+                ->with('success', 'Page saved');
         }
 
         return Redirect::back()
-            ->withInput();
+            ->withInput()
+            ->with('error', 'Error while saving page');
     }
 
     /**

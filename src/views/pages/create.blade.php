@@ -43,28 +43,18 @@
                 </div>
                 <div class="modal-body" id="template_picker">
                     <div class="row">
+                        @foreach($templates as $template_name => $image)
                         <div class="col-md-4">
-                            <a href="#" data-templateid="1">
-                                <img src="/template_files/single/template.jpg" alt="" class="img-responsive">
+                            <a href="#" data-templatename="{{ $template_name }}" class="text-center" style="display:block;">
+                                <h2>{{ ucwords($template_name) }}</h2>
+                                <img src="{{ $image }}" alt="" class="img-responsive">
                             </a>
                         </div>
-
-                        <div class="col-md-4">
-                            <a href="#" data-templateid="2">
-                                <img src="/template_files/single/template.jpg" alt="" class="img-responsive">
-                            </a>
-                        </div>
-
-                        <div class="col-md-4">
-                            <a href="#" data-templateid="3">
-                                <img src="/template_files/single/template.jpg" alt="" class="img-responsive">
-                            </a>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
