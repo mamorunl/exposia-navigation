@@ -28,7 +28,8 @@ $(document).ready(function () {
             btnClass: "gm-moveCol pull-left",
             iconClass: "fa fa-arrows "
         }],
-        colButtonsAppend: {}
+        colButtonsAppend: {},
+        controlAppend: ""
     });
 
     $('body').on('click', '.btn-select-template', function (e) {
