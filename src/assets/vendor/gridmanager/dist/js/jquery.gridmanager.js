@@ -669,7 +669,7 @@
           // cache canvas
           var canvas=gm.$el.find("#" + gm.options.canvasId);
           gm.switchLayoutMode(gm.options.layoutDefaultMode);
-          var cols=canvas.children().children(gm.options.colSelector);
+          var cols=canvas.find(gm.options.colSelector+ ":not(.xpo_data "+ gm.options.colSelector+ ")");
           var rows=canvas.children(gm.options.rowSelector);
            gm.log("+ InitCanvas Running");
               // Show the template controls
@@ -952,7 +952,7 @@
             .html(gm.toolFactory(gm.options.colButtonsPrepend))
             .prepend(gm.toolFactory(gm.options.colButtonsPrepend))
             .append(gm.toolFactory(gm.options.colButtonsAppend))
-             .append("<div/>", {"class": "gm-select-template-button"}).html("<button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button>").append(gm.toolFactory(gm.options.colButtonsAppend));
+             .append("<div/>", {"class": "gm-select-template-button"}).html("<div class='xpo_data'><button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button></div>").append(gm.toolFactory(gm.options.colButtonsAppend));
             gm.log("++ Created Column " + size);
             return col;
         };

@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         $.get("/ajax/gettemplate/" + template_name, function (data) {
             gmEditholder.parent().append('<xpodata data-templatename="' + template_name + '"></xpodata>');
-            gmEditholder.replaceWith('<div class="xpo-data">' + data + '</div>');
+            gmEditholder.replaceWith('<div class="xpo_data">' + data + '</div>');
             $('#set-template-modal').modal('hide');
         });
     });
@@ -82,9 +82,9 @@ $(document).ready(function () {
         $('form').submit();
     });
 
-    $('.gm-resetColData').click(function(e) {
+    $('body').on('click', '.gm-resetColData', function(e) {
         e.preventDefault();
-        $(this).parent().siblings('.xpo_data').innerHTML = "<button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button>";
+        $(this).parent().siblings('.xpo_data').replaceWith("<div class='xpo_data'><button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button></div>");
     });
 });
 
