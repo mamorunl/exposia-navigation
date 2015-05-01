@@ -31,7 +31,7 @@ $(document).ready(function () {
         colButtonsAppend: [{
             title: "Reset",
             element: "a",
-            btnClass: "gm-resetCol pull-right",
+            btnClass: "gm-resetColData pull-right",
             iconClass: "fa fa-repeat "
         }],
         controlAppend: ""
@@ -82,9 +82,9 @@ $(document).ready(function () {
         $('form').submit();
     });
 
-    $('.gm-resetCol').click(function(e) {
+    $('.gm-resetColData').click(function(e) {
         e.preventDefault();
-        $(this).parent()
+        $(this).parent().siblings('.xpo_data').innerHTML = "<button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button>";
     });
 });
 
