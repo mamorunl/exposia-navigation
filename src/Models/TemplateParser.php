@@ -100,6 +100,6 @@ class TemplateParser
                 return $options;
             }
         }
-        return null;
+        return [];
     }
 }

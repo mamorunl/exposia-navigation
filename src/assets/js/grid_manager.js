@@ -28,7 +28,12 @@ $(document).ready(function () {
             btnClass: "gm-moveCol pull-left",
             iconClass: "fa fa-arrows "
         }],
-        colButtonsAppend: {},
+        colButtonsAppend: [{
+            title: "Reset",
+            element: "a",
+            btnClass: "gm-resetCol pull-right",
+            iconClass: "fa fa-repeat "
+        }],
         controlAppend: ""
     });
 
@@ -39,9 +44,11 @@ $(document).ready(function () {
 
     $('#template_picker a').click(function (e) {
         e.preventDefault();
+        var template_name = $(this).data('templatename');
 
-        $.get("/ajax/gettemplate/" + $(this).data('templatename'), function (data) {
-            gmEditholder.replaceWith(data);
+        $.get("/ajax/gettemplate/" + template_name, function (data) {
+            gmEditholder.parent().append('<xpodata data-templatename="' + template_name + '"></xpodata>');
+            gmEditholder.replaceWith('<div class="xpo-data">' + data + '</div>');
             $('#set-template-modal').modal('hide');
         });
     });
@@ -55,7 +62,7 @@ $(document).ready(function () {
                 var class_length = $(this).attr('class').replace("gm-editing", "").replace("column", "").replace("ui-sortable", "");
                 var node = [];
                 node[0] = class_length;
-                node[1] = "double";
+                node[1] = $(this).find('xpodata').data('templatename');
                 node[2] = [];
                 $(this).find('input').each(function() {
                     var $name = $(this).attr('name');
@@ -73,6 +80,11 @@ $(document).ready(function () {
         });
         $('#serialized_template').val(JSON.stringify(arr));
         $('form').submit();
+    });
+
+    $('.gm-resetCol').click(function(e) {
+        e.preventDefault();
+        $(this).parent()
     });
 });
 

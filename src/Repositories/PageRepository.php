@@ -23,7 +23,10 @@ class PageRepository extends AbstractRepository
             $html .= '<div class="row">';
             foreach ($row['columns'] as $column) {
                 $html .= '<div class="' . $column['class'] . '">';
-                $html .= TemplateParser::parseForInput($column['template_name'], $column['template_data']);
+                $html .= '<div class="xpo_data">';
+                $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? '<xpodata data-templatename="' . $column['template_name'] . '"></xpodata>' : "";
+                $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? TemplateParser::parseForInput($column['template_name'], $column['template_data']) : "<button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button>";
+                $html .= '</div>';
                 $html .= '</div>';
             }
             $html .= '</div>';
@@ -60,8 +63,8 @@ class PageRepository extends AbstractRepository
 
                 $parsedForDatabase[$key]['columns'][$col_key] = [
                     'class'         => trim($column[0]),
-                    'template_name' => trim($column[1]),
-                    'template_data' => TemplateParser::parseForDatabase($column[1], $input)
+                    'template_name' => (!isset($column[1]) || is_null($column[1]) ? "" : trim($column[1])),
+                    'template_data' => (!isset($column[1]) || is_null($column[1]) ? "{}" : TemplateParser::parseForDatabase($column[1], $input))
                 ];
             }
         }
