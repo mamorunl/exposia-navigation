@@ -29,11 +29,18 @@ $(document).ready(function () {
             iconClass: "fa fa-arrows "
         }],
         colButtonsAppend: [{
-            title: "Reset",
+            title: "Add canvas",
             element: "a",
-            btnClass: "gm-resetColData pull-right",
-            iconClass: "fa fa-repeat "
-        }],
+            btnClass: "gm-addCanvas pull-right",
+            iconClass: "fa fa-plus "
+        },
+            {
+                title: "Reset",
+                element: "a",
+                btnClass: "gm-resetColData pull-right",
+                iconClass: "fa fa-repeat "
+            }
+        ],
         controlAppend: ""
     });
 
@@ -53,24 +60,24 @@ $(document).ready(function () {
         });
     });
 
-    $('button[type=submit]').click(function(e) {
+    $('button[type=submit]').click(function (e) {
         e.preventDefault();
         var arr = [];
-        $('#gm-canvas > .row.gm-editing').each(function(i) {
+        $('#gm-canvas > .row.gm-editing').each(function (i) {
             var subarr = [];
-            $(this).children('.gm-editing').each(function() {
+            $(this).children('.gm-editing').each(function () {
                 var class_length = $(this).attr('class').replace("gm-editing", "").replace("column", "").replace("ui-sortable", "");
                 var node = [];
                 node[0] = class_length;
                 node[1] = $(this).find('xpodata').data('templatename');
                 node[2] = [];
-                $(this).find('input').each(function() {
+                $(this).find('input').each(function () {
                     var $name = $(this).attr('name');
-                    if($name.indexOf("[") > -1) {
+                    if ($name.indexOf("[") > -1) {
                         $name = $name.split("[");
                         $name = $name[0];
                     }
-                    if($.inArray($name, node[2]) == -1) {
+                    if ($.inArray($name, node[2]) == -1) {
                         node[2].push($name);
                     }
                 });
@@ -82,9 +89,59 @@ $(document).ready(function () {
         $('form').submit();
     });
 
-    $('body').on('click', '.gm-resetColData', function(e) {
+    $('body').on('click', '.gm-resetColData', function (e) {
         e.preventDefault();
         $(this).parent().siblings('.xpo_data').replaceWith("<div class='xpo_data'><button type='button' class='btn btn-primary btn-block btn-select-template'>Select template</button></div>");
     });
-});
+
+    $('body').on('click', '.gm-addCanvas', function(e) {
+        e.preventDefault();
+        var t = (new Date).getTime();
+        $(this).parent().before('<div id="inserted_canvas_' + t + '"></div>');
+        $("#inserted_canvas_" + t).gridmanager({
+            debug: 0,
+            colSelectEnabled: false,
+            editableRegionEnabled: false,
+            autoEdit: false,
+            addDefaultColumnClass: false,
+            addResponsiveClasses: false,
+            controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]],
+
+            rowButtonsPrepend: [{
+                title: "Move",
+                element: "a",
+                btnClass: "gm-moveRow pull-left",
+                iconClass: "fa fa-arrows "
+            },
+                {
+                    title: "Row Settings",
+                    element: "a",
+                    btnClass: "pull-right gm-rowSettings",
+                    iconClass: "fa fa-cog"
+                }],
+
+            colButtonsPrepend: [{
+                title: "Move",
+                element: "a",
+                btnClass: "gm-moveCol pull-left",
+                iconClass: "fa fa-arrows "
+            }],
+            colButtonsAppend: [{
+                title: "Add canvas",
+                element: "a",
+                btnClass: "gm-addCanvas pull-right",
+                iconClass: "fa fa-plus "
+            },
+                {
+                    title: "Reset",
+                    element: "a",
+                    btnClass: "gm-resetColData pull-right",
+                    iconClass: "fa fa-repeat "
+                }
+            ],
+            controlAppend: ""
+        });
+    })
+})
+;
 
