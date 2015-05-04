@@ -670,7 +670,7 @@
           var canvas=gm.$el.find("#" + gm.options.canvasId);
           gm.switchLayoutMode(gm.options.layoutDefaultMode);
           var cols=canvas.find(gm.options.colSelector+ ":not(.xpo_data "+ gm.options.colSelector+ ")");
-          var rows=canvas.children(gm.options.rowSelector);
+          var rows=canvas.find(gm.options.rowSelector + ":not(.xpo_data " + gm.options.rowSelector + ")");
            gm.log("+ InitCanvas Running");
               // Show the template controls
               gm.$el.find("#gm-addnew").show();
@@ -681,8 +681,8 @@
               // Run custom init callback filter
               gm.runFilter(canvas, true);
               // Get cols & rows again after filter execution
-              cols=canvas.children().children(gm.options.colSelector);
-              rows=canvas.children(gm.options.rowSelector);
+              cols=canvas.find(gm.options.colSelector+ ":not(.xpo_data "+ gm.options.colSelector+ ")");
+              rows=canvas.find(gm.options.rowSelector + ":not(.xpo_data " + gm.options.rowSelector + ")");
               // Make Rows sortable
               canvas.sortable({
                 items: rows,
@@ -699,7 +699,7 @@
               */
               $.each(rows, function(i, val){
                   $(val).sortable({
-                  items: $(val).find(gm.options.colSelector),
+                  items: $(val).find(gm.options.colSelector + ":not(.xpo_data "+ gm.options.colSelector+ ")"),
                   axis: 'x',
                   handle: ".gm-moveCol",
                   forcePlaceholderSize: true,   opacity: 0.7,  revert: true,
