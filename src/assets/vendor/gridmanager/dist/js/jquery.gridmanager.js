@@ -66,6 +66,8 @@
                 if(gm.options.addResponsiveClasses) {
                    gm.addResponsiveness(gm.$el.find("#" + gm.options.canvasId));
                 }
+                // Add canvas class for multiple canvases
+                gm.$el.find("#" + gm.options.canvasId).addClass("canvas");
                 // Add default editable regions: we try and do this early on, as then we don't need to replicate logic to add regions
                 if(gm.options.autoEdit){
                    gm.initMarkup(
@@ -1125,6 +1127,7 @@
           var string="a.add" + gm.generateButtonClass(colWidths);
           var canvas=gm.$el.find("#" + gm.options.canvasId);
               gm.$el.on("click", string, function(e){
+                  canvas = $(this).closest(".canvas-wrapper").children('.canvas');
                 gm.log("Clicked " + string);
                 canvas.prepend(gm.createRow(colWidths));
                 gm.reset();

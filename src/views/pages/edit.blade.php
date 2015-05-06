@@ -4,6 +4,12 @@
     Pagina wijzigen
 @stop
 
+@section('styles')
+    <style type="text/css">
+        .subcanvas .column .gm-addCanvas { display: none; }
+    </style>
+@stop
+
 @section('content')
     <section class="content paddingleft_right15">
         <div class="alert alert-success alert-dismissable visible-xs visible-md">
@@ -22,7 +28,7 @@
             <div class="panel-body">
                 <div class="row" style="padding:30px;">
                     {!! Form::open(['method' => 'put', 'route' => ['admin.pages.update', $page->id]]) !!}
-                    <div id="mycanvas">
+                    <div id="mycanvas" class="canvas-wrapper">
                         {!! $template_data !!}
                     </div>
                     <input type="hidden" value="" name="serialized_template" id="serialized_template">

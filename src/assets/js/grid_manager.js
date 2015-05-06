@@ -71,7 +71,7 @@ $(document).ready(function () {
                 node[0] = class_length;
                 node[1] = $(this).find('xpodata').data('templatename');
                 node[2] = [];
-                $(this).find('input').each(function () {
+                $(this).find('input:not(.subcanvas input)').each(function () {
                     var $name = $(this).attr('name');
                     if ($name.indexOf("[") > -1) {
                         $name = $name.split("[");
@@ -86,7 +86,8 @@ $(document).ready(function () {
             arr.push(subarr);
         });
         $('#serialized_template').val(JSON.stringify(arr));
-        $('form').submit();
+        console.log($('#serialized_template').val());
+        //$('form').submit();
     });
 
     $('body').on('click', '.gm-resetColData', function (e) {
@@ -97,51 +98,8 @@ $(document).ready(function () {
     $('body').on('click', '.gm-addCanvas', function(e) {
         e.preventDefault();
         var t = (new Date).getTime();
-        $(this).parent().before('<div id="inserted_canvas_' + t + '"></div>');
-        $("#inserted_canvas_" + t).gridmanager({
-            debug: 0,
-            colSelectEnabled: false,
-            editableRegionEnabled: false,
-            autoEdit: false,
-            addDefaultColumnClass: false,
-            addResponsiveClasses: false,
-            controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]],
+        $(this).parent().before('<div id="inserted_canvas_wrap_' + t + '" class="canvas-wrapper"><div id="gm-addnew" class="btn-group pull-left" style="display: block;"><a title="Add Row -12" class="btn  btn-xs  btn-primary add-12"><span class="fa fa-plus-circle"></span> -12</a><a title="Add Row -8-4" class="btn  btn-xs  btn-primary add-8-4"><span class="fa fa-plus-circle"></span> -8-4</a><a title="Add Row -9-3" class="btn  btn-xs  btn-primary add-9-3"><span class="fa fa-plus-circle"></span> -9-3</a><a title="Add Row -5-2-5" class="btn  btn-xs  btn-primary add-5-2-5"><span class="fa fa-plus-circle"></span> -5-2-5</a><a title="Add Row -6-6" class="btn  btn-xs  btn-primary add-6-6"><span class="fa fa-plus-circle"></span> -6-6</a><a title="Add Row -4-4-4" class="btn  btn-xs  btn-primary add-4-4-4"><span class="fa fa-plus-circle"></span> -4-4-4</a><a title="Add Row -3-3-3-3" class="btn  btn-xs  btn-primary add-3-3-3-3"><span class="fa fa-plus-circle"></span> -3-3-3-3</a><a title="Add Row -2-2-2-2-2-2" class="btn  btn-xs  btn-primary add-2-2-2-2-2-2"><span class="fa fa-plus-circle"></span> -2-2-2-2-2-2</a></div><div id="cvs_' + t + '" class="canvas subcanvas"></div></div>');
 
-            rowButtonsPrepend: [{
-                title: "Move",
-                element: "a",
-                btnClass: "gm-moveRow pull-left",
-                iconClass: "fa fa-arrows "
-            },
-                {
-                    title: "Row Settings",
-                    element: "a",
-                    btnClass: "pull-right gm-rowSettings",
-                    iconClass: "fa fa-cog"
-                }],
-
-            colButtonsPrepend: [{
-                title: "Move",
-                element: "a",
-                btnClass: "gm-moveCol pull-left",
-                iconClass: "fa fa-arrows "
-            }],
-            colButtonsAppend: [{
-                title: "Add canvas",
-                element: "a",
-                btnClass: "gm-addCanvas pull-right",
-                iconClass: "fa fa-plus "
-            },
-                {
-                    title: "Reset",
-                    element: "a",
-                    btnClass: "gm-resetColData pull-right",
-                    iconClass: "fa fa-repeat "
-                }
-            ],
-            controlAppend: ""
-        });
     })
-})
-;
+});
 
