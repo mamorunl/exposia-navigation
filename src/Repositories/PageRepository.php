@@ -53,6 +53,7 @@ class PageRepository extends AbstractRepository
                 // Column[0] = length
                 // Column[1] = Template name
                 // Column[2] = Fields
+                // Column[3] = Subnodes
                 $input = [];
                 foreach ($column[2] as $field) {
                     $input[$field] = Input::get($field);
