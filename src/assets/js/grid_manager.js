@@ -63,7 +63,15 @@ $(document).ready(function () {
     $('button[type=submit]').click(function (e) {
         e.preventDefault();
         var arr = [];
-        $('#gm-canvas > .row.gm-editing').each(function (i) {
+        arr = travelTroughArray($('#gm-canvas > .row.gm-editing'), false);
+        $('#serialized_template').val(JSON.stringify(arr));
+        console.log($('#serialized_template').val());
+        //$('form').submit();
+    });
+
+    function travelTroughArray(start, skipsubs) {
+        var arr = [];
+        start.each(function (i) {
             var subarr = [];
             $(this).children('.gm-editing').each(function () {
                 var class_length = $(this).attr('class').replace("gm-editing", "").replace("column", "").replace("ui-sortable", "");
@@ -71,7 +79,8 @@ $(document).ready(function () {
                 node[0] = class_length;
                 node[1] = $(this).find('xpodata').data('templatename');
                 node[2] = [];
-                $(this).find('input:not(.subcanvas input)').each(function () {
+                node[3] = travelTroughArray($(this).find('.subcanvas').children('.row.gm-editing'), true);
+                $(this).find('input' + (skipsubs == false ? ':not(.subcanvas input)' : '')).each(function () {
                     var $name = $(this).attr('name');
                     if ($name.indexOf("[") > -1) {
                         $name = $name.split("[");
@@ -85,10 +94,9 @@ $(document).ready(function () {
             });
             arr.push(subarr);
         });
-        $('#serialized_template').val(JSON.stringify(arr));
-        console.log($('#serialized_template').val());
-        //$('form').submit();
-    });
+
+        return arr;
+    }
 
     $('body').on('click', '.gm-resetColData', function (e) {
         e.preventDefault();
