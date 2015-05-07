@@ -66,7 +66,7 @@ $(document).ready(function () {
         arr = travelTroughArray($('#gm-canvas > .row.gm-editing'), false);
         $('#serialized_template').val(JSON.stringify(arr));
         console.log($('#serialized_template').val());
-        //$('form').submit();
+        $('form').submit();
     });
 
     function travelTroughArray(start, skipsubs) {
