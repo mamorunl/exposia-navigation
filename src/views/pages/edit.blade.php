@@ -6,7 +6,7 @@
 
 @section('styles')
     <style type="text/css">
-        .subcanvas .column .gm-addCanvas { display: none; }
+        .subcanvas .gm-addCanvas { display: none; }
     </style>
 @stop
 
