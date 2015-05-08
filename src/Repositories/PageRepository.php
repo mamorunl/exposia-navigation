@@ -36,7 +36,7 @@ class PageRepository extends AbstractRepository
         $parsedForDatabase = [];
         foreach ($template_array as $key => $row) {
             // Row
-            $parsedForDatabase = $this->createArrayFromData($key, $row);
+            $parsedForDatabase = array_merge($parsedForDatabase, $this->createArrayFromData($key, $row));
         }
 
         $json_parsed_data = json_encode($parsedForDatabase,
