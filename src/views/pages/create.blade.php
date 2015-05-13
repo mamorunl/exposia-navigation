@@ -22,7 +22,7 @@
             <div class="panel-body">
                 <div class="row" style="padding:30px;">
                     {!! Form::open(['method' => 'post', 'route' => 'admin.pages.store']) !!}
-                    <div id="mycanvas">
+                    <div id="canvas" class="canvas">
 
                     </div>
                     <input type="hidden" value="" name="serialized_template" id="serialized_template">
@@ -62,6 +62,71 @@
 @stop
 
 @section('scripts')
-    <script src="{{ asset('backend/assets/vendor/gridmanager/dist/js/jquery.gridmanager.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
     <script src="{{ asset('backend/assets/js/grid_manager.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script>
+
+
+    </script>
+@stop
+
+@section('styles')
+    <style>
+        /* vertical alignment styles */
+
+        .col-top {
+            vertical-align: top;
+        }
+        .col-middle {
+            vertical-align: middle;
+        }
+        .col-bottom {
+            vertical-align: bottom;
+        }
+
+        /* columns of same height styles */
+
+        #canvas .canvas-wrapper .row { border-right: 20px solid black; margin-bottom: 2px; }
+
+        #canvas .canvas-wrapper .row-full-height {
+            height: 100%;
+        }
+        #canvas .canvas-wrapper .col-full-height {
+            height: 100%;
+            vertical-align: middle;
+        }
+        #canvas .canvas-wrapper .row-same-height {
+            display: table;
+            width: 100%;
+            /* fix overflow */
+            table-layout: fixed;
+        }
+        #canvas .canvas-wrapper .col-xs-height {
+            display: table-cell;
+            float: none !important;
+        }
+
+
+        #canvas .canvas-wrapper [class*="col-"] {
+            padding-top: 0;
+            padding-bottom: 0;
+            border: 1px solid #80aa00;
+            background: #d6ec94;
+        }
+        #canvas .canvas-wrapper [class*="col-"]:before {
+            display: block;
+            position: relative;
+            content: "";
+            margin-bottom: 8px;
+            font-family: sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: #658600;
+            text-align: left;
+        }
+        #canvas .canvas-wrapper .col-full-height:before {
+            content:"";
+        }
+    </style>
 @stop

@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    $('#canvas').rapidgrid({
+        controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]]
+    });
+    /*
     var gmEditholder;
     $("#mycanvas").gridmanager({
         debug: 0,
@@ -112,6 +117,6 @@ $(document).ready(function () {
         if($(this).closest('.gm-editing').find('.canvas-wrapper').length) {
             $(this).hide();
         }
-    });
+    });*/
 });
 
