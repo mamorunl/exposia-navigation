@@ -22,7 +22,7 @@
             <div class="panel-body">
                 <div class="row" style="padding:30px;">
                     {!! Form::open(['method' => 'post', 'route' => 'admin.pages.store']) !!}
-                    <div id="canvas" class="canvas">
+                    <div id="canvas" class="canvas-wrapper">
 
                     </div>
                     <input type="hidden" value="" name="serialized_template" id="serialized_template">
@@ -87,34 +87,34 @@
 
         /* columns of same height styles */
 
-        #canvas .canvas-wrapper .row { border-right: 20px solid black; margin-bottom: 2px; }
+        #canvas .canvas .rg-row { border-right: 20px solid black; margin-bottom: 2px; }
 
-        #canvas .canvas-wrapper .row-full-height {
+        #canvas .canvas .row-full-height {
             height: 100%;
         }
-        #canvas .canvas-wrapper .col-full-height {
+        #canvas .canvas .col-full-height {
             height: 100%;
-            vertical-align: middle;
+            vertical-align: top;
         }
-        #canvas .canvas-wrapper .row-same-height {
+        #canvas .canvas .row-same-height {
             display: table;
             width: 100%;
             /* fix overflow */
             table-layout: fixed;
         }
-        #canvas .canvas-wrapper .col-xs-height {
+        #canvas .canvas .col-xs-height {
             display: table-cell;
             float: none !important;
         }
 
 
-        #canvas .canvas-wrapper [class*="col-"] {
+        #canvas .canvas .rg-col {
             padding-top: 0;
             padding-bottom: 0;
             border: 1px solid #80aa00;
             background: #d6ec94;
         }
-        #canvas .canvas-wrapper [class*="col-"]:before {
+        #canvas .canvas .rg-col:before {
             display: block;
             position: relative;
             content: "";
@@ -125,8 +125,17 @@
             color: #658600;
             text-align: left;
         }
-        #canvas .canvas-wrapper .col-full-height:before {
-            content:"";
+        #canvas .canvas .col-full-height:before {
+            content:" ";
+        }
+
+        #canvas .subcanvas .canvas-wrapper > .row { display: none; }
+        .rg-btn-select-cols {
+            text-align: center;
+        }
+        .rg-btn-group-cols {
+            margin-top: 7px;
+            margin-bottom: 3px;
         }
     </style>
 @stop

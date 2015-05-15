@@ -14,40 +14,48 @@
         rg.$el = $(el);
         rg.options = options;
 
+        /**
+         *
+         */
         rg.init = function () {
             rg.options = $.extend({}, $.rapidgrid.defaultOptions, options);
             rg.initCanvas();
         };
 
+        /**
+         *
+         */
         rg.initCanvas = function () {
-            rg.initControls();
-            rg.$el.append("<div class='canvas-wrapper'></div>");
-            //rg.$el.prepend('<div id="rg-addnew" class="btn-group clearfix" style="display: block;"><a title="Add Row -12" class="btn  btn-xs  btn-primary add-12"><span class="fa fa-plus-circle"></span> -12</a><a title="Add Row -8-4" class="btn  btn-xs  btn-primary add-8-4"><span class="fa fa-plus-circle"></span> -8-4</a><a title="Add Row -9-3" class="btn  btn-xs  btn-primary add-9-3"><span class="fa fa-plus-circle"></span> -9-3</a><a title="Add Row -5-2-5" class="btn  btn-xs  btn-primary add-5-2-5"><span class="fa fa-plus-circle"></span> -5-2-5</a><a title="Add Row -6-6" class="btn  btn-xs  btn-primary add-6-6"><span class="fa fa-plus-circle"></span> -6-6</a><a title="Add Row -4-4-4" class="btn  btn-xs  btn-primary add-4-4-4"><span class="fa fa-plus-circle"></span> -4-4-4</a><a title="Add Row -3-3-3-3" class="btn  btn-xs  btn-primary add-3-3-3-3"><span class="fa fa-plus-circle"></span> -3-3-3-3</a><a title="Add Row -2-2-2-2-2-2" class="btn  btn-xs  btn-primary add-2-2-2-2-2-2"><span class="fa fa-plus-circle"></span> -2-2-2-2-2-2</a></div>');
+            rg.$el.prepend(rg.initControls(true));
+            rg.$el.append("<div class='canvas'></div>");
         };
 
-        rg.initControls = function () {
+        /**
+         *
+         */
+        rg.initControls = function (init) {
             var buttons = [];
             // Dynamically generated row template buttons
             $.each(rg.options.controlButtons, function (i, val) {
                 var _class = rg.generateButtonClass(val);
                 buttons.push("<a title='Add Row " + _class + "' class='" + rg.options.controlButtonClass + " add" + _class + "' href='#'><span class='" + rg.options.controlButtonSpanClass + "'></span> " + _class + "</a>");
-                rg.generateClickHandler(val);
+                if(init === true) {
+                    rg.generateClickHandler(val);
+                }
             });
 
-            rg.$el.prepend(
-                $('<div/>',
+            return $('<div/>',
                     {'class': rg.options.rgClearClass}
                 ).prepend(
                     $('<div/>', {"class": rg.options.rowClass}).html(
-                        $('<div/>', {"class": rg.options.colDesktopClass + rg.options.colMax}).addClass(rg.options.colAdditionalClass).html(
-                            $('<div/>', {'id': 'rg-addnew'})
+                        $('<div/>', {"class": rg.options.colDesktopClass + rg.options.colMax}).addClass(rg.options.colAdditionalClass).addClass("text-center").addClass("rg-btn-group-cols").html(
+                            $('<div/>')
                                 .addClass(rg.options.rgBtnGroup).html(
                                 buttons.join("")
                             )
                         ).append(rg.options.controlAppend)
                     )
-                )
-            );
+                );
         };
 
         /**
@@ -72,48 +80,94 @@
          */
         rg.generateClickHandler = function (colWidths) {
             var string = "a.add" + rg.generateButtonClass(colWidths);
-            //var canvas=rg.$el.find("#" + rg.options.canvasId);
             rg.$el.on("click", string, function (e) {
-                var canvas = rg.$el.find('.canvas-wrapper');
+                var canvas = $(this).closest('.canvas-wrapper').children('.canvas');
                 canvas.prepend(rg.createRow(colWidths));
                 rg.reset();
                 e.preventDefault();
             });
         };
 
+        /**
+         *
+         * @param widths
+         * @returns {string}
+         */
         rg.createRow = function (widths) {
-            var row = '<div class="row">';
+            var row = '<div class="row rg-row"><div class="row-same-height row-full-height">';
             $.each(widths, function (i, value) {
                 row += rg.createColumn(value);
             });
 
-            return row + '</div>';
+            return row + '</div></div>';
         };
 
-        rg.createColumn = function(width) {
-            return '<div class="col-md-' + width + '">BUTTON</div>';
+        /**
+         *
+         * @param width
+         * @returns {string}
+         */
+        rg.createColumn = function (width) {
+            return '<div class="rg-col col-full-height col-xs-height col-md-' + width + '"><div class="xpo_data">' + rg.generateTemplateButton() + '</div>' + rg.generateSubCanvas() + '</div>';
         };
 
-        rg.reset = function() {
-           /* $('#canvas .canvas-wrapper .container, #canvas .canvas-wrapper div[class*=col-md-]').sortable({
-                start: function(e, ui){
+        rg.generateTemplateButton = function() {
+            rg.$el.on('click', '.btn-select-template', function(e) {
+                rg.editHolder = $(this);
+                $('#set-template-modal').modal();
+            });
+
+            return '<button type="button" class="btn btn-primary btn-block btn-select-template">Select template</button>';
+        };
+
+        /**
+         *
+         */
+        rg.reset = function () {
+            $('#canvas .canvas, #canvas .canvas .rg-col').sortable({
+                start: function (e, ui) {
                     ui.placeholder.height(ui.item.height());
                 },
-                cancel: '.handle',
+                items: '> .rg-row',
                 axis: 'y'
-            });*/
+            });
 
-            $('#canvas .canvas-wrapper .row').sortable({
-                start: function(e, ui){
+            $('#canvas .canvas .rg-row').sortable({
+                start: function (e, ui) {
                     ui.placeholder.height(ui.item.height());
                 },
+                items: '> .row-same-height .rg-col',
                 axis: 'x'
             });
         };
 
+        /**
+         *
+         * @returns {string}
+         */
+        rg.generateSubCanvas = function() {
+            var $controls = rg.initControls(false);
+            return '<div class="canvas-wrapper">' + $controls.html() + '<div class="subcanvas canvas"></div></div>';
+        };
+
+        $('#template_picker a').click(function (e) {
+            e.preventDefault();
+            var template_name = $(this).data('templatename');
+
+            $.get("/ajax/gettemplate/" + template_name, function (data) {
+                rg.editHolder.parent().append('<xpodata data-templatename="' + template_name + '"></xpodata>');
+                rg.editHolder.replaceWith(data);
+                $('#set-template-modal').modal('hide');
+            });
+        });
+
         rg.init();
     };
 
+    /**
+     * Default options
+     *
+     */
     $.rapidgrid.defaultOptions = {
         controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]],
         rgClearClass: "clearfix",
