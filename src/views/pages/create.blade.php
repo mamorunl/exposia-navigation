@@ -16,7 +16,7 @@
                     Page Builder
                 </h3>
             <span class="pull-right clickable">
-                <i class="glyphicon glyphicon-chevron-up"></i>
+                <i class="fa fa-chevron-up"></i>
             </span>
             </div>
             <div class="panel-body">

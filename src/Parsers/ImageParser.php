@@ -93,7 +93,7 @@ class ImageParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'src'    => (isset($default['src']) ? $default['src'] : "http://lorempixel.com/" . (isset($this->json_data->width) ? $this->json_data->width : 1170) . "/" . (isset($this->json_data->height) ? $this->json_data->height : 200)),
+            'src'    => (isset($default['src']) ? $default['src'] : "http://lorempixel.com/" . (isset($this->json_data->width) ? $this->json_data->width : 1280) . "/" . (isset($this->json_data->height) ? $this->json_data->height : 200)),
             'alt'    => (isset($default['alt']) ? $default['alt'] : ""),
             'href'   => (isset($default['href']) ? $default['href'] : ""),
             'title'  => (isset($default['title']) ? $default['title'] : ""),
