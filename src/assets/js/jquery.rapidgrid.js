@@ -20,6 +20,7 @@
         rg.init = function () {
             rg.options = $.extend({}, $.rapidgrid.defaultOptions, options);
             rg.initCanvas();
+            rg.reset();
         };
 
         /**
@@ -27,7 +28,9 @@
          */
         rg.initCanvas = function () {
             rg.$el.prepend(rg.initControls(true));
-            rg.$el.append("<div class='canvas'></div>");
+            if(rg.$el.children('.canvas').length == 0) {
+                rg.$el.append("<div class='canvas'></div>");
+            }
         };
 
         /**

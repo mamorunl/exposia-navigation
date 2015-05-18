@@ -4,12 +4,6 @@
     Pagina wijzigen
 @stop
 
-@section('styles')
-    <style type="text/css">
-        .subcanvas .gm-addCanvas { display: none; }
-    </style>
-@stop
-
 @section('content')
     <section class="content paddingleft_right15">
         <div class="alert alert-success alert-dismissable visible-xs visible-md">
@@ -28,7 +22,7 @@
             <div class="panel-body">
                 <div class="row" style="padding:30px;">
                     {!! Form::open(['method' => 'put', 'route' => ['admin.pages.update', $page->id]]) !!}
-                    <div id="mycanvas" class="canvas-wrapper">
+                    <div id="canvas" class="canvas-wrapper">
                         {!! $template_data !!}
                     </div>
                     <input type="hidden" value="" name="serialized_template" id="serialized_template">
@@ -68,6 +62,11 @@
 @stop
 
 @section('scripts')
-    <script src="{{ asset('backend/assets/vendor/gridmanager/dist/js/jquery.gridmanager.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
     <script src="{{ asset('backend/assets/js/grid_manager.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+@stop
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/rapidgrid.css') }}"/>
 @stop
