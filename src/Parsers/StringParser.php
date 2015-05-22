@@ -27,7 +27,7 @@ class StringParser implements ParserInterface
 
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('admincms-navigation::partials.string_parser', [
+        return View::make('admincms-navigation::parsers.string_parser.form', [
             'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'values'     => $this->getValues($values),
             'xpo_id'     => $this->xpo_id
@@ -39,7 +39,7 @@ class StringParser implements ParserInterface
         return $this->getValues($values);
     }
 
-    public function parseForDisplay()
+    public function parseForDisplay($values = [], $key)
     {
         // TODO: Implement parseForDisplay() method.
     }

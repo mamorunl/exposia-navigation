@@ -14,5 +14,5 @@ interface ParserInterface {
 
     public function parseForDatabase($values = []);
 
-    public function parseForDisplay();
+    public function parseForDisplay($values = [], $key);
 }

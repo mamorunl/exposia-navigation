@@ -41,7 +41,7 @@ class ImageParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('admincms-navigation::partials.image_parser', [
+        return View::make('admincms-navigation::parsers.image_parser.form', [
             'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'attributes' => $this->getAttributes(),
             'values'     => $this->getValues($values),
@@ -59,9 +59,13 @@ class ImageParser implements ParserInterface
         return $this->getValues($values);
     }
 
-    public function parseForDisplay()
+    public function parseForDisplay($values = [], $key)
     {
-        // TODO: Implement parseForDisplay() method.
+        return View::make('admincms-navigation::parsers.image_parser.display', [
+            'object' => $this->getValues($values),
+            'class' => (isset($this->json_data->class) ? $this->json_data->class : ""),
+            'id' => $key
+        ])->render();
     }
 
     /**
