@@ -63,6 +63,7 @@
 }
 /* Button styles */
 .rg-row .rg-row-controls, .rg-col .rg-col-controls {
+    text-align: right;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
