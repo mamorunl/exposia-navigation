@@ -61,3 +61,12 @@
     margin-top: 7px;
     margin-bottom: 3px;
 }
+/* Button styles */
+.rg-row .rg-row-controls, .rg-col .rg-col-controls {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.rg-row:hover .rg-row-controls, .rg-col:hover .rg-col-controls {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}

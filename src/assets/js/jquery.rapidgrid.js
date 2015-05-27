@@ -132,6 +132,7 @@
                     ui.placeholder.height(ui.item.height());
                 },
                 items: '> .rg-row',
+                handle: '.move-row',
                 axis: 'y'
             });
 
@@ -140,7 +141,18 @@
                     ui.placeholder.height(ui.item.height());
                 },
                 items: '> .row-same-height .rg-col',
+                handle: '.move-col',
                 axis: 'x'
+            });
+
+            $('#canvas .rg-row').each(function() {
+                $(this).children('.rg-row-controls').remove();
+                $(this).append('<div class="rg-row-controls"><a href="#" class="move-row btn btn-default"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default"><i class="fa fa-trash-o"></i></a></div>');
+
+                $(this).find('.rg-col').children('.rg-col-controls').remove();
+                $(this).find('.rg-col').each(function() {
+                    $(this).append('<div class="rg-col-controls"><a href="#" class="move-col btn btn-default"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default"><i class="fa fa-refresh"></i></a></div>');
+                });
             });
         };
 
