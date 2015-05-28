@@ -147,17 +147,17 @@
 
             $('#canvas .rg-row').each(function() {
                 $(this).children('.rg-row-controls').remove();
-                $(this).append('<div class="rg-row-controls"><a href="#" class="move-row btn btn-default"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default"><i class="fa fa-trash-o"></i></a></div>');
+                $(this).append('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a></div>');
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
-                    $(this).append('<div class="rg-col-controls"><a href="#" class="move-col btn btn-default"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default"><i class="fa fa-refresh"></i></a></div>');
+                    $(this).append('<div class="rg-col-controls btn-group pull-right"><a href="#" class="move-col btn btn-default btn-xs"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default btn-xs"><i class="fa fa-refresh"></i></a><a href="#" class="class-col btn btn-default btn-xs"><i class="fa fa-code"></i></a></div>');
                 });
             });
         };
 
         /**
-         *
+         * Generate a subcanvas for nested rows
          * @returns {string}
          */
         rg.generateSubCanvas = function() {
@@ -165,6 +165,9 @@
             return '<div class="canvas-wrapper">' + $controls.html() + '<div class="subcanvas canvas"></div></div>';
         };
 
+        /**
+         * Insert the template picked
+         */
         $('#template_picker a').click(function (e) {
             e.preventDefault();
             var template_name = $(this).data('templatename');
@@ -174,6 +177,25 @@
                 rg.editHolder.replaceWith(data);
                 $('#set-template-modal').modal('hide');
             });
+        });
+
+        /**
+         * Delete a row from the view
+         */
+        $('#canvas').on('click', '.remove-row', function(e) {
+            e.preventDefault();
+            $(this).closest('.rg-row').fadeOut(400, function() {
+                $(this).remove();
+            });
+        });
+
+        /**
+         * Reset the column to the template selector
+         */
+        $('#canvas').on('click', '.reset-col', function(e) {
+            e.preventDefault();
+            $(this).closest('.rg-col').children('.xpo_data').remove();
+            $(this).closest('.rg-col').prepend('<div class="xpo_data">' + rg.generateTemplateButton() + '</div>');
         });
 
         rg.init();
