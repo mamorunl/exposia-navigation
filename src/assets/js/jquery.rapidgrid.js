@@ -179,6 +179,11 @@
             });
         });
 
+        rg.$el.on('click', '.class-col', function(e) {
+            e.preventDefault();
+            alert('HIER: INVULLEN');
+        });
+
         /**
          * Delete a row from the view
          */
