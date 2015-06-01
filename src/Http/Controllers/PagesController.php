@@ -6,16 +6,14 @@
  * Time: 11:57
  */
 
-namespace mamorunl\AdminCMS\Navigation\Http\Controllers;
+namespace Exposia\Navigation\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
-use mamorunl\AdminCMS\Navigation\Facades\PageRepository;
-use mamorunl\AdminCMS\Navigation\Facades\TemplateFinder;
-use mamorunl\AdminCMS\Navigation\Facades\TemplateParser;
+use Exposia\Navigation\Facades\PageRepository;
+use Exposia\Navigation\Facades\TemplateFinder;
 
 class PagesController extends Controller
 {

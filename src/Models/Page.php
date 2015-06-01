@@ -6,7 +6,7 @@
  * Time: 13:29
  */
 
-namespace mamorunl\AdminCMS\Navigation\Models;
+namespace Exposia\Navigation\Models;
 
 
 use Illuminate\Database\Eloquent\Model;

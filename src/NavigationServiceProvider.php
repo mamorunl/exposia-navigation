@@ -6,14 +6,14 @@
  * Time: 14:27
  */
 
-namespace mamorunl\AdminCMS\Navigation;
+namespace Exposia\Navigation;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use mamorunl\AdminCMS\Navigation\Models\Page;
-use mamorunl\AdminCMS\Navigation\Models\TemplateFinder;
-use mamorunl\AdminCMS\Navigation\Models\TemplateParser;
-use mamorunl\AdminCMS\Navigation\Repositories\PageRepository;
+use Exposia\Navigation\Models\Page;
+use Exposia\Navigation\Models\TemplateFinder;
+use Exposia\Navigation\Models\TemplateParser;
+use Exposia\Navigation\Repositories\PageRepository;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -51,7 +51,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupTemplateFinder()
     {
-        $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateFinder', function ($app) {
+        $this->app->singleton('Exposia\Navigation\Models\TemplateFinder', function ($app) {
             return new TemplateFinder($app['config'], $app['files']);
         });
     }
@@ -61,7 +61,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupTemplateParser()
     {
-        $this->app->singleton('mamorunl\AdminCMS\Navigation\Models\TemplateParser', function ($app) {
+        $this->app->singleton('Exposia\Navigation\Models\TemplateParser', function ($app) {
             return new TemplateParser();
         });
     }
@@ -71,7 +71,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupPageRepository()
     {
-        $this->app->singleton('mamorunl\AdminCMS\Navigation\Repositories\PageRepository', function ($app) {
+        $this->app->singleton('Exposia\Navigation\Repositories\PageRepository', function ($app) {
             return new PageRepository(new Page);
         });
     }
@@ -109,7 +109,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupRoutes()
     {
-        $this->app->router->group(['namespace' => 'mamorunl\AdminCMS\Navigation\Http\Controllers'],
+        $this->app->router->group(['namespace' => 'Exposia\Navigation\Http\Controllers'],
             function (Router $router) {
                 require __DIR__ . '/Http/routes.php';
             });

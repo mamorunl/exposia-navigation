@@ -6,7 +6,7 @@
  * Time: 13:19
  */
 
-namespace mamorunl\AdminCMS\Navigation\Parsers;
+namespace Exposia\Navigation\Parsers;
 
 use Illuminate\Support\Facades\View;
 

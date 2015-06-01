@@ -6,11 +6,11 @@
  * Time: 14:29
  */
 
-namespace mamorunl\AdminCMS\Navigation\Models;
+namespace Exposia\Navigation\Models;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository;
-use mamorunl\AdminCMS\Navigation\Exceptions\TemplateNotFoundException;
+use Exposia\Navigation\Exceptions\TemplateNotFoundException;
 
 class TemplateFinder
 {

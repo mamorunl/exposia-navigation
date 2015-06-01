@@ -6,7 +6,7 @@
  * Time: 10:13
  */
 
-namespace mamorunl\AdminCMS\Navigation\Facades;
+namespace Exposia\Navigation\Facades;
 
 
 use Illuminate\Support\Facades\Facade;
@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Facade;
 class TemplateParser extends Facade {
     public static function getFacadeAccessor()
     {
-        return 'mamorunl\AdminCMS\Navigation\Models\TemplateParser';
+        return 'Exposia\Navigation\Models\TemplateParser';
     }
 }

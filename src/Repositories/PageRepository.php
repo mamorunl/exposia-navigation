@@ -6,11 +6,11 @@
  * Time: 14:25
  */
 
-namespace mamorunl\AdminCMS\Navigation\Repositories;
+namespace Exposia\Navigation\Repositories;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
-use mamorunl\AdminCMS\Navigation\Facades\TemplateParser;
+use Exposia\Navigation\Facades\TemplateParser;
 use mamorunl\AdminCMS\Repositories\AbstractRepository;
 
 class PageRepository extends AbstractRepository

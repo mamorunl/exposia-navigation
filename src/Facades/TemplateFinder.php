@@ -6,7 +6,7 @@
  * Time: 14:28
  */
 
-namespace mamorunl\AdminCMS\Navigation\Facades;
+namespace Exposia\Navigation\Facades;
 
 
 use Illuminate\Support\Facades\Facade;
@@ -15,6 +15,6 @@ class TemplateFinder extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return 'mamorunl\AdminCMS\Navigation\Models\TemplateFinder';
+        return 'Exposia\Navigation\Models\TemplateFinder';
     }
 }

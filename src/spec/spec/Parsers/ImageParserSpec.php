@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\mamorunl\AdminCMS\Navigation\Parsers;
+namespace spec\Exposia\Navigation\Parsers;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -11,7 +11,7 @@ class ImageParserSpec extends ObjectBehavior
     {
         $xpo_id = "img001";
         $jData = [
-            'parser' => 'mamorunl\\AdminCMS\\Navigation\\Parsers\\ImageParser',
+            'parser' => 'Exposia\\Navigation\\Parsers\\ImageParser',
             'width'  => 1280,
             'height' => null
         ];
@@ -21,7 +21,7 @@ class ImageParserSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('mamorunl\AdminCMS\Navigation\Parsers\ImageParser');
+        $this->shouldHaveType('Exposia\Navigation\Parsers\ImageParser');
     }
 
     function it_returns_a_string_for_forms() {

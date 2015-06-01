@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\mamorunl\AdminCMS\Navigation\Models;
+namespace spec\Exposia\Navigation\Models;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
 use Prophecy\Argument;
@@ -19,7 +19,7 @@ class TemplateFinderSpec extends LaravelObjectBehavior
      */
     function it_is_initializable()
     {
-        $this->shouldHaveType('mamorunl\AdminCMS\Navigation\Models\TemplateFinder');
+        $this->shouldHaveType('Exposia\Navigation\Models\TemplateFinder');
     }
 
     /**
@@ -33,6 +33,6 @@ class TemplateFinderSpec extends LaravelObjectBehavior
 
     function it_throws_an_exception_if_template_is_not_found()
     {
-        $this->templateExists('non_existant')->shouldThrow('\mamorunl\AdminCMS\Navigation\TemplateNotFoundException');
+        $this->templateExists('non_existant')->shouldThrow('\Exposia\Navigation\TemplateNotFoundException');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace mamorunl\AdminCMS\Navigation\Models;
+namespace Exposia\Navigation\Models;
 
-use mamorunl\AdminCMS\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
+use Exposia\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
 
 class TemplateParser
 {

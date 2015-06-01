@@ -6,7 +6,7 @@
  * Time: 11:31
  */
 
-namespace mamorunl\AdminCMS\Navigation\Parsers;
+namespace Exposia\Navigation\Parsers;
 
 
 interface ParserInterface {

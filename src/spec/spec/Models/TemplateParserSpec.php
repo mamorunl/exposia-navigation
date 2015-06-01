@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\mamorunl\AdminCMS\Navigation\Models;
+namespace spec\Exposia\Navigation\Models;
 
 use PhpSpec\Laravel\LaravelObjectBehavior;
 use Prophecy\Argument;
@@ -12,7 +12,7 @@ class TemplateParserSpec extends LaravelObjectBehavior
      */
     function it_is_initializable()
     {
-        $this->shouldHaveType('mamorunl\AdminCMS\Navigation\Models\TemplateParser');
+        $this->shouldHaveType('Exposia\Navigation\Models\TemplateParser');
     }
 
     /**
