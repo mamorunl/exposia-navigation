@@ -20,6 +20,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository
 {
+    /**
+     * Render the template that was previously built
+     * by the user.
+     *
+     * @param $page
+     *
+     * @return string
+     */
     public function renderForEdit($page)
     {
         $html = '<div class="canvas">';
@@ -147,6 +155,7 @@ class PageRepository extends AbstractRepository
     /**
      * Create a new instance of a page along with
      * a new instance of a NavigationNode
+     *
      * @param array $data
      *
      * @return bool
@@ -179,9 +188,18 @@ class PageRepository extends AbstractRepository
         return false;
     }
 
+    /**
+     * Update a page together with
+     * the NavigationNode
+     *
+     * @param       $id
+     * @param array $data
+     *
+     * @return bool
+     */
     public function update($id, $data = [])
     {
-        if(!is_array($data)) {
+        if (!is_array($data)) {
             throw new BadRequestHttpException('Data should be an array');
         }
 
@@ -201,9 +219,10 @@ class PageRepository extends AbstractRepository
                 $page->template_data = $data['template_data'];
                 $page->save();
             });
+
             return true;
         }
-        return false;
 
+        return false;
     }
 }
