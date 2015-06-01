@@ -55,7 +55,7 @@ class TemplateFinder
      */
     public function templateExists($template_name)
     {
-        if (!$this->files->exists($this->templates_dir . '/' . $template_name)) {
+        if (!isset($template_name) || !$this->files->exists($this->templates_dir . '/' . $template_name)) {
             return false;
         }
 
@@ -71,7 +71,7 @@ class TemplateFinder
     public function readTemplate($template_name)
     {
         if(!$this->templateExists($template_name)) {
-            throw new TemplateNotFoundException;
+            throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 
         return file_get_contents($this->templates_dir . '/' . $template_name . '/template.blade.php');
@@ -86,7 +86,7 @@ class TemplateFinder
     public function readConfig($template_name)
     {
         if(!$this->templateExists($template_name)) {
-            throw new TemplateNotFoundException;
+            throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 
         return json_decode(file_get_contents($this->templates_dir . "/" . $template_name . "/config.json"));

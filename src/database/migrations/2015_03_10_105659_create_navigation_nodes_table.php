@@ -15,10 +15,6 @@ class CreateNavigationNodesTable extends Migration {
         Schema::create('cms_navigation_nodes', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('navigation_id')->unsigned();
-            $table->integer('parent_id')->unsigned();
-            $table->integer('sort_order');
-
             $table->string('name');
             $table->string('slug');
             $table->timestamps();

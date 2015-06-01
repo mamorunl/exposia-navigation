@@ -36,6 +36,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
+                        {!! Form::label('title', trans('admincms-navigation::pages.fields.title')) !!}
+                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                        @if($errors->has('title'))
+                            <div class="help-block">
+                                {!! $errors->first('title') !!}
+                            </div>
+                        @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -92,7 +106,7 @@
         <div class="panel-body">
             <div class="row" style="padding:30px;">
                 <div id="canvas" class="canvas-wrapper">
-
+                    {!! isset($template_data) ? $template_data : "" !!}
                 </div>
                 <input type="hidden" value="" name="serialized_template" id="serialized_template">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('admincms::global.save')</button>

@@ -36,11 +36,10 @@ class PagesController extends Controller
     {
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeCreate($template_array);
+        $data = Input::only(['title', 'name', 'slug', 'meta_description', 'meta_keywords']);
+        $data = $data + ['template_data' => $json_parsed_data];
 
-        $page = PageRepository::create([
-            'title'         => 'Test',
-            'template_data' => $json_parsed_data
-        ]);
+        $page = PageRepository::create($data);
 
         if ($page) {
             return Redirect::route('admin.pages.index')
@@ -73,6 +72,9 @@ class PagesController extends Controller
     public function edit($id)
     {
         $page = PageRepository::find($id);
+        $page->name = $page->node->name;
+        $page->slug = $page->node->slug;
+
         $templates = TemplateFinder::getTemplates();
 
         $template_data = PageRepository::renderForEdit($page);
@@ -89,15 +91,13 @@ class PagesController extends Controller
      */
     public function update($id)
     {
-        $page = PageRepository::find($id);
+        PageRepository::find($id);
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeUpdate($template_array);
+        $data = Input::only(['title', 'name', 'slug', 'meta_description', 'meta_keywords']);
+        $data = $data + ['template_data' => $json_parsed_data];
 
-        if (PageRepository::update($id, [
-            'title'         => 'Updated test',
-            'template_data' => $json_parsed_data
-        ])
-        ) {
+        if (PageRepository::update($id, $data)) {
             return Redirect::route('admin.pages.index')
                 ->with('success', 'Page updated');
         }

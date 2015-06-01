@@ -8,10 +8,15 @@
 
 namespace Exposia\Navigation\Repositories;
 
+use Exposia\Navigation\Models\NavigationNode;
+use Exposia\Navigation\Models\Page;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Exposia\Navigation\Facades\TemplateParser;
 use mamorunl\AdminCMS\Repositories\AbstractRepository;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository
 {
@@ -137,5 +142,68 @@ class PageRepository extends AbstractRepository
         $html .= '</div></div>';
 
         return $html;
+    }
+
+    /**
+     * Create a new instance of a page along with
+     * a new instance of a NavigationNode
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function create($data = [])
+    {
+        if (!is_array($data)) {
+            throw new BadRequestHttpException('Data should be an array');
+        }
+
+        try {
+            NavigationNode::where('slug', Input::get('slug'))->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            DB::transaction(function () use ($data) {
+                $node = new NavigationNode;
+                $node->name = $data['name'];
+                $node->slug = $data['slug'];
+                $node->save();
+
+                $page = new Page;
+                $page->title = $data['title'];
+                $page->node_id = $node->id;
+                $page->template_data = $data['template_data'];
+                $page->save();
+            });
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function update($id, $data = [])
+    {
+        if(!is_array($data)) {
+            throw new BadRequestHttpException('Data should be an array');
+        }
+
+        $page = $this->find($id);
+
+        try {
+            NavigationNode::where('slug', Input::get('slug'))->where('id', '!=', $id)->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            DB::transaction(function () use ($page, $data) {
+                $node = $page->node;
+                $node->name = $data['name'];
+                $node->slug = $data['slug'];
+                $node->save();
+
+                $page->title = $data['title'];
+                $page->node_id = $node->id;
+                $page->template_data = $data['template_data'];
+                $page->save();
+            });
+            return true;
+        }
+        return false;
+
     }
 }

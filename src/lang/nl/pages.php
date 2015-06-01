@@ -17,7 +17,7 @@ return [
         'meta_description' => 'Omschrijving',
         'meta_keywords'    => 'Sleutelwoorden (gescheiden door een komma)',
         'slug'             => 'URI',
-        'name'             => 'Titel'
+        'name'             => 'Navigatietitel'
     ],
     'create'       => [
         'title'         => 'Pagina aanmaken',
