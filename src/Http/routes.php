@@ -7,10 +7,15 @@
  */
 
 // Temp ajax route
-Route::get('ajax/gettemplate/{name}', function($name) {
+Route::get('ajax/gettemplate/{name}', function ($name) {
     return mamorunl\AdminCMS\Navigation\Facades\TemplateParser::parseForInput($name);
 });
 
-Route::group(['prefix' => 'admin'], function() {
+Route::get('{slug}', [
+    'as'   => 'page.show',
+    'uses' => 'PagesController@show'
+]);
+
+Route::group(['prefix' => 'admin'], function () {
     Route::resource('pages', 'PagesController');
 });
