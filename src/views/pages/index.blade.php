@@ -1,7 +1,7 @@
 @extends('admincms::index')
 
 @section('title')
- Pagina's <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Nieuwe pagina</a>
+ @lang('admincms-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('admincms::global.create')</a>
 @stop
 
 @section('content')
@@ -9,8 +9,8 @@
         <table class="table-striped table">
             <thead>
             <tr>
-                <th class="col-xs-4">Titel</th>
-                <th class="col-xs-4">Slug</th>
+                <th class="col-xs-4">@lang('admincms-navigation::pages.fields.title')</th>
+                <th class="col-xs-4">@lang('admincms-navigation::pages.fields.slug')</th>
                 <th class="col-xs-2">Laatste wijziging</th>
                 <th class="col-xs-2">&nbsp;</th>
             </tr>
@@ -22,8 +22,8 @@
                     <td></td>
                     <td>{{ $page->updated_at->format("d F Y @ H:i") }}</td>
                     <td>
-                        <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Destroy</a>
+                        <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> @lang('admincms::global.edit')</a>
+                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> @lang('admincms::global.destroy')</a>
                     </td>
                 </tr>
             @endforeach
