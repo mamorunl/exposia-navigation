@@ -8,7 +8,7 @@
 
 // Temp ajax route
 Route::get('ajax/gettemplate/{name}', function ($name) {
-    return mamorunl\AdminCMS\Navigation\Facades\TemplateParser::parseForInput($name);
+    return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
 });
 
 Route::get('{slug}', [
