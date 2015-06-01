@@ -65,6 +65,13 @@ class PagesController extends Controller
         return view('admincms-navigation::pages.index', compact("pages"));
     }
 
+    /**
+     * Display the edit page
+     *
+     * @param $id
+     *
+     * @return View
+     */
     public function edit($id)
     {
         $page = PageRepository::find($id);
@@ -75,6 +82,13 @@ class PagesController extends Controller
         return view('admincms-navigation::pages.edit', compact("page", "templates", "template_data"));
     }
 
+    /**
+     * Parse the data from the edit method
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
     public function update($id)
     {
         $page = PageRepository::find($id);
