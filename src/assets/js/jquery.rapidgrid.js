@@ -179,15 +179,18 @@
             });
         });
 
+        /**
+         * Insert a class.
+         */
         rg.$el.on('click', '.class-col', function(e) {
             e.preventDefault();
-            alert('HIER: INVULLEN');
+            alert('Not implemented yet.');
         });
 
         /**
          * Delete a row from the view
          */
-        $('#canvas').on('click', '.remove-row', function(e) {
+        rg.$el.on('click', '.remove-row', function(e) {
             e.preventDefault();
             $(this).closest('.rg-row').fadeOut(400, function() {
                 $(this).remove();
@@ -197,7 +200,7 @@
         /**
          * Reset the column to the template selector
          */
-        $('#canvas').on('click', '.reset-col', function(e) {
+        rg.$el.on('click', '.reset-col', function(e) {
             e.preventDefault();
             $(this).closest('.rg-col').children('.xpo_data').remove();
             $(this).closest('.rg-col').prepend('<div class="xpo_data">' + rg.generateTemplateButton() + '</div>');
