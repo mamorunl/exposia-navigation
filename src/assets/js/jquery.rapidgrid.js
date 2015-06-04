@@ -142,7 +142,7 @@
         };
 
         /**
-         *
+         * Reset function to re-init various components
          */
         rg.reset = function () {
             $('#canvas .canvas, #canvas .canvas .rg-col').sortable({
