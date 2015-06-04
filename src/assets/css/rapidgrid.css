@@ -16,6 +16,8 @@
 
 #canvas .canvas .rg-row {
     margin-bottom: 7px;
+    position: relative;
+    padding-top: 20px;
 }
 
 #canvas .canvas .row-full-height {
@@ -79,9 +81,28 @@
     text-align: right;
     opacity: 0;
     transition: opacity 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 0;
+    z-index: 99;
 }
 
 .rg-row:hover > .rg-row-controls, .rg-col:hover > .rg-col-controls {
     opacity: 1;
     transition: opacity 0.3s ease;
+}
+.normal-state {
+    transform: rotateY(0deg);
+    transition: transform 0.5s ease;
+    backface-visibility: hidden;
+    height: auto;
+}
+.rotated-state {
+    transform: rotateY(-180deg);
+    transition: transform 0.5s ease;
+    backface-visibility: hidden;
+}
+
+.old_xpo_data {
+    height: 0;
 }

@@ -31,6 +31,12 @@
             if(rg.$el.children('.canvas').length == 0) {
                 rg.$el.append("<div class='canvas'></div>");
             }
+
+            rg.$el.find(".xpo_data").each(function() {
+                if($(this).siblings('.old_xpo_data').length == 0) {
+                    $(this).after(rg.generateTemporaryXpoData());
+                }
+            });
         };
 
         /**
@@ -111,9 +117,21 @@
          * @returns {string}
          */
         rg.createColumn = function (width) {
-            return '<div class="rg-col col-full-height col-xs-height col-md-' + width + '"><div class="xpo_data">' + rg.generateTemplateButton() + '</div>' + rg.generateSubCanvas() + '</div>';
+            return '<div class="rg-col col-full-height col-xs-height col-md-' + width + '"><div class="xpo_data normal-state">' + rg.generateTemplateButton() + '</div>' + rg.generateTemporaryXpoData() + rg.generateSubCanvas() + '</div>';
         };
 
+        /**
+         * Generate the temporary placeholder for xpo_data
+         * @returns {string}
+         */
+        rg.generateTemporaryXpoData = function() {
+            return '<div class="old_xpo_data rotated-state">' + rg.generateTemplateButton() + '</div>';
+        }
+
+        /**
+         * Generate the 'select template' button
+         * @returns {string}
+         */
         rg.generateTemplateButton = function() {
             rg.$el.on('click', '.btn-select-template', function(e) {
                 rg.editHolder = $(this);
@@ -147,11 +165,11 @@
 
             $('#canvas .rg-row').each(function() {
                 $(this).children('.rg-row-controls').remove();
-                $(this).append('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a></div>');
+                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a></div>');
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
-                    $(this).append('<div class="rg-col-controls btn-group pull-right"><a href="#" class="move-col btn btn-default btn-xs"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default btn-xs"><i class="fa fa-refresh"></i></a><a href="#" class="class-col btn btn-default btn-xs"><i class="fa fa-code"></i></a></div>');
+                    $(this).prepend('<div class="rg-col-controls btn-group pull-right"><a href="#" class="move-col btn btn-default btn-xs"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default btn-xs"><i class="fa fa-refresh"></i></a><a href="#" class="class-col btn btn-default btn-xs"><i class="fa fa-code"></i></a></div>');
                 });
             });
         };
@@ -202,8 +220,14 @@
          */
         rg.$el.on('click', '.reset-col', function(e) {
             e.preventDefault();
-            $(this).closest('.rg-col').children('.xpo_data').remove();
-            $(this).closest('.rg-col').prepend('<div class="xpo_data">' + rg.generateTemplateButton() + '</div>');
+            var $xpo_data = $(this).closest('.rg-col').children('.xpo_data');
+            var $old_xpo_data = $xpo_data.siblings('.old_xpo_data');
+            $xpo_data.removeClass('normal-state').addClass('rotated-state');
+            $old_xpo_data.removeClass('rotated-state').addClass('normal-state');
+            $xpo_data.removeClass('xpo_data').addClass('old_xpo_data');
+            $old_xpo_data.removeClass('old_xpo_data').addClass('xpo_data');
+//            $(this).closest('.rg-col').children('.xpo_data').remove();
+//            $(this).closest('.rg-col').prepend('<div class="xpo_data">' + rg.generateTemplateButton() + '</div>');
         });
 
         rg.init();
