@@ -1,7 +1,7 @@
 @extends('admincms::index')
 
 @section('title')
-    Pagina wijzigen
+    @lang('admincms-navigation::pages.edit.title')
 @stop
 
 @section('content')

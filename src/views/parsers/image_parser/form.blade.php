@@ -72,11 +72,11 @@
 <script>
     function changepreview{{ $key }}() {
         var gFileReader = new FileReader();
-        gFileReader.readAsDataURL(document.getElementById("upload_{{ $key }}}").files[0]);
+        gFileReader.readAsDataURL(document.getElementById("upload_{{ $key }}").files[0]);
 
         gFileReader.onload = function(gFileReaderEvent) {
-            document.getElementById("preview_image_{{ $key }}}").src = gFileReaderEvent.target.result;
-            document.getElementById("{{ $key }}}").src = gFileReaderEvent.target.result;
+            document.getElementById("preview_image_{{ $key }}").src = gFileReaderEvent.target.result;
+            document.getElementById("{{ $key }}").src = gFileReaderEvent.target.result;
         }
     }
 </script>
