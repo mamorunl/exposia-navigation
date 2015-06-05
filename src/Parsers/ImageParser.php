@@ -77,6 +77,11 @@ class ImageParser implements ParserInterface
         ])->render();
     }
 
+    /**
+     * Upload function for images
+     *
+     * @param array $values
+     */
     private function upload(&$values = [])
     {
         if (isset($values['file']) && strlen($values['file']) > 0 && Request::hasFile($values['id'] . '.file')) {
