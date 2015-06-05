@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Parsers;
 
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 
 class ImageParser implements ParserInterface
@@ -56,16 +57,34 @@ class ImageParser implements ParserInterface
      */
     public function parseForDatabase($values = [])
     {
+        $this->upload($values);
+
         return $this->getValues($values);
     }
 
+    /**
+     * @param array $values
+     * @param       $key
+     *
+     * @return mixed
+     */
     public function parseForDisplay($values = [], $key)
     {
         return View::make('admincms-navigation::parsers.image_parser.display', [
             'object' => $this->getValues($values),
-            'class' => (isset($this->json_data->class) ? $this->json_data->class : ""),
-            'id' => $key
+            'class'  => (isset($this->json_data->class) ? $this->json_data->class : ""),
+            'id'     => $key
         ])->render();
+    }
+
+    private function upload(&$values = [])
+    {
+        if (isset($values['file']) && strlen($values['file']) > 0 && Request::hasFile($values['id'] . '.file')) {
+            $file = Request::file($values['id'] . '.file');
+            if ($file->move(public_path() . '/uploads', $file->getClientOriginalName())) {
+                $values['src'] = '/uploads/' . $file->getClientOriginalName();
+            }
+        }
     }
 
     /**
@@ -74,13 +93,13 @@ class ImageParser implements ParserInterface
      */
     private function getAttributes()
     {
-        $attributes = "";
+        $attributes = '';
         if (isset($this->json_data->height)) {
-            $attributes .= "height: " . $this->json_data->height . "px;";
+            $attributes .= 'height: ' . $this->json_data->height . 'px;';
         }
 
         if (isset($this->json_data->width)) {
-            $attributes .= "width: " . $this->json_data->width . "px;";
+            $attributes .= 'width: ' . $this->json_data->width . 'px;';
         }
 
         return $attributes;
@@ -97,7 +116,7 @@ class ImageParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'src'    => (isset($default['src']) ? $default['src'] : "http://lorempixel.com/" . (isset($this->json_data->width) ? $this->json_data->width : 1280) . "/" . (isset($this->json_data->height) ? $this->json_data->height : 200)),
+            'src'    => (isset($default['src']) ? $default['src'] : (isset($default['old_src']) && strlen($default['old_src']) > 0 ? $default['old_src'] : 'http://lorempixel.com/' . (isset($this->json_data->width) ? $this->json_data->width : 1280) . '/' . (isset($this->json_data->height) ? $this->json_data->height : 200))),
             'alt'    => (isset($default['alt']) ? $default['alt'] : ""),
             'href'   => (isset($default['href']) ? $default['href'] : ""),
             'title'  => (isset($default['title']) ? $default['title'] : ""),

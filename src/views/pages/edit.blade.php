@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::model($page, ['method' => 'put', 'route' => ['admin.pages.update', $page->id]]) !!}
+    {!! Form::model($page, ['method' => 'put', 'route' => ['admin.pages.update', $page->id], 'files' => true]) !!}
         @include('admincms-navigation::pages._form')
     {!! Form::close() !!}
 @stop

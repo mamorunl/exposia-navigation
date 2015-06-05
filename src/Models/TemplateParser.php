@@ -36,7 +36,7 @@ class TemplateParser
                 $parser = new $object->parser($xpo_id, $object);
                 $values = [];
                 $key_object = null;
-                if(isset($default_values) && count($default_values) > 0) {
+                if (isset($default_values) && count($default_values) > 0) {
                     $values = $this->getDataForXPOId($xpo_id, $default_values);
                     $key_object = $values['id'];
                 }
@@ -62,7 +62,7 @@ class TemplateParser
         $fields = [];
 
         foreach ($json as $xpo_id => $object) {
-            if(class_exists($object->parser)) {
+            if (class_exists($object->parser)) {
                 $parser = new $object->parser($xpo_id, $object);
 
                 $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
@@ -95,11 +95,13 @@ class TemplateParser
     private function getDataForXPOId($xpo_id = "", $data = [])
     {
         foreach ($data as $key => $options) {
-            if(!strcmp($xpo_id, $options['xpo_id'])) {
+            if (!strcmp($xpo_id, $options['xpo_id'])) {
                 $options['id'] = $key;
+
                 return $options;
             }
         }
+
         return [];
     }
 }

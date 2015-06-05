@@ -206,7 +206,7 @@ class PageRepository extends AbstractRepository
         $page = $this->find($id);
 
         try {
-            NavigationNode::where('slug', Input::get('slug'))->where('id', '!=', $id)->firstOrFail();
+            NavigationNode::where('slug', $data['slug'])->where('id', '!=', $page->node->id)->firstOrFail();
         } catch (ModelNotFoundException $e) {
             DB::transaction(function () use ($page, $data) {
                 $node = $page->node;

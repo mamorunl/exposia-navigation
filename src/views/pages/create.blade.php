@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['method' => 'post', 'route' => 'admin.pages.store']) !!}
+    {!! Form::open(['method' => 'post', 'route' => 'admin.pages.store', 'files' => true]) !!}
         @include('admincms-navigation::pages._form')
     {!! Form::close() !!}
 @stop

@@ -13,6 +13,7 @@
     "symfony/css-selector": "3.0.*@dev",
     "illuminate/html": "5.*",
     "mamorunl/admincms": "dev-master",
+    "intervention/image": "dev-master",
     "barryvdh/laravel-ide-helper": "~2.0"
   },
   "repositories": [
