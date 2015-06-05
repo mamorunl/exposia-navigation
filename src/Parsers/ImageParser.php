@@ -99,6 +99,8 @@ class ImageParser implements ParserInterface
     }
 
     /**
+     * Resizing image
+     *
      * @param $file
      *
      * @return mixed
@@ -141,7 +143,7 @@ class ImageParser implements ParserInterface
         }
         $image->save(public_path() . "/uploads/" . $file->getClientOriginalName());
 
-        if($image instanceof \Intervention\Image\Image) {
+        if ($image instanceof \Intervention\Image\Image) {
             return true;
         }
 
