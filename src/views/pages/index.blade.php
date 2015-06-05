@@ -19,7 +19,7 @@
             @foreach($pages as $page)
                 <tr>
                     <td>{{ $page->title }}</td>
-                    <td></td>
+                    <td>{{ $page->node->slug }}</td>
                     <td>{{ $page->updated_at->format("d F Y @ H:i") }}</td>
                     <td>
                         <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> @lang('admincms::global.edit')</a>
