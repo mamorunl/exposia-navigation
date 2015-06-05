@@ -125,7 +125,7 @@
          * @returns {string}
          */
         rg.generateTemporaryXpoData = function() {
-            return '<div class="old_xpo_data rotated-state">' + rg.generateTemplateButton() + '</div>';
+            return '<div class="old_xpo_data">' + rg.generateTemplateButton() + '</div>';
         }
 
         /**

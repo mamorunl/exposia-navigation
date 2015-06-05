@@ -101,8 +101,5 @@
     transform: rotateY(-180deg);
     transition: transform 0.5s ease;
     backface-visibility: hidden;
-}
-
-.old_xpo_data {
     height: 0;
 }
