@@ -91,13 +91,13 @@
     opacity: 1;
     transition: opacity 0.3s ease;
 }
-.normal-state {
-    transform: rotateY(0deg);
+.xpo_data {
+    /*transform: rotateY(0deg);*/
     transition: transform 0.5s ease;
     backface-visibility: hidden;
     height: auto;
 }
-.rotated-state {
+.old_xpo_data {
     transform: rotateY(-180deg);
     transition: transform 0.5s ease;
     backface-visibility: hidden;
