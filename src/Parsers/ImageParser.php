@@ -8,11 +8,14 @@
 
 namespace Exposia\Navigation\Parsers;
 
+use Exception;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
+use Intervention\Image\Facades\Image;
 
 class ImageParser implements ParserInterface
 {
+    private $upload_location;
     /**
      * @var
      */
@@ -30,6 +33,7 @@ class ImageParser implements ParserInterface
     {
         $this->xpo_id = $xpo_id;
         $this->json_data = $json_data;
+        $this->upload_location = "/uploads";
     }
 
     /**
@@ -86,10 +90,62 @@ class ImageParser implements ParserInterface
     {
         if (isset($values['file']) && strlen($values['file']) > 0 && Request::hasFile($values['id'] . '.file')) {
             $file = Request::file($values['id'] . '.file');
-            if ($file->move(public_path() . '/uploads', $file->getClientOriginalName())) {
+            if (isset($this->json_data->resize) && $this->json_data->resize !== false && $this->json_data->resize !== "none" && $this->resizeImage($file)) {
+                $values['src'] = '/uploads/' . $file->getClientOriginalName();
+            } elseif ($file->move(public_path() . '/uploads', $file->getClientOriginalName())) {
                 $values['src'] = '/uploads/' . $file->getClientOriginalName();
             }
         }
+    }
+
+    /**
+     * @param $file
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    private function resizeImage($file)
+    {
+        $image = Image::make($file->getRealPath());
+        $attributes = $this->json_data;
+        if ($attributes->width === null) {
+            $attributes->width = 9999;
+        }
+        if ($attributes->resize === true) {
+            $attributes->resize = "resize";
+        }
+        switch ($attributes->resize) {
+            case "resize":
+                $image->resize($attributes->width, $attributes->height, function ($constraint) {
+                    $constraint->upsize();
+                    $constraint->aspectRatio();
+                });
+                break;
+            case "fit":
+                $image->fit($attributes->width, $attributes->height, function ($constraint) {
+                    $constraint->upsize();
+                });
+                break;
+            case "heighten":
+                $image->heighten($attributes->height, function ($constraint) {
+                    $constraint->upsize();
+                });
+                break;
+            case "widen":
+                $image->widen($attributes->width, function ($constraint) {
+                    $constraint->upsize();
+                });
+                break;
+            default:
+                throw new Exception('Resize method is not a boolean nor a correct resize method');
+        }
+        $image->save(public_path() . "/uploads/" . $file->getClientOriginalName());
+
+        if($image instanceof \Intervention\Image\Image) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

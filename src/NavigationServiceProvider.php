@@ -24,6 +24,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        \App::register('Intervention\Image\ImageServiceProvider');
     }
 
     /**
@@ -113,5 +114,11 @@ class NavigationServiceProvider extends ServiceProvider
             function (Router $router) {
                 require __DIR__ . '/Http/routes.php';
             });
+    }
+
+    public function provides() {
+        return [
+            'Intervention\Image\ImageServiceProvider'
+        ];
     }
 }
