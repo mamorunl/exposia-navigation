@@ -41,7 +41,8 @@ class StringParser implements ParserInterface
 
     public function parseForDisplay($values = [], $key)
     {
-        // TODO: Implement parseForDisplay() method.
+        $values = $this->getValues($values);
+        return $values['value'];
     }
 
     /**
