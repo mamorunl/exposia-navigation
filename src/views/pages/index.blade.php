@@ -1,7 +1,7 @@
-@extends('admincms::index')
+@extends('exposia::index')
 
 @section('title')
- @lang('admincms-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('admincms::global.create')</a>
+ @lang('admincms-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('exposia::global.create')</a>
 @stop
 
 @section('content')
@@ -22,8 +22,8 @@
                     <td>{{ $page->node->slug }}</td>
                     <td>{{ $page->updated_at->format("d F Y @ H:i") }}</td>
                     <td>
-                        <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> @lang('admincms::global.edit')</a>
-                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> @lang('admincms::global.destroy')</a>
+                        <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> @lang('exposia::global.edit')</a>
+                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> @lang('exposia::global.destroy')</a>
                     </td>
                 </tr>
             @endforeach

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Exposia\Navigation\Facades\TemplateParser;
-use mamorunl\AdminCMS\Repositories\AbstractRepository;
+use rapideinternet\Exposia\Repositories\AbstractRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository

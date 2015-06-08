@@ -14,6 +14,7 @@ use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
 use Exposia\Navigation\Models\TemplateParser;
 use Exposia\Navigation\Repositories\PageRepository;
+use rapideinternet\Exposia\Facades\Exposia;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupPublishers();
 
         $this->setupRoutes();
+
+        $this->setupAdminNavigation();
     }
 
     /**
@@ -116,7 +119,16 @@ class NavigationServiceProvider extends ServiceProvider
             });
     }
 
-    public function provides() {
+    /**
+     *
+     */
+    public function setupAdminNavigation()
+    {
+        Exposia::addNavigationNode('navigation', 'admin.pages.index', "PAGINA[TL]" /*trans('admincms-navigation::cms.pages_title.pages')*/, 'glyphicon glyphicon-blackboard');
+    }
+
+    public function provides()
+    {
         return [
             'Intervention\Image\ImageServiceProvider'
         ];

@@ -12,14 +12,14 @@
     "symfony/dom-crawler": "3.0.*@dev",
     "symfony/css-selector": "3.0.*@dev",
     "illuminate/html": "5.*",
-    "mamorunl/admincms": "dev-master",
+    "rapideinternet/exposia": "dev-master",
     "intervention/image": "dev-master",
     "barryvdh/laravel-ide-helper": "~2.0"
   },
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/mamorunl/admincms"
+      "url": "https://github.com/rapideinternet/exposia"
     }
   ],
   "require-dev": {

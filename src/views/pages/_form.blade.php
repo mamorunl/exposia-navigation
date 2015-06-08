@@ -5,9 +5,6 @@
                 <h3 class="panel-title">
                     @lang('admincms-navigation::pages.create.page_settings')
                 </h3>
-                <span class="pull-right clickable">
-                    <i class="fa fa-minus"></i>
-                </span>
             </div>
 
             <div class="panel-body">
@@ -60,9 +57,6 @@
                 <h3 class="panel-title">
                     @lang('admincms-navigation::pages.create.seo_settings')
                 </h3>
-                <span class="pull-right clickable">
-                    <i class="fa fa-minus"></i>
-                </span>
             </div>
             <div class="panel-body">
                 <div class="form-group{!! ($errors->has('meta_description')) ? " has-error" : "" !!}">
@@ -99,9 +93,6 @@
             <h3 class="panel-title"> <i class="livicon" data-name="map" data-size="14" data-loop="true" data-c="white" data-hc="white"></i>
                 @lang('admincms-navigation::pages.editor_title')
             </h3>
-            <span class="pull-right clickable">
-                <i class="fa fa-chevron-up"></i>
-            </span>
         </div>
         <div class="panel-body">
             <div class="row" style="padding:30px;">
@@ -109,12 +100,12 @@
                     {!! isset($template_data) ? $template_data : "" !!}
                 </div>
                 <input type="hidden" value="" name="serialized_template" id="serialized_template">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('admincms::global.save')</button>
             </div>
         </div>
     </div>
-
 </section>
+
+<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('exposia::global.save')</button>
 
 <div class="modal fade" id="set-template-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -136,13 +127,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">@lang('admincms::global.cancel')</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">@lang('exposia::global.cancel')</button>
             </div>
         </div>
     </div>
 </div>
 
-@section('scripts')
+@section('script')
     @parent
     <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
     <script src="{{ asset('backend/assets/js/grid_manager.js') }}"></script>
@@ -161,7 +152,7 @@
     </script>
 @stop
 
-@section('styles')
+@section('style')
     <link rel="stylesheet" href="{{ asset('backend/assets/css/rapidgrid.css') }}"/>
     <script src="/backend/assets/vendor/tinymce/tinymce.min.js"></script>
 @stop

@@ -8,12 +8,12 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Facades\TemplateFinder;
+use rapideinternet\Exposia\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {

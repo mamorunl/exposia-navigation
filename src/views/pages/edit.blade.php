@@ -1,4 +1,4 @@
-@extends('admincms::index')
+@extends('exposia::index')
 
 @section('title')
     @lang('admincms-navigation::pages.edit.title')
