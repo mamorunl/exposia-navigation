@@ -144,6 +144,9 @@
 
 @section('scripts')
     @parent
+    <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/grid_manager.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#name').blur(function() {
@@ -156,4 +159,9 @@
             });
         });
     </script>
+@stop
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('backend/assets/css/rapidgrid.css') }}"/>
+    <script src="/backend/assets/vendor/tinymce/tinymce.min.js"></script>
 @stop
