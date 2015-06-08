@@ -117,6 +117,6 @@ class PagesController extends Controller
             \App::abort(404);
         }
 
-        return view('exposia-navigation::pages.show', compact("page"));
+        return view('pages.index', compact("page"));
     }
 }
