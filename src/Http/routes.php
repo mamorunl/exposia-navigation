@@ -17,5 +17,5 @@ Route::get('{slug}', [
 ]);
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::resource('pages', 'PagesController');
+    Route::resource('pages', 'PagesController', ['except' => 'show']);
 });

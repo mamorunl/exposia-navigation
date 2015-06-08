@@ -8,12 +8,13 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
+use Exposia\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Facades\TemplateFinder;
-use rapideinternet\Exposia\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {
@@ -24,7 +25,7 @@ class PagesController extends Controller
     {
         $templates = TemplateFinder::getTemplates();
 
-        return view('admincms-navigation::pages.create', compact('templates'));
+        return view('exposia-navigation::pages.create', compact('templates'));
     }
 
 
@@ -59,7 +60,7 @@ class PagesController extends Controller
     {
         $pages = PageRepository::index();
 
-        return view('admincms-navigation::pages.index', compact("pages"));
+        return view('exposia-navigation::pages.index', compact("pages"));
     }
 
     /**
@@ -79,7 +80,7 @@ class PagesController extends Controller
 
         $template_data = PageRepository::renderForEdit($page);
 
-        return view('admincms-navigation::pages.edit', compact("page", "templates", "template_data"));
+        return view('exposia-navigation::pages.edit', compact("page", "templates", "template_data"));
     }
 
     /**
@@ -105,5 +106,17 @@ class PagesController extends Controller
         return Redirect::back()
             ->withInput()
             ->with('error', 'Error while updating page');
+    }
+
+    public function show($slug)
+    {
+        try {
+            $page = PageRepository::findBySlug($slug);
+
+        } catch (ModelNotFoundException $e) {
+            \App::abort(404);
+        }
+
+        return view('exposia-navigation::pages.show', compact("page"));
     }
 }

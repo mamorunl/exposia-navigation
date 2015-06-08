@@ -3,7 +3,7 @@
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    @lang('admincms-navigation::pages.create.page_settings')
+                    @lang('exposia-navigation::pages.create.page_settings')
                 </h3>
             </div>
 
@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group{!! ($errors->has('name')) ? " has-error" : "" !!}">
-                        {!! Form::label('name', trans('admincms-navigation::pages.fields.name')) !!}
+                        {!! Form::label('name', trans('exposia-navigation::pages.fields.name')) !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
                         @if($errors->has('name'))
                             <div class="help-block">
@@ -23,7 +23,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group{!! ($errors->has('slug')) ? " has-error" : "" !!}">
-                            {!! Form::label('slug', trans('admincms-navigation::pages.fields.slug')) !!}
+                            {!! Form::label('slug', trans('exposia-navigation::pages.fields.slug')) !!}
                             {!! Form::text('slug', null, ['class' => 'form-control']) !!}
                             @if($errors->has('slug'))
                             <div class="help-block">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
-                        {!! Form::label('title', trans('admincms-navigation::pages.fields.title')) !!}
+                        {!! Form::label('title', trans('exposia-navigation::pages.fields.title')) !!}
                         {!! Form::text('title', null, ['class' => 'form-control']) !!}
                         @if($errors->has('title'))
                             <div class="help-block">
@@ -55,12 +55,12 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    @lang('admincms-navigation::pages.create.seo_settings')
+                    @lang('exposia-navigation::pages.create.seo_settings')
                 </h3>
             </div>
             <div class="panel-body">
                 <div class="form-group{!! ($errors->has('meta_description')) ? " has-error" : "" !!}">
-                    {!! Form::label('meta_description', trans('admincms-navigation::pages.fields.meta_description')) !!}
+                    {!! Form::label('meta_description', trans('exposia-navigation::pages.fields.meta_description')) !!}
                     {!! Form::text('meta_description', null, ['class' => 'form-control']) !!}
                     @if($errors->has('meta_description'))
                     <div class="help-block">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="form-group{!! ($errors->has('meta_keywords')) ? " has-error" : "" !!}">
-                    {!! Form::label('meta_keywords', trans('admincms-navigation::pages.fields.meta_keywords')) !!}
+                    {!! Form::label('meta_keywords', trans('exposia-navigation::pages.fields.meta_keywords')) !!}
                     {!! Form::text('meta_keywords', null, ['class' => 'form-control']) !!}
                     @if($errors->has('meta_keywords'))
                     <div class="help-block">
@@ -86,12 +86,12 @@
 <section class="content paddingleft_right15">
     <div class="alert alert-success alert-dismissable visible-xs visible-md">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        @lang('admincms-navigation::pages.warning_drag_drop')
+        @lang('exposia-navigation::pages.warning_drag_drop')
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"> <i class="livicon" data-name="map" data-size="14" data-loop="true" data-c="white" data-hc="white"></i>
-                @lang('admincms-navigation::pages.editor_title')
+                @lang('exposia-navigation::pages.editor_title')
             </h3>
         </div>
         <div class="panel-body">
@@ -112,7 +112,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">@lang('admincms-navigation::pages.select_template.title')</h4>
+                <h4 class="modal-title" id="myModalLabel">@lang('exposia-navigation::pages.select_template.title')</h4>
             </div>
             <div class="modal-body" id="template_picker">
                 <div class="row">

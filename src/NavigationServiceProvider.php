@@ -8,13 +8,13 @@
 
 namespace Exposia\Navigation;
 
+use Exposia\Facades\Exposia;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
 use Exposia\Navigation\Models\TemplateParser;
 use Exposia\Navigation\Repositories\PageRepository;
-use rapideinternet\Exposia\Facades\Exposia;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -85,7 +85,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupViews()
     {
-        $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'admincms-navigation');
+        $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'exposia-navigation');
     }
 
     /**
@@ -93,7 +93,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupTranslationFiles()
     {
-        $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'admincms-navigation');
+        $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'exposia-navigation');
     }
 
     /**

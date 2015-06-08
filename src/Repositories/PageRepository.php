@@ -10,12 +10,12 @@ namespace Exposia\Navigation\Repositories;
 
 use Exposia\Navigation\Models\NavigationNode;
 use Exposia\Navigation\Models\Page;
+use Exposia\Repositories\AbstractRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Exposia\Navigation\Facades\TemplateParser;
-use rapideinternet\Exposia\Repositories\AbstractRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository
@@ -224,5 +224,11 @@ class PageRepository extends AbstractRepository
         }
 
         return false;
+    }
+
+    public function findBySlug($slug)
+    {
+        $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+        return $node->page;
     }
 }

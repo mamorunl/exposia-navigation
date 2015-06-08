@@ -1,7 +1,7 @@
 @extends('exposia::index')
 
 @section('title')
- @lang('admincms-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('exposia::global.create')</a>
+ @lang('exposia-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('exposia::global.create')</a>
 @stop
 
 @section('content')
@@ -9,8 +9,8 @@
         <table class="table-striped table">
             <thead>
             <tr>
-                <th class="col-xs-4">@lang('admincms-navigation::pages.fields.title')</th>
-                <th class="col-xs-4">@lang('admincms-navigation::pages.fields.slug')</th>
+                <th class="col-xs-4">@lang('exposia-navigation::pages.fields.title')</th>
+                <th class="col-xs-4">@lang('exposia-navigation::pages.fields.slug')</th>
                 <th class="col-xs-2">Laatste wijziging</th>
                 <th class="col-xs-2">&nbsp;</th>
             </tr>
