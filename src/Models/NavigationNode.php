@@ -17,4 +17,8 @@ class NavigationNode extends Model
         'name',
         'slug'
     ];
+
+    public function page() {
+        return $this->hasOne('Exposia\Navigation\Models\Page', 'node_id');
+    }
 }

@@ -16,7 +16,6 @@ class Page extends Model
 
     protected $fillable = [
         'title',
-        'template_name',
         'template_data',
         'node_id'
     ];

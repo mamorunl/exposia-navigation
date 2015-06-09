@@ -46,7 +46,7 @@ class ImageParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('admincms-navigation::parsers.image_parser.form', [
+        return View::make('exposia-navigation::parsers.image_parser.form', [
             'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'attributes' => $this->getAttributes(),
             'values'     => $this->getValues($values),
@@ -74,7 +74,7 @@ class ImageParser implements ParserInterface
      */
     public function parseForDisplay($values = [], $key)
     {
-        return View::make('admincms-navigation::parsers.image_parser.display', [
+        return View::make('exposia-navigation::parsers.image_parser.display', [
             'object' => $this->getValues($values),
             'class'  => (isset($this->json_data->class) ? $this->json_data->class : ""),
             'id'     => $key

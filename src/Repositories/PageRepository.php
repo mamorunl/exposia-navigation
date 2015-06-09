@@ -226,9 +226,27 @@ class PageRepository extends AbstractRepository
         return false;
     }
 
+    /**
+     * Find a page by its slug
+     *
+     * @param $slug
+     *
+     * @return Page
+     */
     public function findBySlug($slug)
     {
         $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+
         return $node->page;
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Support\Collection|null|static
+     */
+    public function find($id)
+    {
+        return $this->model->find($id);
     }
 }

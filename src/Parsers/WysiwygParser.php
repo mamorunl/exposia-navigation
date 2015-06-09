@@ -26,7 +26,7 @@ class WysiwygParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('admincms-navigation::parsers.wysiwyg_parser.form', [
+        return View::make('exposia-navigation::parsers.wysiwyg_parser.form', [
             'key'    => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
             'values' => $this->getValues($values),
             'xpo_id' => $this->xpo_id,

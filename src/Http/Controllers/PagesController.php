@@ -9,6 +9,7 @@
 namespace Exposia\Navigation\Http\Controllers;
 
 use Exposia\Http\Controllers\Controller;
+use Exposia\Navigation\Facades\TemplateParser;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
@@ -108,15 +109,22 @@ class PagesController extends Controller
             ->with('error', 'Error while updating page');
     }
 
+    /**
+     * Display a single page
+     *
+     * @param $slug
+     *
+     * @return View
+     */
     public function show($slug)
     {
         try {
             $page = PageRepository::findBySlug($slug);
-
+            $template = TemplateParser::parsePageForDisplay(json_decode($page->template_data, true));
         } catch (ModelNotFoundException $e) {
             \App::abort(404);
         }
 
-        return view('pages.index', compact("page"));
+        return view('pages.index', compact("page", "template"));
     }
 }

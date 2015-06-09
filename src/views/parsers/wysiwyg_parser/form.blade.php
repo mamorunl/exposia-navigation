@@ -16,6 +16,12 @@
         menubar: false,
         statusbar: false,
         extended_valid_elements: "table[*]",
+        invalid_elements: "span",
+        valid_styles: {
+            "*": "text-align",
+            "a": "",
+            "strong": ""
+        },
         link_class_list: [
             {title: 'Geen', value: ''},
             {title: 'Knop (primary)', value: 'btn btn-primary'},

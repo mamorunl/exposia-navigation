@@ -75,6 +75,61 @@ class TemplateParser
     }
 
     /**
+     * @param array $data
+     *
+     * @return string
+     */
+    public function parsePageForDisplay($data = [])
+    {
+        $html = '';
+        foreach($data as $row => $row_data) {
+            $html .= $this->generateRow($row_data);
+        }
+        return $html;
+    }
+
+    private function generateRow($row_data)
+    {
+        $html = '<div class="row' . ((isset($row_data['class']) && $row_data['class'] != 'NA') ? ' ' . $row_data['class'] : '') . '">';
+        foreach($row_data['columns'] as $col_id => $col_data) {
+            $html .= $this->generateCol($col_data);
+        }
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    private function generateCol($col_data)
+    {
+        $html = '<div class="' . $col_data['class'] . '">';
+        $html .= $this->parseForDisplay($col_data['template_name'], $col_data['template_data']);
+        if(count($col_data['nested_rows']) > 0) {
+            foreach($col_data['nested_rows'] as $row_id => $row_data) {
+                $html .= $this->generateRow($row_data);
+            }
+        }
+        $html .= '</div>';
+        return $html;
+    }
+
+    public function parseForDisplay($template_name, $data = [])
+    {
+        $json = TemplateFinderFacade::readConfig($template_name);
+        $fields = '';
+
+        foreach ($json as $xpo_id => $object) {
+            if (class_exists($object->parser)) {
+                $parser = new $object->parser($xpo_id, $object);
+
+                $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
+                $fields .= $parser->parseForDisplay($data_for_xpo_id, $data_for_xpo_id['id']);
+            }
+        }
+
+        return $fields;
+    }
+
+    /**
      * @param $template
      *
      * @return mixed
