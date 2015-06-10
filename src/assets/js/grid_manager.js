@@ -10,7 +10,7 @@ $(document).ready(function () {
         e.preventDefault();
         var arr = travelTroughArray($('#canvas > .canvas > .rg-row'), false);
         $('#serialized_template').val(JSON.stringify(arr));
-        console.log($('#serialized_template').val());
+        //console.log($('#serialized_template').val());
         $('form').submit();
     });
 
@@ -22,10 +22,10 @@ $(document).ready(function () {
                 var class_length = $(this).attr('class').replace("rg-col", "").replace("col-full-height", "").replace("col-xs-height", "").replace("ui-sortable-handle", "").replace("ui-sortable", "");
                 var node = [];
                 node[0] = class_length;
-                node[1] = $(this).find('xpodata').data('templatename');
+                node[1] = $(this).find('.xpo_data').children('xpodata').data('templatename');
                 node[2] = [];
                 node[3] = travelTroughArray($(this).find('.subcanvas').children('.rg-row'), true);
-                $(this).find('input' + (skipsubs == false ? ':not(.subcanvas input)' : '')).each(function () {
+                $(this).find('.xpo_data input' + (skipsubs == false ? ':not(.subcanvas input)' : '')).each(function () {
                     var $name = $(this).attr('name');
                     if ($name.indexOf("[") > -1) {
                         $name = $name.split("[");

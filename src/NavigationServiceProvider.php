@@ -9,6 +9,8 @@
 namespace Exposia\Navigation;
 
 use Exposia\Facades\Exposia;
+use Exposia\Navigation\Models\Navigation;
+use Exposia\Navigation\Repositories\NavigationRepository;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Exposia\Navigation\Models\Page;
@@ -38,6 +40,8 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupTemplateParser();
 
         $this->setupPageRepository();
+
+        $this->setupNavigationRepository();
 
         $this->setupViews();
 
@@ -77,6 +81,13 @@ class NavigationServiceProvider extends ServiceProvider
     {
         $this->app->singleton('Exposia\Navigation\Repositories\PageRepository', function ($app) {
             return new PageRepository(new Page);
+        });
+    }
+
+    protected function setupNavigationRepository()
+    {
+        $this->app->singleton('Exposia\Navigation\Repositories\NavigationRepository', function ($app) {
+            return new NavigationRepository(new Navigation);
         });
     }
 
@@ -120,11 +131,12 @@ class NavigationServiceProvider extends ServiceProvider
     }
 
     /**
-     *
+     * Add buttons to the left bar navigation in the CMS
      */
     public function setupAdminNavigation()
     {
-        Exposia::addNavigationNode('navigation', 'admin.pages.index', "PAGINA[TL]" /*trans('admincms-navigation::cms.pages_title.pages')*/, 'glyphicon glyphicon-blackboard');
+        Exposia::addNavigationNode('navigation', 'admin.navigations.index', trans('exposia-navigation::navigations.menu_title'), 'glyphicon glyphicon-sort');
+        Exposia::addNavigationNode('pages', 'admin.pages.index', trans('exposia-navigation::pages.menu_title'), 'glyphicon glyphicon-blackboard');
     }
 
     public function provides()

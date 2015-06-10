@@ -7,6 +7,7 @@
  */
 
 return [
+    'menu_title'   => 'Pagina\'s',
     'title'        => 'Pagina\'s',
     'fields'       => [
         'title'            => 'Paginatitel',

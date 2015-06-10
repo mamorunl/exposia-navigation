@@ -241,12 +241,15 @@ class PageRepository extends AbstractRepository
     }
 
     /**
-     * @param $id
+     * Return a list of objects to show at the
+     * navigations.show page
      *
-     * @return \Illuminate\Support\Collection|null|static
+     * @param int $limit
+     *
+     * @return mixed
      */
-    public function find($id)
+    public function listForNavigation($limit = 5)
     {
-        return $this->model->find($id);
+        return $this->model->limit($limit)->get();
     }
 }

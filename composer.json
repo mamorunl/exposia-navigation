@@ -14,12 +14,17 @@
     "illuminate/html": "5.*",
     "rapideinternet/exposia": "dev-master",
     "intervention/image": "dev-master",
-    "barryvdh/laravel-ide-helper": "~2.0"
+    "barryvdh/laravel-ide-helper": "~2.0",
+    "rapideinternet/laravel-searchable": "dev-master"
   },
   "repositories": [
     {
       "type": "vcs",
       "url": "https://github.com/rapideinternet/exposia"
+    },
+    {
+      "type": "vcs",
+      "url":  "git@github.com:rapideinternet/laravel-searchable.git"
     }
   ],
   "require-dev": {

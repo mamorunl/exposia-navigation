@@ -6,7 +6,6 @@
  * Time: 14:48
  */
 
-// Temp ajax route
 Route::get('ajax/gettemplate/{name}', function ($name) {
     return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
 });
@@ -18,4 +17,5 @@ Route::get('{slug}', [
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('pages', 'PagesController', ['except' => 'show']);
+    Route::resource('navigations', 'NavigationsController');
 });
