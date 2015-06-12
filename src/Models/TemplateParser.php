@@ -112,9 +112,42 @@ class TemplateParser
         return $html;
     }
 
-    public function parseForDisplay($template_name, $data = [])
+    public function parseForDisplay($template_name, $default_values = [])
     {
+        $template = TemplateFinderFacade::readTemplate($template_name);
         $json = TemplateFinderFacade::readConfig($template_name);
+        $result = $this->getAllXpoTags($template);
+
+        // Result 0 = Full strings,
+        // Result 1 = Just the keys
+        foreach ($result[0] as $key => $html_string) {
+            $xpo_id = $result[1][$key];
+
+            if (!isset($json->$xpo_id)) {
+                continue;
+            }
+
+            $object = $json->$xpo_id;
+
+            if (class_exists($object->parser)) {
+
+                $parser = new $object->parser($xpo_id, $object);
+                $values = [];
+                $key_object = null;
+                if (isset($default_values) && count($default_values) > 0) {
+                    $values = $this->getDataForXPOId($xpo_id, $default_values);
+                    $key_object = $values['id'];
+                }
+                $parsed_string = $parser->parseForDisplay($values, $key_object);
+                $template = str_replace($html_string, $parsed_string, $template);
+            }
+
+            $template = str_replace($html_string, "", $template);
+        }
+
+        return $template;
+
+        /*$json = TemplateFinderFacade::readConfig($template_name);
         $fields = '';
 
         foreach ($json as $xpo_id => $object) {
@@ -126,7 +159,7 @@ class TemplateParser
             }
         }
 
-        return $fields;
+        return $fields;*/
     }
 
     /**
