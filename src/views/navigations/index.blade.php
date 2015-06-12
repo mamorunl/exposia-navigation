@@ -1,7 +1,7 @@
 @extends('exposia::index')
 
 @section('title')
-    @lang('exposia-navigation::navigations.index.title') <a href="{{ route('admin.navigations.create') }}" class="btn btn-primary pull-right">@lang('exposia::global.create')</a>
+    @choice('exposia-navigation::navigations.index.title', count($navigations)) <a href="{{ route('admin.navigations.create') }}" class="btn btn-primary pull-right">@lang('exposia::global.create')</a>
 @stop
 
 @section('content')
@@ -19,8 +19,8 @@
                     </li>
                 </ul>
                 <div class="panel-footer">
-                    <a href="{{ route('admin.navigations.show', $nav->id) }}" class="btn btn-default">@lang('exposia-navigation::navigations.show_structure')</a>
-                    <a class="btn btn-primary pull-right" href="">@lang('exposia:global.edit')</a>
+                    <a href="{{ route('admin.navigations.show', $nav->id) }}" class="btn btn-default">@lang('exposia-navigation::navigations.select')</a>
+                    <a class="btn btn-primary pull-right" href="{{ route('admin.navigations.edit', $nav->id) }}">@lang('exposia::global.edit')</a>
                 </div>
             </div>
         </div>

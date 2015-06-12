@@ -21,4 +21,18 @@ class NavigationNode extends Model
     public function page() {
         return $this->hasOne('Exposia\Navigation\Models\Page', 'node_id');
     }
+
+    public function children($navigation_id)
+    {
+        return $this->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes',
+            'parent_id', 'navigation_node_id')
+            ->where('cms_navigation_navigation_nodes.navigation_id', $navigation_id)
+            ->orderBy('sort_order', 'asc')
+            ->get();
+    }
+
+    public function getChildren($navigation_id)
+    {
+        return $this->children($navigation_id);
+    }
 }

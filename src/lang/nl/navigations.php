@@ -7,20 +7,42 @@
  */
 
 return [
-    'menu_title'     => 'Navigatie',
-    'index'          => [
-        'title' => 'Navigatiestructuren'
+    'menu_title'                  => 'Navigatie',
+    'translations'           => 'Vertalingen',
+    'links'                  => 'Link|Links',
+    'select'                 => 'Beheren',
+    'index'                  => [
+        'title'   => 'Menu|Menu\'s',
+        'no_navs' => 'Er zijn nog geen menu\'s'
     ],
-    'create'         => [
-        'title' => 'Nieuwe navigatiestructuur'
+    'create'                 => [
+        'title' => 'Menu aanmaken'
     ],
-    'fields'         => [
-        'name' => 'Naam'
+    'edit'                   => [
+        'title' => 'Menu wijzigen'
     ],
-    'show'           => [
-        'title'         => 'Menustructuur',
-        'panel_heading' => 'Wijzig hier de volgorde',
-        'select_page'   => 'Pagina\'s toevoegen'
+    'fields'                 => [
+        'name' => 'Naam van het menu'
     ],
-    'show_structure' => 'Structuur'
+    'page_create_widget'     => [
+        'title' => 'Pagina aanmaken'
+    ],
+    'show' => [
+        'title' => 'Menustructuur wijzigen',
+        'drag_to_rearrange'      => 'Sleep onderstaande blokken om de volgorde van het menu te wijzigen. Deze volgorde wordt pas actief als deze wordt opgeslagen, uw oude volgorde blijft dus actief totdat de nieuwe is opgeslagen.'
+    ],
+    'page_add_to_nav_widget' => [
+        'title'       => 'Pagina aan navigatie toevoegen',
+        'drag_to_add' => 'Sleep het blok naar de navigatie om toe te voegen',
+        'tab'         => [
+            'recent' => 'Meest recent aangepast',
+            'all'    => 'Alle pagina\'s'
+        ]
+    ],
+    'create_node'            => [
+        'title' => 'Nieuwe externe link'
+    ],
+    'create_page'            => [
+        'title' => 'Nieuwe pagina'
+    ]
 ];

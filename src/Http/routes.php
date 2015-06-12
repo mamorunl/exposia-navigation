@@ -16,6 +16,8 @@ Route::get('{slug}', [
 ]);
 
 Route::group(['prefix' => 'admin'], function () {
+    Route::post('navigations/{id}/format',
+        ['as' => 'admin.navigations.save-sequence', 'uses' => 'NavigationsController@saveSequence']);
     Route::resource('pages', 'PagesController', ['except' => 'show']);
     Route::resource('navigations', 'NavigationsController');
 });

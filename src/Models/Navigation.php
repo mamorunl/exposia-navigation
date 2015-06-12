@@ -8,10 +8,10 @@
 
 namespace Exposia\Navigation\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
-class Navigation extends Model {
+class Navigation extends Model
+{
     protected $table = "cms_navigations";
 
     protected $fillable = [
@@ -20,4 +20,19 @@ class Navigation extends Model {
 
     public $index_column = "name";
     public $index_sort = "asc";
+
+    public function nodes()
+    {
+        return $this
+            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
+            ->orderBy('cms_navigation_navigation_nodes.sort_order', 'asc')
+            ->where('cms_navigation_navigation_nodes.parent_id', 0);
+    }
+
+    public function allnodes()
+    {
+        return $this
+            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
+            ->orderBy('sort_order', 'asc');
+    }
 }

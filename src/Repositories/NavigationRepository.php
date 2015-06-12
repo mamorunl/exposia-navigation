@@ -8,10 +8,10 @@
 
 namespace Exposia\Navigation\Repositories;
 
-
 use Exposia\Repositories\AbstractRepository;
 
-class NavigationRepository extends AbstractRepository {
+class NavigationRepository extends AbstractRepository
+{
     public function create($data)
     {
         return $this->model->create($data);
@@ -20,5 +20,14 @@ class NavigationRepository extends AbstractRepository {
     public function find($id)
     {
         return $this->model->find($id);
+    }
+
+    public function update($id, $data = [])
+    {
+        if (($model = $this->find($id))) {
+            return $model->update($data);
+        }
+
+        return false;
     }
 }
