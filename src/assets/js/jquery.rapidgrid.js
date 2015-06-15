@@ -22,6 +22,7 @@
             rg.initCanvas();
             rg.reset();
 
+            // Add the custom row classes to the input field
             rg.$el.find(".rg-row").each(function() {
                 var $userclasses = $(this).data('userclasses');
                 $(this).children('.rg-row-controls').find('.class-row-input').val($userclasses);
