@@ -21,6 +21,11 @@
             rg.options = $.extend({}, $.rapidgrid.defaultOptions, options);
             rg.initCanvas();
             rg.reset();
+
+            rg.$el.find(".rg-row").each(function() {
+                var $userclasses = $(this).data('userclasses');
+                $(this).children('.rg-row-controls').find('.class-row-input').val($userclasses);
+            });
         };
 
         /**
