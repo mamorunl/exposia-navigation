@@ -69,20 +69,20 @@ class PageRepository extends AbstractRepository
     }
 
     /**
-     * @param $parsedForDatabase
      * @param $key
      * @param $row
      *
      * @return mixed
+     * @internal param $parsedForDatabase
      */
     protected function createArrayFromData($key, $row)
     {
         $parsedForDatabase = [];
         $parsedForDatabase[$key] = [
-            "class"   => "NA",
+            "class"   => $row[0],
             "columns" => []
         ];
-        foreach ($row as $col_key => $column) {
+        foreach ($row[1] as $col_key => $column) {
             // Column[0] = length
             // Column[1] = Template name
             // Column[2] = Fields

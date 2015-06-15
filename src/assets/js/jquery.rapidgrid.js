@@ -126,7 +126,7 @@
          */
         rg.generateTemporaryXpoData = function() {
             return '<div class="old_xpo_data">' + rg.generateTemplateButton() + '</div>';
-        }
+        };
 
         /**
          * Generate the 'select template' button
@@ -165,7 +165,7 @@
 
             $('#canvas .rg-row').each(function() {
                 $(this).children('.rg-row-controls').remove();
-                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a></div>');
+                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a><a href="#" class="class-row btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="" class="class-row-input" style="display: none" /></div>');
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
@@ -205,6 +205,15 @@
             alert('Not implemented yet.');
         });
 
+        rg.$el.on('click', '.class-row', function(e) {
+            e.preventDefault();
+            if($(this).siblings('.class-row-input').css('display') == 'none') {
+                $(this).siblings('.class-row-input').show().focus();
+            } else {
+                $(this).siblings('.class-row-input').hide();
+            }
+        });
+
         /**
          * Delete a row from the view
          */
@@ -226,8 +235,6 @@
             $old_xpo_data.removeClass('rotated-state').addClass('normal-state');
             $xpo_data.removeClass('xpo_data').addClass('old_xpo_data');
             $old_xpo_data.removeClass('old_xpo_data').addClass('xpo_data');
-//            $(this).closest('.rg-col').children('.xpo_data').remove();
-//            $(this).closest('.rg-col').prepend('<div class="xpo_data">' + rg.generateTemplateButton() + '</div>');
         });
 
         rg.init();

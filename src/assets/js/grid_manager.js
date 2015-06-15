@@ -16,16 +16,18 @@ $(document).ready(function () {
 
     function travelTroughArray(start, skipsubs) {
         var arr = [];
-        start.each(function (i) {
+        start.each(function (i) { // .row
             var subarr = [];
-            $(this).children('.row-same-height').children('.rg-col').each(function () {
+            subarr[0] = $(this).children('.rg-row-controls').find('.class-row-input').val();
+            subarr[1] = [];
+            $(this).children('.row-same-height').children('.rg-col').each(function () { // .col-*
                 var class_length = $(this).attr('class').replace("rg-col", "").replace("col-full-height", "").replace("col-xs-height", "").replace("ui-sortable-handle", "").replace("ui-sortable", "");
                 var node = [];
                 node[0] = class_length;
                 node[1] = $(this).find('.xpo_data').children('xpodata').data('templatename');
                 node[2] = [];
                 node[3] = travelTroughArray($(this).find('.subcanvas').children('.rg-row'), true);
-                $(this).find('.xpo_data input' + (skipsubs == false ? ':not(.subcanvas input)' : '')).each(function () {
+                $(this).find('.xpo_data input' + (skipsubs == false ? ':not(.subcanvas input)' : '')).each(function () { // input
                     var $name = $(this).attr('name');
                     if ($name.indexOf("[") > -1) {
                         $name = $name.split("[");
@@ -35,7 +37,7 @@ $(document).ready(function () {
                         node[2].push($name);
                     }
                 });
-                subarr.push(node);
+                subarr[1].push(node);
             });
             arr.push(subarr);
         });
