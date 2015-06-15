@@ -23,7 +23,7 @@ $(document).ready(function () {
             $(this).children('.row-same-height').children('.rg-col').each(function () { // .col-*
                 var class_length = $(this).attr('class').replace("rg-col", "").replace("col-full-height", "").replace("col-xs-height", "").replace("ui-sortable-handle", "").replace("ui-sortable", "");
                 var node = [];
-                node[0] = class_length;
+                node[0] = class_length + $(this).children('.rg-col-controls').find('.class-col-input').val();
                 node[1] = $(this).find('.xpo_data').children('xpodata').data('templatename');
                 node[2] = [];
                 node[3] = travelTroughArray($(this).find('.subcanvas').children('.rg-row'), true);

@@ -101,7 +101,7 @@ class TemplateParser
 
     private function generateCol($col_data)
     {
-        $html = '<div class="' . $col_data['class'] . '">';
+        $html = '<div class="' . str_replace("  ", " ", $col_data['class']) . '">';
         $html .= $this->parseForDisplay($col_data['template_name'], $col_data['template_data']);
         if(count($col_data['nested_rows']) > 0) {
             foreach($col_data['nested_rows'] as $row_id => $row_data) {

@@ -124,7 +124,8 @@ class PageRepository extends AbstractRepository
     {
         $html = '<div class="row rg-row" data-userclasses="' . $row['class'] . '"><div class="row-same-height row-full-height">';
         foreach ($row['columns'] as $column) {
-            $html .= '<div class="' . $column['class'] . ' col-xs-height col-full-height rg-col">';
+            $classes = $this->getClasses($column['class']);
+            $html .= '<div class="' . $classes['class_length'] . ' col-xs-height col-full-height rg-col" data-userclasses="' . $classes['custom_class'] . '">';
             $html .= '<div class="xpo_data">';
             $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? '<xpodata data-templatename="' . $column['template_name'] . '"></xpodata>' : "";
             $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? TemplateParser::parseForInput($column['template_name'],
@@ -251,5 +252,20 @@ class PageRepository extends AbstractRepository
     public function listForNavigation($limit = 5)
     {
         return $this->model->limit($limit)->get();
+    }
+
+    /**
+     * @param $string
+     *
+     * @return array
+     */
+    private function getClasses($string)
+    {
+        $result_set = [];
+        preg_match("/(col-md-\\d*)/", $string, $result_set);
+        $classes_without_result = trim(str_replace($result_set[0], "", $string));
+        $classes_only_result = trim($result_set[0]);
+
+        return ['class_length' => $classes_only_result, 'custom_class' => $classes_without_result];
     }
 }

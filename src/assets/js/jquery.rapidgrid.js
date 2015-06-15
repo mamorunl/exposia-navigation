@@ -27,6 +27,12 @@
                 var $userclasses = $(this).data('userclasses');
                 $(this).children('.rg-row-controls').find('.class-row-input').val($userclasses);
             });
+
+            // Add the custom col classes to the input field
+            rg.$el.find(".rg-col").each(function() {
+                var $userclasses = $(this).data('userclasses');
+                $(this).children('.rg-col-controls').find('.class-col-input').val($userclasses);
+            });
         };
 
         /**
@@ -175,7 +181,7 @@
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
-                    $(this).prepend('<div class="rg-col-controls btn-group pull-right"><a href="#" class="move-col btn btn-default btn-xs"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default btn-xs"><i class="fa fa-refresh"></i></a><a href="#" class="class-col btn btn-default btn-xs"><i class="fa fa-code"></i></a></div>');
+                    $(this).prepend('<div class="rg-col-controls btn-group pull-right"><a href="#" class="move-col btn btn-default btn-xs"><i class="fa fa-arrows-h"></i></a><a href="#" class="reset-col btn btn-default btn-xs"><i class="fa fa-refresh"></i></a><a href="#" class="class-col btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="" class="class-col-input" style="display: none" /></div>');
                 });
             });
         };
@@ -204,13 +210,20 @@
         });
 
         /**
-         * Insert a class.
+         * Set the custom classes for a column
          */
         rg.$el.on('click', '.class-col', function(e) {
             e.preventDefault();
-            alert('Not implemented yet.');
+            if($(this).siblings('.class-col-input').css('display') == 'none') {
+                $(this).siblings('.class-col-input').show().focus();
+            } else {
+                $(this).siblings('.class-col-input').hide();
+            }
         });
 
+        /**
+         * Set the custom classes for a row
+         */
         rg.$el.on('click', '.class-row', function(e) {
             e.preventDefault();
             if($(this).siblings('.class-row-input').css('display') == 'none') {
