@@ -17,7 +17,14 @@ class Page extends Model
     protected $fillable = [
         'title',
         'template_data',
-        'node_id'
+        'node_id',
+        'meta_keywords',
+        'meta_description',
+        'seo_title',
+        'include_in_sitemap',
+        'robots_index',
+        'robots_follow',
+        'canonical_url'
     ];
 
     public $order_column = "title";
