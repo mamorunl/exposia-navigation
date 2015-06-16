@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-9">
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -9,7 +9,7 @@
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group{!! ($errors->has('name')) ? " has-error" : "" !!}">
                         {!! Form::label('name', trans('exposia-navigation::pages.fields.name')) !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -21,7 +21,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group{!! ($errors->has('slug')) ? " has-error" : "" !!}">
                             {!! Form::label('slug', trans('exposia-navigation::pages.fields.slug')) !!}
                             {!! Form::text('slug', null, ['class' => 'form-control']) !!}
@@ -49,9 +49,29 @@
                 </div>
             </div>
         </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"> <i class="livicon" data-name="map" data-size="14" data-loop="true" data-c="white" data-hc="white"></i>
+                    @lang('exposia-navigation::pages.editor_title')
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-success alert-dismissable visible-xs visible-md">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @lang('exposia-navigation::pages.warning_drag_drop')
+                </div>
+                <div class="row" style="padding:30px;">
+                    <div id="canvas" class="canvas-wrapper">
+                        {!! isset($template_data) ? $template_data : "" !!}
+                    </div>
+                    <input type="hidden" value="" name="serialized_template" id="serialized_template">
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">
@@ -59,9 +79,19 @@
                 </h3>
             </div>
             <div class="panel-body">
+                <div class="form-group{!! ($errors->has('seo_title')) ? " has-error" : "" !!}">
+                    {!! Form::label('seo_title', trans('exposia-navigation::pages.fields.seo_title')) !!}
+                    {!! Form::text('seo_title', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('seo_title'))
+                        <div class="help-block">
+                            {!! $errors->first('seo_title') !!}
+                        </div>
+                    @endif
+                </div>
+
                 <div class="form-group{!! ($errors->has('meta_description')) ? " has-error" : "" !!}">
                     {!! Form::label('meta_description', trans('exposia-navigation::pages.fields.meta_description')) !!}
-                    {!! Form::text('meta_description', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'rows' => 3]) !!}
                     @if($errors->has('meta_description'))
                     <div class="help-block">
                         {!! $errors->first('meta_description') !!}
@@ -78,32 +108,50 @@
                     </div>
                     @endif
                 </div>
+
+                <div class="form-group{!! ($errors->has('include_in_sitemap')) ? " has-error" : "" !!}">
+                    {!! Form::label('include_in_sitemap', trans('exposia-navigation::pages.fields.include_in_sitemap')) !!}
+                    {!! Form::select('include_in_sitemap', [1 => trans('exposia::global.yes'), 0 => trans('exposia::global.no')], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('include_in_sitemap'))
+                    <div class="help-block">
+                        {!! $errors->first('include_in_sitemap') !!}
+                    </div>
+                    @endif
+                </div>
+
+                <div class="form-group{!! ($errors->has('robots_index')) ? " has-error" : "" !!}">
+                    {!! Form::label('robots_index', trans('exposia-navigation::pages.fields.robots_index')) !!}
+                    {!! Form::select('robots_index', ['index' => 'index', 'noindex' => 'noindex'], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('robots_index'))
+                    <div class="help-block">
+                        {!! $errors->first('robots_index') !!}
+                    </div>
+                    @endif
+                </div>
+
+                <div class="form-group{!! ($errors->has('robots_follow')) ? " has-error" : "" !!}">
+                    {!! Form::label('robots_follow', trans('exposia-navigation::pages.fields.robots_follow')) !!}
+                    {!! Form::select('robots_follow', ['follow' => 'follow', 'nofollow' => 'nofollow'], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('robots_follow'))
+                    <div class="help-block">
+                        {!! $errors->first('robots_follow') !!}
+                    </div>
+                    @endif
+                </div>
+
+                <div class="form-group{!! ($errors->has('canonical_url')) ? " has-error" : "" !!}">
+                    {!! Form::label('canonical_url', trans('exposia-navigation::pages.fields.canonical_url')) !!}
+                    {!! Form::text('canonical_url', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('canonical_url'))
+                    <div class="help-block">
+                        {!! $errors->first('canonical_url') !!}
+                    </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<section class="content paddingleft_right15">
-    <div class="alert alert-success alert-dismissable visible-xs visible-md">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        @lang('exposia-navigation::pages.warning_drag_drop')
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title"> <i class="livicon" data-name="map" data-size="14" data-loop="true" data-c="white" data-hc="white"></i>
-                @lang('exposia-navigation::pages.editor_title')
-            </h3>
-        </div>
-        <div class="panel-body">
-            <div class="row" style="padding:30px;">
-                <div id="canvas" class="canvas-wrapper">
-                    {!! isset($template_data) ? $template_data : "" !!}
-                </div>
-                <input type="hidden" value="" name="serialized_template" id="serialized_template">
-            </div>
-        </div>
-    </div>
-</section>
 
 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('exposia::global.save')</button>
 

@@ -177,6 +177,7 @@ class PageRepository extends AbstractRepository
                 $node->save();
 
                 $page = new Page;
+                $page->fill($data);
                 $page->title = $data['title'];
                 $page->node_id = $node->id;
                 $page->template_data = $data['template_data'];
@@ -215,6 +216,7 @@ class PageRepository extends AbstractRepository
                 $node->slug = $data['slug'];
                 $node->save();
 
+                $page->fill($data);
                 $page->title = $data['title'];
                 $page->node_id = $node->id;
                 $page->template_data = $data['template_data'];

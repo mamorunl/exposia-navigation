@@ -96,7 +96,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupViews()
     {
-        $this->loadViewsFrom(realpath(__DIR__ . '/views'), 'exposia-navigation');
+        $this->loadViewsFrom(realpath(__DIR__ . '/resources/views'), 'exposia-navigation');
     }
 
     /**
@@ -104,7 +104,7 @@ class NavigationServiceProvider extends ServiceProvider
      */
     protected function setupTranslationFiles()
     {
-        $this->loadTranslationsFrom(realpath(__DIR__ . '/lang'), 'exposia-navigation');
+        $this->loadTranslationsFrom(realpath(__DIR__ . '/resources/lang'), 'exposia-navigation');
     }
 
     /**
