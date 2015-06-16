@@ -39,7 +39,10 @@
     "psr-4": {
       "App\\": "app/",
       "Exposia\\Navigation\\": "src/"
-    }
+    },
+    "files": [
+      "src/Http/helpers.php"
+    ]
   },
   "autoload-dev": {
     "classmap": [

@@ -12,6 +12,7 @@ use Exposia\Facades\Exposia;
 use Exposia\Navigation\Models\Navigation;
 use Exposia\Navigation\Repositories\NavigationRepository;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
@@ -35,6 +36,8 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->setupExtendBlade();
+
         $this->setupTemplateFinder();
 
         $this->setupTemplateParser();
@@ -52,6 +55,16 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupRoutes();
 
         $this->setupAdminNavigation();
+    }
+
+    protected function setupExtendBlade()
+    {
+        Blade::extend(function($view, $compiler)
+        {
+            $pattern = $compiler->createMatcher('navigation');
+
+            return preg_replace($pattern, '<?php echo get_navigation$2; ?>', $view);
+        });
     }
 
     /**
@@ -115,7 +128,8 @@ class NavigationServiceProvider extends ServiceProvider
     {
         $this->publishes([
             realpath(__DIR__ . '/database/migrations') => $this->app->databasePath() . '/migrations',
-            realpath(__DIR__ . '/assets')              => $this->app->publicPath() . '/backend/assets'
+            realpath(__DIR__ . '/assets')              => $this->app->publicPath() . '/backend/assets',
+            realpath(__DIR__ . '/config/website.php')  => $this->app->configPath() . '/website.php'
         ]);
     }
 
@@ -135,8 +149,10 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function setupAdminNavigation()
     {
-        Exposia::addNavigationNode('navigation', 'admin.navigations.index', trans('exposia-navigation::navigations.menu_title'), 'glyphicon glyphicon-sort');
-        Exposia::addNavigationNode('pages', 'admin.pages.index', trans('exposia-navigation::pages.menu_title'), 'glyphicon glyphicon-blackboard');
+        Exposia::addNavigationNode('navigation', 'admin.navigations.index',
+            trans('exposia-navigation::navigations.menu_title'), 'glyphicon glyphicon-sort');
+        Exposia::addNavigationNode('pages', 'admin.pages.index', trans('exposia-navigation::pages.menu_title'),
+            'glyphicon glyphicon-blackboard');
     }
 
     public function provides()
