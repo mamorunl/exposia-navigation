@@ -18,18 +18,25 @@ return [
 
     'routes' => [
         'admin' => [
-            'page' => [
-                'index' => 'page-editor',
-                'edit' => 'page-editor',
-                'update' => 'page-editor',
-                //'show' => 'page-editor',
-                'create' => 'page-admin',
-                'store' => 'page-admin',
+            'pages'       => [
+                'index'   => 'page-editor',
+                'edit'    => 'page-editor',
+                'update'  => 'page-editor',
+                'create'  => 'page-admin',
+                'store'   => 'page-admin',
                 'destroy' => 'page-admin',
             ],
+            'navigations' => [
+                'index'         => 'page-admin',
+                'show'          => 'page-admin',
+                'edit'          => 'page-admin',
+                'update'        => 'page-admin',
+                'create'        => 'page-admin',
+                'store'         => 'page-admin',
+                'save-sequence' => 'page-admin'
+            ]
         ]
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Roles
@@ -39,13 +46,13 @@ return [
     |
     */
 
-    'roles' => [
-        'page-admin' => [
-            'name' => 'Page admin',
+    'roles'  => [
+        'page-admin'  => [
+            'name'   => 'Page admin',
             'parent' => 'admin',
         ],
         'page-editor' => [
-            'name' => 'Page editor',
+            'name'   => 'Page editor',
             'parent' => 'page-admin',
         ],
     ]

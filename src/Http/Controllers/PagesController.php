@@ -23,6 +23,7 @@ class PagesController extends Controller
     {
         $this->middleware('auth', ['except' => 'show']);
         $this->middleware('role', ['except' => 'show']);
+        parent::__construct();
     }
     /**
      * @return View
