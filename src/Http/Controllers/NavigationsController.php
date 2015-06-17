@@ -8,7 +8,7 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
-use Exposia\Http\Controllers\Controller;
+use Exposia\Http\Controllers\MainController;
 use Exposia\Navigation\Facades\NavigationRepository;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Models\NavigationNode;
@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
-class NavigationsController extends Controller
+class NavigationsController extends MainController
 {
     /**
      * @return \Illuminate\View\View

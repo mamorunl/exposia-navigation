@@ -19,6 +19,11 @@ use Exposia\Navigation\Facades\TemplateFinder;
 
 class PagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'show']);
+        $this->middleware('role', ['except' => 'show']);
+    }
     /**
      * @return View
      */

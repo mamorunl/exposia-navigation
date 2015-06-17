@@ -59,8 +59,7 @@ class NavigationServiceProvider extends ServiceProvider
 
     protected function setupExtendBlade()
     {
-        Blade::extend(function($view, $compiler)
-        {
+        Blade::extend(function ($view, $compiler) {
             $pattern = $compiler->createMatcher('navigation');
 
             return preg_replace($pattern, '<?php echo get_navigation$2; ?>', $view);
@@ -149,10 +148,18 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function setupAdminNavigation()
     {
-        Exposia::addNavigationNode('navigation', 'admin.navigations.index',
-            trans('exposia-navigation::navigations.menu_title'), 'glyphicon glyphicon-sort');
-        Exposia::addNavigationNode('pages', 'admin.pages.index', trans('exposia-navigation::pages.menu_title'),
-            'glyphicon glyphicon-blackboard');
+        Exposia::addNavigationNode([
+            'sefName' => 'navigation',
+            'route'   => 'admin.navigations.index',
+            'name'    => trans('exposia-navigation::navigations.menu_title'),
+            'icon'    => 'glyphicon glyphicon-sort'
+        ]);
+        Exposia::addNavigationNode([
+            'sefName' => 'pages',
+            'route'   => 'admin.pages.index',
+            'name'    => trans('exposia-navigation::pages.menu_title'),
+            'icon'    => 'glyphicon glyphicon-blackboard'
+        ]);
     }
 
     public function provides()
