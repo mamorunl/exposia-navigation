@@ -61,7 +61,7 @@ class NavigationServiceProvider extends ServiceProvider
 
     protected function setupHelpers()
     {
-        include(realpath(__DIR__ . 'Http/helpers.php'));
+        include(realpath(__DIR__ . '/Http/helpers.php'));
     }
 
     protected function setupExtendBlade()
