@@ -36,6 +36,8 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->setupHelpers();
+
         $this->setupExtendBlade();
 
         $this->setupTemplateFinder();
@@ -55,6 +57,11 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupRoutes();
 
         $this->setupAdminNavigation();
+    }
+
+    protected function setupHelpers()
+    {
+        include(realpath(__DIR__ . 'Http/helpers.php'));
     }
 
     protected function setupExtendBlade()

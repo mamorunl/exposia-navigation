@@ -35,9 +35,6 @@
   "autoload": {
     "psr-4": {
       "Exposia\\Navigation\\": "src/"
-    },
-    "files": [
-      "src/Http/helpers.php"
-    ]
+    }
   }
 }
