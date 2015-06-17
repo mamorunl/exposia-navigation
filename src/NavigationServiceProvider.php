@@ -137,7 +137,8 @@ class NavigationServiceProvider extends ServiceProvider
         $this->publishes([
             realpath(__DIR__ . '/database/migrations') => $this->app->databasePath() . '/migrations',
             realpath(__DIR__ . '/assets')              => $this->app->publicPath() . '/backend/assets',
-            realpath(__DIR__ . '/config/website.php')  => $this->app->configPath() . '/website.php'
+            realpath(__DIR__ . '/config/website.php')  => $this->app->configPath() . '/website.php',
+            realpath(__DIR__ . '/config/theme.php')    => $this->app->configPath() . '/theme.php'
         ]);
     }
 
