@@ -93,11 +93,18 @@ class TemplateParser
 
     private function generateRow($row_data)
     {
-        $html = '<div class="row' . ((isset($row_data['class']) && $row_data['class'] != 'NA') ? ' ' . $row_data['class'] : '') . '">';
+        $html = "";
+        if($row_data['has_container'] == "yes") {
+            $html .= '<div class="container">';
+        }
+        $html .= '<div class="row' . ((isset($row_data['class']) && $row_data['class'] != 'NA') ? ' ' . $row_data['class'] : '') . '">';
         foreach ($row_data['columns'] as $col_id => $col_data) {
             $html .= $this->generateCol($col_data);
         }
         $html .= '</div>';
+        if($row_data['has_container'] == "yes") {
+            $html .= '</div>';
+        }
 
         return $html;
     }
@@ -150,19 +157,6 @@ class TemplateParser
         }
 
         return $template;
-        /*$json = TemplateFinderFacade::readConfig($template_name);
-        $fields = '';
-
-        foreach ($json as $xpo_id => $object) {
-            if (class_exists($object->parser)) {
-                $parser = new $object->parser($xpo_id, $object);
-
-                $data_for_xpo_id = $this->getDataForXPOId($xpo_id, $data);
-                $fields .= $parser->parseForDisplay($data_for_xpo_id, $data_for_xpo_id['id']);
-            }
-        }
-
-        return $fields;*/
     }
 
     /**

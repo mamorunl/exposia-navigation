@@ -20,6 +20,7 @@ $(document).ready(function () {
             var subarr = [];
             subarr[0] = $(this).children('.rg-row-controls').find('.class-row-input').val();
             subarr[1] = [];
+            subarr[2] = $(this).children('.rg-row-controls').find('label.active').children('input').val();
             $(this).children('.row-same-height').children('.rg-col').each(function () { // .col-*
                 var class_length = $(this).attr('class').replace("rg-col", "").replace("col-full-height", "").replace("col-xs-height", "").replace("ui-sortable-handle", "").replace("ui-sortable", "");
                 var node = [];

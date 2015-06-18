@@ -80,7 +80,8 @@ class PageRepository extends AbstractRepository
         $parsedForDatabase = [];
         $parsedForDatabase[$key] = [
             "class"   => $row[0],
-            "columns" => []
+            "columns" => [],
+            "has_container" => $row[2]
         ];
         foreach ($row[1] as $col_key => $column) {
             // Column[0] = length

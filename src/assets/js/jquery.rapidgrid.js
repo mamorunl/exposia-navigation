@@ -177,7 +177,8 @@
 
             $('#canvas .rg-row').each(function() {
                 $(this).children('.rg-row-controls').remove();
-                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a><a href="#" class="class-row btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="" class="class-row-input" style="display: none" /></div>');
+                var id= makeid();
+                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a><a href="#" class="class-row btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="" class="class-row-input" style="display: none" /> <div class="btn-group pull-right" data-toggle="buttons"><label class="btn btn-default btn-xs active"><input type="radio" autocomplete="off" checked class="has-container-checkbox" name="check_' + id + '" value="no"/> Container uit</label><label class="btn btn-default btn-xs"><input type="radio" name="check_' + id + '" autocomplete="off" class="has-container-checkbox" value="yes"/> Container aan</label></div></div>');
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
@@ -291,3 +292,14 @@
         return this;
     }
 }(jQuery));
+
+function makeid()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
