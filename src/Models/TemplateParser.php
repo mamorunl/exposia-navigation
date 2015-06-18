@@ -94,7 +94,7 @@ class TemplateParser
     private function generateRow($row_data)
     {
         $html = "";
-        if($row_data['has_container'] == "yes") {
+        if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
             $html .= '<div class="container">';
         }
         $html .= '<div class="row' . ((isset($row_data['class']) && $row_data['class'] != 'NA') ? ' ' . $row_data['class'] : '') . '">';
@@ -102,7 +102,7 @@ class TemplateParser
             $html .= $this->generateCol($col_data);
         }
         $html .= '</div>';
-        if($row_data['has_container'] == "yes") {
+        if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
             $html .= '</div>';
         }
 
