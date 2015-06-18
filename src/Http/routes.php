@@ -6,6 +6,12 @@
  * Time: 14:48
  */
 
+Route::get('/', ['as' => 'base', function () {
+    Session::flash('', ''); // work around laravel bug if there is no session yet
+    Session::reflash();
+    return Redirect::to(Config::get('website.home', '/home'));
+}]);
+
 Route::get('ajax/gettemplate/{name}', function ($name) {
     return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
 });
