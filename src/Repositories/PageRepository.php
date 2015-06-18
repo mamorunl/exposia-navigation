@@ -140,11 +140,12 @@ class PageRepository extends AbstractRepository
                 $html .= '<div class="btn-group"><a title="Add Row -12" class="btn  btn-xs  btn-primary add-12"><span class="fa fa-plus-circle"></span> -12</a><a title="Add Row -8-4" class="btn  btn-xs  btn-primary add-8-4"><span class="fa fa-plus-circle"></span> -8-4</a><a title="Add Row -9-3" class="btn  btn-xs  btn-primary add-9-3"><span class="fa fa-plus-circle"></span> -9-3</a><a title="Add Row -5-2-5" class="btn  btn-xs  btn-primary add-5-2-5"><span class="fa fa-plus-circle"></span> -5-2-5</a><a title="Add Row -6-6" class="btn  btn-xs  btn-primary add-6-6"><span class="fa fa-plus-circle"></span> -6-6</a><a title="Add Row -4-4-4" class="btn  btn-xs  btn-primary add-4-4-4"><span class="fa fa-plus-circle"></span> -4-4-4</a><a title="Add Row -3-3-3-3" class="btn  btn-xs  btn-primary add-3-3-3-3"><span class="fa fa-plus-circle"></span> -3-3-3-3</a><a title="Add Row -2-2-2-2-2-2" class="btn  btn-xs  btn-primary add-2-2-2-2-2-2"><span class="fa fa-plus-circle"></span> -2-2-2-2-2-2</a></div>';
                 $html .= '</div>';
                 $html .= '</div>';
+                $html .= '<div id="cvs_' . str_random(10) . time() . '" class="canvas subcanvas">';
                 foreach ($column['nested_rows'] as $key => $row_data) {
-                    $html .= '<div id="cvs_' . str_random(10) . time() . '" class="canvas subcanvas">';
+
                     $html .= $this->recursiveRenderForEdit($row_data);
-                    $html .= '</div>';
                 }
+                $html .= '</div>';
                 $html .= "</div>";
             }
             $html .= '</div>';
