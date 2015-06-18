@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCMSPagesTable extends Migration {
+class CreateCmsPagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
