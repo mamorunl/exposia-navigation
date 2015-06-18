@@ -25,7 +25,17 @@
             // Add the custom row classes to the input field
             rg.$el.find(".rg-row").each(function() {
                 var $userclasses = $(this).data('userclasses');
+                var $has_container = $(this).data('hascontainer');
                 $(this).children('.rg-row-controls').find('.class-row-input').val($userclasses);
+                if ($has_container == "yes") {
+                    var $labels = $(this).children('.rg-row-controls').find('label.btn');
+                    $labels.removeClass('active');
+                    $labels.each(function() {
+                        if($(this).children('input').val() == "yes") {
+                            $(this).addClass('active');
+                        }
+                    });
+                }
             });
 
             // Add the custom col classes to the input field
