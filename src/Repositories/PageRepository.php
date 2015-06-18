@@ -123,7 +123,7 @@ class PageRepository extends AbstractRepository
      */
     protected function recursiveRenderForEdit($row)
     {
-        $html = '<div class="row rg-row" data-userclasses="' . $row['class'] . '"><div class="row-same-height row-full-height">';
+        $html = '<div class="row rg-row" data-userclasses="' . $row['class'] . '" data-hascontainer="' . $row['has_container'] . '"><div class="row-same-height row-full-height">';
         foreach ($row['columns'] as $column) {
             $classes = $this->getClasses($column['class']);
             $html .= '<div class="' . $classes['class_length'] . ' col-xs-height col-full-height rg-col" data-userclasses="' . $classes['custom_class'] . '">';
