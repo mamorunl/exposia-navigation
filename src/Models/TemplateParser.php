@@ -85,7 +85,17 @@ class TemplateParser
     {
         $html = '';
         foreach ($data as $row => $row_data) {
+            $html .= '<div class="wrapper-for-row' . ((isset($row_data['class']) && $row_data['class'] != 'NA' && strlen(trim($row_data['class'])) > 0) ? ' ' . $row_data['class'] : '') . '">';
+            if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
+                $html .= '<div class="container">';
+            } else {
+                $html .= '<div class="container-fluid">';
+            }
+
             $html .= $this->generateRow($row_data);
+
+            $html .= '</div>';
+            $html .= '</div>';
         }
 
         return $html;
@@ -94,17 +104,12 @@ class TemplateParser
     private function generateRow($row_data)
     {
         $html = "";
-        if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
-            $html .= '<div class="container">';
-        }
-        $html .= '<div class="row' . ((isset($row_data['class']) && $row_data['class'] != 'NA') ? ' ' . $row_data['class'] : '') . '">';
+
+        $html .= '<div class="row">';
         foreach ($row_data['columns'] as $col_id => $col_data) {
             $html .= $this->generateCol($col_data);
         }
         $html .= '</div>';
-        if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
-            $html .= '</div>';
-        }
 
         return $html;
     }
