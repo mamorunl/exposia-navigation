@@ -186,9 +186,17 @@
             });
 
             $('#canvas .rg-row').each(function() {
-                $(this).children('.rg-row-controls').remove();
+                var $existingrgcontrols = $(this).children('.rg-row-controls');
+                $old_container = "no";
+                if($existingrgcontrols.length) {
+                    var $old_class = $existingrgcontrols.find('.class-row-input').first().val();
+                    var $old_container = $existingrgcontrols.find('.btn.active').children('input').val();
+                    $existingrgcontrols.remove();
+                }
+
                 var id= makeid();
-                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a><a href="#" class="class-row btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="" class="class-row-input" style="display: none" /> <div class="btn-group pull-right" data-toggle="buttons"><label class="btn btn-default btn-xs active"><input type="radio" autocomplete="off" checked class="has-container-checkbox" name="check_' + id + '" value="no"/> Container uit</label><label class="btn btn-default btn-xs"><input type="radio" name="check_' + id + '" autocomplete="off" class="has-container-checkbox" value="yes"/> Container aan</label></div></div>');
+                var $container = '<div class="btn-group pull-right" data-toggle="buttons"><label class="btn btn-default btn-xs' + ($old_container == "no" ? ' active' : '') + '"><input type="radio" autocomplete="off" checked class="has-container-checkbox" name="check_' + id + '" value="no"/> Container uit</label><label class="btn btn-default btn-xs' + ($old_container == "yes" ? ' active' : '') + '"><input type="radio" name="check_' + id + '" autocomplete="off" class="has-container-checkbox" value="yes"/> Container aan</label></div>';
+                $(this).prepend('<div class="rg-row-controls btn-group pull-right"><a href="#" class="move-row btn btn-default btn-xs"><i class="fa fa-arrows-v"></i></a><a href="#" class="remove-row btn btn-default btn-xs"><i class="fa fa-trash-o"></i></a><a href="#" class="class-row btn btn-default btn-xs"><i class="fa fa-code"></i></a> <input type="text" value="' + $old_class + '" class="class-row-input" style="display: none" /> ' + $container + '</div>');
 
                 $(this).find('.rg-col').children('.rg-col-controls').remove();
                 $(this).find('.rg-col').each(function() {
