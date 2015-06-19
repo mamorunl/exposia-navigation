@@ -1,9 +1,0 @@
-suites:
-    main:
-        namespace: Exposia\Navigation
-        psr4_prefix: Exposia\Navigation
-        src_path: src
-        spec_path: src/spec
-
-extensions:
-  - PhpSpec\Laravel\Extension\laravelExtension

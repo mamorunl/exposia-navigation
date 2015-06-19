@@ -198,9 +198,11 @@
             });
         });
     </script>
+    <script src="{{ asset('backend/assets/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
 @stop
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('backend/assets/css/rapidgrid.css') }}"/>
     <script src="/backend/assets/vendor/tinymce/tinymce.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap-select/css/bootstrap-select.min.css') }}"/>
 @stop
