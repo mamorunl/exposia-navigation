@@ -86,7 +86,7 @@ class TemplateParser
         $html = '';
         foreach ($data as $row => $row_data) {
             $html .= '<div class="wrapper-for-row' . ((isset($row_data['class']) && $row_data['class'] != 'NA' && strlen(trim($row_data['class'])) > 0) ? ' ' . $row_data['class'] : '') . '">';
-            if(isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
+            if (isset($row_data['has_container']) && $row_data['has_container'] == "yes") {
                 $html .= '<div class="container">';
             } else {
                 $html .= '<div class="container-fluid">';
@@ -101,6 +101,13 @@ class TemplateParser
         return $html;
     }
 
+    /**
+     * Generate a new flexbox row
+     *
+     * @param $row_data
+     *
+     * @return string
+     */
     private function generateRow($row_data)
     {
         $html = "";
@@ -114,6 +121,13 @@ class TemplateParser
         return $html;
     }
 
+    /**
+     * Generate a new flexbox column
+     *
+     * @param $col_data
+     *
+     * @return string
+     */
     private function generateCol($col_data)
     {
         $html = '<div class="' . str_replace("  ", " ", $col_data['class']) . '">';
