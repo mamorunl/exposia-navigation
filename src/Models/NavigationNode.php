@@ -35,4 +35,9 @@ class NavigationNode extends Model
     {
         return $this->children($navigation_id);
     }
+
+    public function navigation()
+    {
+        return $this->belongsToMany('\Exposia\Navigation\Models\Navigation', 'cms_navigation_navigation_nodes');
+    }
 }

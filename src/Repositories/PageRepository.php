@@ -250,12 +250,17 @@ class PageRepository extends AbstractRepository
      * navigations.show page
      *
      * @param int $limit
+     * @param     $navigation_id
      *
      * @return mixed
      */
-    public function listForNavigation($limit = 5)
+    public function listForNavigation($limit = 5, $navigation_id)
     {
-        return $this->model->limit($limit)->get();
+        $pages = $this->model->whereHas('node.navigation', function($q) use ($navigation_id) {
+            $q->where('navigation_id', $navigation_id);
+        })->limit($limit)->lists('id');
+
+        return $this->model->whereNotIn('id', $pages)->get();
     }
 
     /**
