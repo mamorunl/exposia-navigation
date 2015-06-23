@@ -55,7 +55,7 @@ class TemplateFinder
      */
     public function getMainTemplates()
     {
-        $files = File::files($this->base_dir);
+        $files = File::files($this->templates_dir);
         foreach ($files as &$file) {
             $file_array = explode("/", $file);
             $file_piece = end($file_array);
