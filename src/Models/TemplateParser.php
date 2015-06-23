@@ -3,6 +3,7 @@
 namespace Exposia\Navigation\Models;
 
 use Exposia\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
+use Illuminate\Support\Facades\Blade;
 
 class TemplateParser
 {
@@ -98,7 +99,15 @@ class TemplateParser
             $html .= '</div>';
         }
 
-        return $html;
+        $dir = storage_path() . "/exposia/" . md5($html);
+
+        file_put_contents($dir, $html);
+
+        Blade::compile($dir);
+
+        unlink($dir);
+
+        return Blade::getCompiledPath(Blade::getPath()); //$html;
     }
 
     /**
