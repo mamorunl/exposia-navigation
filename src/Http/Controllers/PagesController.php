@@ -132,6 +132,6 @@ class PagesController extends Controller
             \App::abort(404);
         }
 
-        return view('pages.index', compact("page", "template"));
+        return view('pages.' . $page->main_template, compact("page", "template"));
     }
 }
