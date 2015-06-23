@@ -154,7 +154,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    @lang('exposia-navigation::pages.advanced_settings')
+                    @lang('exposia-navigation::pages.craete.advanced_settings')
                 </h3>
             </div>
 

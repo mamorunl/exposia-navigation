@@ -23,12 +23,14 @@ return [
         'include_in_sitemap' => 'In sitemap opnemen',
         'robots_index'       => 'Robots index',
         'robots_follow'      => 'Robots follow',
-        'canonical_url'      => 'Canonische URL'
+        'canonical_url'      => 'Canonische URL',
+        'main_template'      => 'Hoofdtemplate'
     ],
     'create'       => [
-        'title'         => 'Pagina aanmaken',
-        'page_settings' => 'Pagina-instellingen',
-        'seo_settings'  => 'SEO-instellingen'
+        'title'             => 'Pagina aanmaken',
+        'page_settings'     => 'Pagina-instellingen',
+        'seo_settings'      => 'SEO-instellingen',
+        'advanced_settings' => 'Geavanceerde instellingen'
     ],
     'edit'         => [
         'title' => 'Pagina bewerken'
