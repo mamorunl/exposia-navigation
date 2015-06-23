@@ -144,6 +144,13 @@ class PagesController extends Controller
             ->with('error', 'Error while updating page');
     }
 
+    /**
+     * Destroy a page
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
     public function destroy($id)
     {
         try {
