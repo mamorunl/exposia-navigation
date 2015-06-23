@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Models;
 
+use Exposia\Navigation\Exceptions\LanguageNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
@@ -37,5 +38,10 @@ class Page extends Model
     public function node()
     {
         return $this->belongsTo('Exposia\Navigation\Models\NavigationNode');
+    }
+
+    public function getTranslation($language)
+    {
+        throw new LanguageNotFoundException;
     }
 }
