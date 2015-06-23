@@ -161,7 +161,7 @@
             <div class="panel-body">
                 <div class="form-group{!! ($errors->has('main_template')) ? " has-error" : "" !!}">
                     {!! Form::label('main_template', trans('exposia-navigation::pages.fields.main_template')) !!}
-                    {!! Form::select('main_template', $main_templates, 'index', ['class' => 'form-control']) !!}
+                    {!! Form::select('main_template', $main_templates, (isset($page) ? $page->main_template : 'index'), ['class' => 'form-control']) !!}
                     @if($errors->has('main_template'))
                     <div class="help-block">
                         {!! $errors->first('main_template') !!}
