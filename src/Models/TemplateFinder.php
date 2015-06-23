@@ -56,13 +56,14 @@ class TemplateFinder
     public function getMainTemplates()
     {
         $files = File::files($this->templates_dir);
-        foreach ($files as &$file) {
+        foreach ($files as $file) {
             $file_array = explode("/", $file);
             $file_piece = end($file_array);
             $file = str_replace(".blade.php", "", $file_piece);
+            $files_array[$file] = $file;
         }
 
-        return $files;
+        return $files_array;
     }
 
     /**
