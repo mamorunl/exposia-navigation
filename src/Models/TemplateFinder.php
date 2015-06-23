@@ -8,14 +8,16 @@
 
 namespace Exposia\Navigation\Models;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository;
 use Exposia\Navigation\Exceptions\TemplateNotFoundException;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\File;
 
 class TemplateFinder
 {
 
     protected $templates_dir;
+    protected $base_dir;
 
     private $config;
     private $files;
@@ -26,6 +28,7 @@ class TemplateFinder
         $this->files = $files;
 
         $views_dir = $this->config->get('view.paths');
+        $this->base_dir = $views_dir[0] . "/" . $this->config->get('theme.name');
         $this->templates_dir = $views_dir[0] . "/" . $this->config->get('theme.name') . "/pages";
     }
 
@@ -44,6 +47,22 @@ class TemplateFinder
         }
 
         return $templates;
+    }
+
+    /**
+     * Returns the main templates
+     * @return mixed
+     */
+    public function getMainTemplates()
+    {
+        $files = File::files($this->base_dir);
+        foreach ($files as &$file) {
+            $file_array = explode("/", $file);
+            $file_piece = end($file_array);
+            $file = str_replace(".blade.php", "", $file_piece);
+        }
+
+        return $files;
     }
 
     /**
@@ -70,7 +89,7 @@ class TemplateFinder
      */
     public function readTemplate($template_name)
     {
-        if(!$this->templateExists($template_name)) {
+        if (!$this->templateExists($template_name)) {
             throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 
@@ -85,7 +104,7 @@ class TemplateFinder
      */
     public function readConfig($template_name)
     {
-        if(!$this->templateExists($template_name)) {
+        if (!$this->templateExists($template_name)) {
             throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 

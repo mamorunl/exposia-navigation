@@ -25,7 +25,8 @@ class Page extends Model
         'include_in_sitemap',
         'robots_index',
         'robots_follow',
-        'canonical_url'
+        'canonical_url',
+        'main_template'
     ];
 
     public $order_column = "title";

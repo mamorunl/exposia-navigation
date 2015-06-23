@@ -84,10 +84,11 @@ class PagesController extends Controller
         $page->slug = $page->node->slug;
 
         $templates = TemplateFinder::getTemplates();
+        $main_templates = TemplateFinder::getMainTemplates();
 
         $template_data = PageRepository::renderForEdit($page);
 
-        return view('exposia-navigation::pages.edit', compact("page", "templates", "template_data"));
+        return view('exposia-navigation::pages.edit', compact("page", "templates", "template_data", "main_templates"));
     }
 
     /**
