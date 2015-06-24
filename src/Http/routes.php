@@ -6,11 +6,15 @@
  * Time: 14:48
  */
 
-Route::get('/', ['as' => 'base', function () {
-    Session::flash('', ''); // work around laravel bug if there is no session yet
-    Session::reflash();
-    return Redirect::to(Config::get('website.home', '/home'));
-}]);
+Route::get('/', [
+    'as' => 'base',
+    function () {
+        Session::flash('', ''); // work around laravel bug if there is no session yet
+        Session::reflash();
+
+        return Redirect::to(Config::get('website.home', '/home'));
+    }
+]);
 
 Route::get('ajax/gettemplate/{name}', function ($name) {
     return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
@@ -24,6 +28,12 @@ Route::get('{slug}', [
 Route::group(['prefix' => 'admin'], function () {
     Route::post('navigations/{id}/format',
         ['as' => 'admin.navigations.save-sequence', 'uses' => 'NavigationsController@saveSequence']);
+
+    Route::get('pages/{id}/{language}/edit', [
+        'as'   => 'admin.languages.edit',
+        'uses' => 'PageTranslationsController@edit'
+    ]);
+
     Route::resource('pages', 'PagesController', ['except' => 'show']);
     Route::resource('navigations', 'NavigationsController');
 });

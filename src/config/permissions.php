@@ -34,6 +34,9 @@ return [
                 'create'        => 'page-admin',
                 'store'         => 'page-admin',
                 'save-sequence' => 'page-admin'
+            ],
+            'languages'   => [
+                'edit' => 'translator'
             ]
         ]
     ],
@@ -55,5 +58,9 @@ return [
             'name'   => 'Page editor',
             'parent' => 'page-admin',
         ],
+        'translator'  => [
+            'name'   => 'Translator',
+            'parent' => 'page-admin'
+        ]
     ]
 ];

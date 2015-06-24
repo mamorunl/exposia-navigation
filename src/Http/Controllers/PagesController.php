@@ -9,8 +9,10 @@
 namespace Exposia\Navigation\Http\Controllers;
 
 use Exposia\Http\Controllers\Controller;
+use Exposia\Navigation\Exceptions\LanguageNotFoundException;
 use Exposia\Navigation\Facades\TemplateParser;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
@@ -25,14 +27,16 @@ class PagesController extends Controller
         $this->middleware('role', ['except' => 'show']);
         parent::__construct();
     }
+
     /**
      * @return View
      */
     public function create()
     {
         $templates = TemplateFinder::getTemplates();
+        $main_templates = TemplateFinder::getMainTemplates();
 
-        return view('exposia-navigation::pages.create', compact('templates'));
+        return view('exposia-navigation::pages.create', compact('templates', 'main_templates'));
     }
 
 
@@ -44,7 +48,19 @@ class PagesController extends Controller
     {
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeCreate($template_array);
-        $data = Input::only(['title', 'name', 'slug', 'meta_description', 'meta_keywords', 'seo_title', 'robots_follow', 'robots_index', 'canonical_url', 'include_in_sitemap']);
+        $data = Input::only([
+            'title',
+            'name',
+            'slug',
+            'meta_description',
+            'meta_keywords',
+            'seo_title',
+            'robots_follow',
+            'robots_index',
+            'canonical_url',
+            'include_in_sitemap',
+            'main_template'
+        ]);
         $data = $data + ['template_data' => $json_parsed_data];
 
         $page = PageRepository::create($data);
@@ -84,10 +100,11 @@ class PagesController extends Controller
         $page->slug = $page->node->slug;
 
         $templates = TemplateFinder::getTemplates();
+        $main_templates = TemplateFinder::getMainTemplates();
 
         $template_data = PageRepository::renderForEdit($page);
 
-        return view('exposia-navigation::pages.edit', compact("page", "templates", "template_data"));
+        return view('exposia-navigation::pages.edit', compact("page", "templates", "template_data", "main_templates"));
     }
 
     /**
@@ -102,7 +119,19 @@ class PagesController extends Controller
         PageRepository::find($id);
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeUpdate($template_array);
-        $data = Input::only(['title', 'name', 'slug', 'meta_description', 'meta_keywords', 'seo_title', 'robots_follow', 'robots_index', 'canonical_url', 'include_in_sitemap']);
+        $data = Input::only([
+            'title',
+            'name',
+            'slug',
+            'meta_description',
+            'meta_keywords',
+            'seo_title',
+            'robots_follow',
+            'robots_index',
+            'canonical_url',
+            'include_in_sitemap',
+            'main_template'
+        ]);
         $data = $data + ['template_data' => $json_parsed_data];
 
         if (PageRepository::update($id, $data)) {
@@ -113,6 +142,42 @@ class PagesController extends Controller
         return Redirect::back()
             ->withInput()
             ->with('error', 'Error while updating page');
+    }
+
+    /**
+     * Destroy a page
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        try {
+            $page = PageRepository::find($id);
+            if (!isset($page)) {
+                return Redirect::back();
+            }
+
+            // Get translations
+            foreach (Config::get('website.languages') as $key => $language) {
+                try {
+                    $lang = $page->getTranslation($key);
+                } catch (LanguageNotFoundException $e) {
+                    continue;
+                }
+
+                $lang->node->delete();
+                $lang->delete();
+            }
+
+            $page->node->delete();
+            $page->delete();
+        } catch (ModelNotFoundException $e) {
+            \App::abort(404);
+        }
+
+        return Redirect::back();
     }
 
     /**
@@ -131,6 +196,7 @@ class PagesController extends Controller
             \App::abort(404);
         }
 
-        return view('pages.index', compact("page", "template"));
+        return view('pages.' . (isset($page->main_template) && strlen($page->main_template) > 0 ? $page->main_template : 'index'),
+            compact("page", "template"));
     }
 }
