@@ -24,8 +24,11 @@
         },
         link_class_list: [
             {title: 'Geen', value: ''},
+            {title: 'Knop (default)', value: 'btn btn-default'},
             {title: 'Knop (primary)', value: 'btn btn-primary'},
-            {title: 'Knop (warning)', value: 'btn btn-warning'}
+            {title: 'Knop (info)', value: 'btn btn-info'},
+            {title: 'Knop (warning)', value: 'btn btn-warning'},
+            {title: 'Knop (danger)', value: 'btn btn-danger'}
         ]
     });
 </script>
