@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Facades\TemplateFinder;
+use InvalidArgumentException;
 
 class PagesController extends Controller
 {
@@ -196,7 +197,12 @@ class PagesController extends Controller
             \App::abort(404);
         }
 
-        return view('pages.' . (isset($page->main_template) && strlen($page->main_template) > 0 ? $page->main_template : 'index'),
-            compact("page", "template"));
+        try {
+            return view('pages.' . (isset($page->main_template) && strlen($page->main_template) > 0 ? $page->main_template : 'index'),
+                compact("page", "template"));
+        } catch(InvalidArgumentException $e) {
+            \App::abort(404);
+        }
+
     }
 }
