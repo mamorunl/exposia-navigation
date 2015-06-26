@@ -14,6 +14,7 @@ use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Facades\TemplateFinder;
 use Exposia\Navigation\Facades\TranslationRepository;
 use Exposia\Navigation\Models\Page;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
@@ -27,7 +28,10 @@ class PageTranslationsController extends MainController
      */
     public function edit($id, $language)
     {
-        // @TODO check if language is defined in the config
+        if(!Config::has('website.languages.' . $language)) {
+            \App::abort(500);
+        }
+
         $page = PageRepository::find($id);
         $page->name = $page->node->name;
         $page->slug = $page->node->slug;
