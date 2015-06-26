@@ -33,7 +33,11 @@ class PageTranslationsController extends MainController
         $page->slug = $page->node->slug;
 
         try {
+            $page_id = $page->id;
             $translation = $page->getTranslation($language);
+            $page = $translation->page;
+            $page->name = $page->node->name;
+            $page->slug = $page->node->slug;
 
             $templates = TemplateFinder::getTemplates();
 
@@ -42,7 +46,7 @@ class PageTranslationsController extends MainController
             $main_templates = TemplateFinder::getMainTemplates();
 
             return view('exposia-navigation::translations.edit',
-                compact("page", "translation", "templates", "template_data", "main_templates"));
+                compact("page", "language", "templates", "template_data", "main_templates", "page_id"));
         } catch (LanguageNotFoundException $e) {
             return $this->create($page, $language);
         }
@@ -60,8 +64,10 @@ class PageTranslationsController extends MainController
 
         $template_data = PageRepository::renderForEdit($page);
 
+        $page_id = $page->id;
+
         return view('exposia-navigation::translations.create',
-            compact("page", "language", "templates", "template_data"));
+            compact("page", "language", "templates", "template_data", "page_id"));
     }
 
     /**
@@ -75,7 +81,19 @@ class PageTranslationsController extends MainController
         $page = PageRepository::find($id);
         try {
             $translation = $page->getTranslation($language);
+
+            $data = $this->getData();
+
+            if (TranslationRepository::update($data, $translation->page, $language)) {
+                return Redirect::back()
+                    ->with('success', 'Page updated');
+            }
+
+            return Redirect::back()
+                ->withInput()
+                ->with('error', 'Page updating failed');
         } catch (LanguageNotFoundException $e) {
+
             return $this->store($page, $language);
         }
     }
@@ -88,9 +106,7 @@ class PageTranslationsController extends MainController
      */
     public function store(Page $page, $language)
     {
-        $template_array = json_decode(Input::get('serialized_template'));
-        $json_parsed_data = PageRepository::beforeUpdate($template_array);
-        $data = Input::only(PageRepository::getFields()) + ['template_data' => $json_parsed_data];
+        $data = $this->getData();
 
         if (TranslationRepository::store($data, $page, $language)) {
             return Redirect::back()
@@ -100,5 +116,13 @@ class PageTranslationsController extends MainController
         return Redirect::back()
             ->withInput()
             ->with('error', 'Page could not be updated');
+    }
+
+    private function getData()
+    {
+        $template_array = json_decode(Input::get('serialized_template'));
+        $json_parsed_data = PageRepository::beforeUpdate($template_array);
+
+        return Input::only(PageRepository::getFields()) + ['template_data' => $json_parsed_data];
     }
 }

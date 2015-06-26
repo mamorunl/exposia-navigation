@@ -9,13 +9,16 @@
 namespace Exposia\Navigation\Repositories;
 
 use Exposia\Navigation\Models\NavigationNode;
+use Exposia\Navigation\Models\NavigationNodeTranslation;
 use Exposia\Navigation\Models\Page;
 use Exposia\Repositories\AbstractRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Exposia\Navigation\Facades\TemplateParser;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository
@@ -79,8 +82,8 @@ class PageRepository extends AbstractRepository
     {
         $parsedForDatabase = [];
         $parsedForDatabase[$key] = [
-            "class"   => $row[0],
-            "columns" => [],
+            "class"         => $row[0],
+            "columns"       => [],
             "has_container" => $row[2]
         ];
         foreach ($row[1] as $col_key => $column) {
@@ -240,7 +243,11 @@ class PageRepository extends AbstractRepository
      */
     public function findBySlug($slug)
     {
-        $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+        if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
+            $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language', Session::get('exposia_language'))->firstOrFail();
+        } else {
+            $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+        }
 
         return $node->page;
     }
@@ -256,7 +263,7 @@ class PageRepository extends AbstractRepository
      */
     public function listForNavigation($limit = 5, $navigation_id)
     {
-        $pages = $this->model->whereHas('node.navigation', function($q) use ($navigation_id) {
+        $pages = $this->model->whereHas('node.navigation', function ($q) use ($navigation_id) {
             $q->where('navigation_id', $navigation_id);
         })->limit($limit)->lists('id');
 

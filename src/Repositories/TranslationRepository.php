@@ -26,7 +26,6 @@ class TranslationRepository extends AbstractRepository
         } catch (ModelNotFoundException $e) {
             DB::transaction(function () use ($page, $data, $language) {
                 $node = new NavigationNodeTranslation();
-//                $node = $page->node;
                 $node->name = $data['name'];
                 $node->slug = $data['slug'];
                 $node->language = $language;
@@ -37,6 +36,30 @@ class TranslationRepository extends AbstractRepository
                 $pageTranslation->fill($data);
                 $pageTranslation->title = $data['title'];
                 $pageTranslation->node_id = $node->id;
+                $pageTranslation->template_data = $data['template_data'];
+                $pageTranslation->save();
+            });
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function update(array $data, PageTranslation $page, $language)
+    {
+        try {
+            NavigationNode::where('slug', $data['slug'])->where('id', '!=', $page->node->mainNode->id)->firstOrFail(); // @TODO fix this.. don't even know what this is
+        } catch (ModelNotFoundException $e) {
+            DB::transaction(function () use ($page, $data, $language) {
+                $node = $page->node;
+                $node->name = $data['name'];
+                $node->slug = $data['slug'];
+                $node->save();
+
+                $pageTranslation = $page;
+                $pageTranslation->fill($data);
+                $pageTranslation->title = $data['title'];
                 $pageTranslation->template_data = $data['template_data'];
                 $pageTranslation->save();
             });

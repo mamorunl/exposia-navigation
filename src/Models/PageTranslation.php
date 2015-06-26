@@ -30,4 +30,9 @@ class PageTranslation extends Model {
 
     public $order_column = "title";
     public $order_direction = "asc";
+
+    public function node()
+    {
+        return $this->belongsTo('Exposia\Navigation\Models\NavigationNodeTranslation');
+    }
 }
