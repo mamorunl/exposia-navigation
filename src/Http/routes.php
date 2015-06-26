@@ -16,6 +16,11 @@ Route::get('/', [
     }
 ]);
 
+Route::get('/locale/{language}/update', [
+    'as'   => 'admin.pages.update_lang',
+    'uses' => 'PagesController@updateActiveLanguage'
+]);
+
 Route::get('ajax/gettemplate/{name}', function ($name) {
     return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
 });

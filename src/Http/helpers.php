@@ -9,6 +9,8 @@
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
+ * Get the title for use in the <title> tag
+ *
  * @param        $page
  * @param string $separator
  * @param string $align
@@ -32,11 +34,48 @@ function get_title($page, $separator = "-", $align = "right")
     return Config::get('website.name') . " " . $separator . " " . $page_title;
 }
 
-function get_navigation($name, $view = "vendor/navigation") {
+/**
+ * Get the navigation tree for the $name navigation
+ *
+ * @param        $name
+ * @param string $view
+ *
+ * @return \Illuminate\View\View|string
+ */
+function get_navigation($name, $view = 'vendor/navigation')
+{
     try {
         $nav = \Exposia\Navigation\Models\Navigation::where('name', $name)->firstOrFail();
+
         return view($view, ['navigation' => $nav]);
-    } catch(ModelNotFoundException $e) {
+    } catch (ModelNotFoundException $e) {
         return "";
     }
+}
+
+/**
+ * Get a field from the current active language
+ *
+ * @param string $field
+ *
+ * @return mixed|string
+ */
+function get_current_language($field = 'name')
+{
+    $language = Config::get('app.locale');
+    if (\Illuminate\Support\Facades\Session::has('exposia_language')) {
+        $language = \Illuminate\Support\Facades\Session::get('exposia_language');
+    }
+
+    if ($field == 'abbr' || $field == 'abbreviation') {
+        return $language;
+    }
+
+    if (\Illuminate\Support\Facades\Config::has('website.languages.' . $language)) {
+        $language_array = \Illuminate\Support\Facades\Config::get('website.languages.' . $language);
+
+        return $language_array[$field];
+    }
+
+    return "";
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Facades\TemplateFinder;
@@ -24,8 +25,8 @@ class PagesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'show']);
-        $this->middleware('role', ['except' => 'show']);
+        $this->middleware('auth', ['except' => ['show', 'updateActiveLanguage']]);
+        $this->middleware('role', ['except' => ['show', 'updateActiveLanguage']]);
         parent::__construct();
     }
 
@@ -180,5 +181,14 @@ class PagesController extends Controller
             \App::abort(404);
         }
 
+    }
+
+    public function updateActiveLanguage($language)
+    {
+        if(Config::has('website.languages.' . $language)) {
+            Session::put('exposia_language', $language);
+        }
+
+        return Redirect::back();
     }
 }
