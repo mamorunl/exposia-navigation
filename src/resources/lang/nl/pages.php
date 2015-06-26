@@ -33,11 +33,12 @@ return [
         'advanced_settings' => 'Geavanceerde instellingen'
     ],
     'edit'         => [
-        'title' => 'Pagina bewerken'
+        'title' => 'Pagina bewerken',
     ],
     'index'        => [
-        'title'     => 'Alle pagina\'s',
-        'last_edit' => 'Laatste aanpassing'
+        'title'         => 'Alle pagina\'s',
+        'last_edit'     => 'Laatste aanpassing',
+        'edit_language' => 'Vertaling wijzigen'
     ],
     'editor_title' => 'Pagina opbouwen'
 ];
