@@ -64,7 +64,7 @@ class PlainTextParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'content' => (isset($default['content']) ? $default['content'] : '')
+            'content' => (isset($default['content']) ? trim($default['content']) : '')
         ];
     }
 }

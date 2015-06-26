@@ -11,6 +11,7 @@ namespace Exposia\Navigation;
 use Exposia\Facades\Exposia;
 use Exposia\Navigation\Models\Navigation;
 use Exposia\Navigation\Repositories\NavigationRepository;
+use Exposia\Navigation\Repositories\TranslationRepository;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +19,7 @@ use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
 use Exposia\Navigation\Models\TemplateParser;
 use Exposia\Navigation\Repositories\PageRepository;
+use Exposia\Navigation\Models\PageTranslation;
 
 class NavigationServiceProvider extends ServiceProvider
 {
@@ -49,6 +51,8 @@ class NavigationServiceProvider extends ServiceProvider
         $this->setupPageRepository();
 
         $this->setupNavigationRepository();
+
+        $this->setupTranslationRepository();
 
         $this->setupViews();
 
@@ -109,6 +113,13 @@ class NavigationServiceProvider extends ServiceProvider
     {
         $this->app->singleton('Exposia\Navigation\Repositories\NavigationRepository', function ($app) {
             return new NavigationRepository(new Navigation);
+        });
+    }
+
+    protected function setupTranslationRepository()
+    {
+        $this->app->singleton('Exposia\Navigation\Repositories\TranslationRepository', function($app) {
+            return new TranslationRepository(new PageTranslation);
         });
     }
 

@@ -6,11 +6,26 @@
  * Time: 15:46
  */
 
-namespace Models;
-
+namespace Exposia\Navigation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NavigationNodeTranslation extends Model {
+class NavigationNodeTranslation extends Model
+{
+    protected $table = 'cms_node_translations';
+    protected $fillable = [
+        'name',
+        'slug',
+        'language',
+        'navigation_node_id'
+    ];
 
+    public function page() {
+        return $this->hasOne('Exposia\Navigation\Models\PageTranslation', 'node_id');
+    }
+
+    public function mainNode()
+    {
+        return $this->belongsTo('Exposia\Navigation\Models\NavigationNode', 'navigation_node_id');
+    }
 }

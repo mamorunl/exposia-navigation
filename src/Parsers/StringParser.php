@@ -56,7 +56,7 @@ class StringParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'value' => (isset($default['value']) ? $default['value'] : "")
+            'value' => (isset($default['value']) ? trim($default['value']) : "")
         ];
     }
 }

@@ -18,7 +18,7 @@ return [
 
     'routes' => [
         'admin' => [
-            'pages'       => [
+            'pages'        => [
                 'index'   => 'page-editor',
                 'edit'    => 'page-editor',
                 'update'  => 'page-editor',
@@ -26,7 +26,7 @@ return [
                 'store'   => 'page-admin',
                 'destroy' => 'page-admin',
             ],
-            'navigations' => [
+            'navigations'  => [
                 'index'         => 'page-admin',
                 'show'          => 'page-admin',
                 'edit'          => 'page-admin',
@@ -35,8 +35,9 @@ return [
                 'store'         => 'page-admin',
                 'save-sequence' => 'page-admin'
             ],
-            'languages'   => [
-                'edit' => 'translator'
+            'translations' => [
+                'edit'   => 'translator',
+                'update' => 'translator'
             ]
         ]
     ],

@@ -277,4 +277,21 @@ class PageRepository extends AbstractRepository
 
         return ['class_length' => $classes_only_result, 'custom_class' => $classes_without_result];
     }
+
+    public function getFields()
+    {
+        return [
+            'title',
+            'name',
+            'slug',
+            'meta_description',
+            'meta_keywords',
+            'seo_title',
+            'robots_follow',
+            'robots_index',
+            'canonical_url',
+            'include_in_sitemap',
+            'main_template'
+        ];
+    }
 }

@@ -9,6 +9,7 @@
 namespace Exposia\Navigation\Models;
 
 use Exposia\Navigation\Exceptions\LanguageNotFoundException;
+use Exposia\Navigation\Facades\TranslationRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
@@ -43,6 +44,10 @@ class Page extends Model
 
     public function getTranslation($language)
     {
-        throw new LanguageNotFoundException;
+        try {
+            return TranslationRepository::findTranslationForPage($this->id, $language);
+        } catch (LanguageNotFoundException $e) {
+            throw new LanguageNotFoundException;
+        }
     }
 }

@@ -6,7 +6,7 @@
  * Time: 15:23
  */
 
-namespace Models;
+namespace Exposia\Navigation\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,8 @@ class PageTranslation extends Model {
         'include_in_sitemap',
         'robots_index',
         'robots_follow',
-        'canonical_url'
+        'canonical_url',
+        'language'
     ];
 
     public $order_column = "title";

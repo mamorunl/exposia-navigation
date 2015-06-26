@@ -36,7 +36,8 @@ return [
         'title' => 'Pagina bewerken'
     ],
     'index'        => [
-        'title' => 'Alle pagina\'s'
+        'title'     => 'Alle pagina\'s',
+        'last_edit' => 'Laatste aanpassing'
     ],
     'editor_title' => 'Pagina opbouwen'
 ];

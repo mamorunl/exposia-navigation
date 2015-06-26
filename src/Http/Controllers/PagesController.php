@@ -49,25 +49,13 @@ class PagesController extends Controller
     {
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeCreate($template_array);
-        $data = Input::only([
-            'title',
-            'name',
-            'slug',
-            'meta_description',
-            'meta_keywords',
-            'seo_title',
-            'robots_follow',
-            'robots_index',
-            'canonical_url',
-            'include_in_sitemap',
-            'main_template'
-        ]);
+        $data = Input::only(PageRepository::getFields());
         $data = $data + ['template_data' => $json_parsed_data];
 
         $page = PageRepository::create($data);
 
         if ($page) {
-            return Redirect::route('admin.pages.index')
+            return Redirect::route('admin.pages.edit', $page->id)
                 ->with('success', 'Page saved');
         }
 
@@ -120,23 +108,11 @@ class PagesController extends Controller
         PageRepository::find($id);
         $template_array = json_decode(Input::get('serialized_template'));
         $json_parsed_data = PageRepository::beforeUpdate($template_array);
-        $data = Input::only([
-            'title',
-            'name',
-            'slug',
-            'meta_description',
-            'meta_keywords',
-            'seo_title',
-            'robots_follow',
-            'robots_index',
-            'canonical_url',
-            'include_in_sitemap',
-            'main_template'
-        ]);
+        $data = Input::only(PageRepository::getFields());
         $data = $data + ['template_data' => $json_parsed_data];
 
         if (PageRepository::update($id, $data)) {
-            return Redirect::route('admin.pages.index')
+            return Redirect::back()
                 ->with('success', 'Page updated');
         }
 

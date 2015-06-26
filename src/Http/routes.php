@@ -30,8 +30,13 @@ Route::group(['prefix' => 'admin'], function () {
         ['as' => 'admin.navigations.save-sequence', 'uses' => 'NavigationsController@saveSequence']);
 
     Route::get('pages/{id}/{language}/edit', [
-        'as'   => 'admin.languages.edit',
+        'as'   => 'admin.translations.edit',
         'uses' => 'PageTranslationsController@edit'
+    ]);
+
+    Route::put('pages/{id}/{language}', [
+        'as'   => 'admin.translations.update',
+        'uses' => 'PageTranslationsController@update'
     ]);
 
     Route::resource('pages', 'PagesController', ['except' => 'show']);
