@@ -27,7 +27,7 @@ class TranslationRepository extends AbstractRepository
             DB::transaction(function () use ($page, $data, $language) {
                 $node = new NavigationNodeTranslation();
                 $node->name = $data['name'];
-                $node->slug = $data['slug'];
+                $node->slug = $page->node->slug;
                 $node->language = $language;
                 $node->navigation_node_id = $page->node->id;
                 $node->save();
@@ -54,7 +54,7 @@ class TranslationRepository extends AbstractRepository
             DB::transaction(function () use ($page, $data, $language) {
                 $node = $page->node;
                 $node->name = $data['name'];
-                $node->slug = $data['slug'];
+                $node->slug = $page->node->slug;
                 $node->save();
 
                 $pageTranslation = $page;

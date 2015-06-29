@@ -39,7 +39,7 @@ class TemplateParser
                 $key_object = null;
                 if (isset($default_values) && count($default_values) > 0) {
                     $values = $this->getDataForXPOId($xpo_id, $default_values);
-                    $key_object = $values['id'];
+                    $key_object = (isset($values['id']) ? $values['id'] : null);
                 }
                 $parsed_string = $parser->parseForForms((array)$object + $values, $key_object);
                 $template = str_replace($html_string, $parsed_string, $template);

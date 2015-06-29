@@ -70,6 +70,8 @@ class PageTranslationsController extends MainController
 
         $page_id = $page->id;
 
+        $language = Config::get('website.languages.' . $language);
+
         return view('exposia-navigation::translations.create',
             compact("page", "language", "templates", "template_data", "page_id"));
     }

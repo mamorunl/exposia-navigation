@@ -9,7 +9,7 @@
 
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="form-group{!! ($errors->has('name')) ? " has-error" : "" !!}">
                         {!! Form::label('name', trans('exposia-navigation::pages.fields.name')) !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -21,33 +21,20 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="form-group{!! ($errors->has('slug')) ? " has-error" : "" !!}">
-                    {!! Form::label('slug', trans('exposia-navigation::pages.fields.slug')) !!}
-                    {!! Form::text('slug', null, ['class' => 'form-control']) !!}
-                    @if($errors->has('slug'))
+                <div class="col-md-6">
+                    <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
+                    {!! Form::label('title', trans('exposia-navigation::pages.fields.title')) !!}
+                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('title'))
                         <div class="help-block">
-                            {!! $errors->first('slug') !!}
+                            {!! $errors->first('title') !!}
                         </div>
                     @endif
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
-                {!! Form::label('title', trans('exposia-navigation::pages.fields.title')) !!}
-                {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                @if($errors->has('title'))
-                    <div class="help-block">
-                        {!! $errors->first('title') !!}
-                    </div>
-                @endif
-            </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="panel panel-primary">
