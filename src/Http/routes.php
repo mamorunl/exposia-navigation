@@ -6,6 +6,11 @@
  * Time: 14:48
  */
 
+/**
+ * Redirect to home
+ * If the user enters just the website URL and no
+ * specific page, they are redirected to /home (or website.home if present)
+ */
 Route::get('/', [
     'as' => 'base',
     function () {
@@ -16,15 +21,30 @@ Route::get('/', [
     }
 ]);
 
+/**
+ * Language update
+ * Update the currently active language
+ */
 Route::get('/locale/{language}/update', [
     'as'   => 'admin.pages.update_lang',
     'uses' => 'PagesController@updateActiveLanguage'
 ]);
 
+/**
+ * Get the template
+ * A route that gets the template with the given name
+ * and parses it to fill in for the user
+ */
 Route::get('ajax/gettemplate/{name}', function ($name) {
     return Exposia\Navigation\Facades\TemplateParser::parseForInput($name);
 });
 
+/**
+ * Wildcard to show page
+ * This route is a wildcard for a page show
+ * If a route is not found, the router will try
+ * to load this route
+ */
 Route::get('{slug}', [
     'as'   => 'page.show',
     'uses' => 'PagesController@show'
