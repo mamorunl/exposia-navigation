@@ -10,6 +10,17 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
+                        {!! Form::label('title', trans('exposia-navigation::pages.fields.title')) !!}
+                        {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                        @if($errors->has('title'))
+                            <div class="help-block">
+                                {!! $errors->first('title') !!}
+                            </div>
+                        @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group{!! ($errors->has('name')) ? " has-error" : "" !!}">
                         {!! Form::label('name', trans('exposia-navigation::pages.fields.name')) !!}
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -18,24 +29,12 @@
                                 {!! $errors->first('name') !!}
                             </div>
                         @endif
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="form-group{!! ($errors->has('title')) ? " has-error" : "" !!}">
-                    {!! Form::label('title', trans('exposia-navigation::pages.fields.title')) !!}
-                    {!! Form::text('title', null, ['class' => 'form-control']) !!}
-                    @if($errors->has('title'))
-                        <div class="help-block">
-                            {!! $errors->first('title') !!}
                         </div>
-                    @endif
+                    </div>
+
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
