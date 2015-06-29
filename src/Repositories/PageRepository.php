@@ -244,7 +244,8 @@ class PageRepository extends AbstractRepository
     public function findBySlug($slug)
     {
         if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
-            $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language', Session::get('exposia_language'))->firstOrFail();
+            $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language',
+                Session::get('exposia_language'))->firstOrFail();
         } else {
             $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
         }
@@ -268,6 +269,16 @@ class PageRepository extends AbstractRepository
         })->limit($limit)->lists('id');
 
         return $this->model->whereNotIn('id', $pages)->get();
+    }
+
+    /**
+     * Return a list of objects to show
+     * at the sitemap.index page (RSS feed)
+     * @return mixed
+     */
+    public function listForSitemap()
+    {
+        return $this->model->where('include_in_sitemap', 1)->get();
     }
 
     /**

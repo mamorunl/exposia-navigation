@@ -40,13 +40,23 @@ Route::get('ajax/gettemplate/{name}', function ($name) {
 });
 
 /**
+ * Display the sitemap
+ * *
+ * Display the sitemap that search engines can use
+ */
+Route::get('sitemap', [
+    'as'   => 'sitemap',
+    'uses' => 'SitemapController@index'
+]);
+
+/**
  * Wildcard to show page
  * This route is a wildcard for a page show
  * If a route is not found, the router will try
  * to load this route
  */
 Route::get('{slug}', [
-    'as'   => 'page.show',
+    'as'   => 'pages.show',
     'uses' => 'PagesController@show'
 ]);
 
