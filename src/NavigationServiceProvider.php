@@ -14,6 +14,8 @@ use Exposia\Navigation\Repositories\NavigationRepository;
 use Exposia\Navigation\Repositories\TranslationRepository;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
@@ -40,6 +42,12 @@ class NavigationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
+            \App::setLocale(Session::get('exposia_language'));
+        } else {
+            \App::setLocale(Config::get('app.locale'));
+        }
+
         $this->setupHelpers();
 
         $this->setupExtendBlade();
