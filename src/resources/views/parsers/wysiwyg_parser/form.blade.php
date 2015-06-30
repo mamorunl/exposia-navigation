@@ -25,7 +25,10 @@
         link_class_list: [
             {title: 'Geen', value: ''},
             {title: 'Knop (primary)', value: 'btn btn-primary'},
-            {title: 'Knop (warning)', value: 'btn btn-warning'}
+            {title: 'Knop (warning)', value: 'btn btn-warning'},
+            {title: 'Knop (info)', value: 'btn btn-info'},
+            {title: 'Knop (danger)', value: 'btn btn-danger'},
+            {title: 'Knop (success)', value: 'btn btn-success'}
         ]
     });
 </script>
