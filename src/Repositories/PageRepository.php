@@ -243,11 +243,14 @@ class PageRepository extends AbstractRepository
      */
     public function findBySlug($slug)
     {
+        $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+
         if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
-            $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language',
-                Session::get('exposia_language'))->firstOrFail();
-        } else {
-            $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+            try {
+                $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language',
+                    Session::get('exposia_language'))->firstOrFail();
+            } catch (ModelNotFoundException $e) {
+            }
         }
 
         return $node->page;
