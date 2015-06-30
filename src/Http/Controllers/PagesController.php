@@ -141,6 +141,7 @@ class PagesController extends Controller
             foreach (Config::get('website.languages') as $key => $language) {
                 try {
                     $lang = $page->getTranslation($key);
+                    $lang = $lang->page;
                 } catch (LanguageNotFoundException $e) {
                     continue;
                 }
@@ -177,15 +178,14 @@ class PagesController extends Controller
         try {
             return view('pages.' . (isset($page->main_template) && strlen($page->main_template) > 0 ? $page->main_template : 'index'),
                 compact("page", "template"));
-        } catch(InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             \App::abort(404);
         }
-
     }
 
     public function updateActiveLanguage($language)
     {
-        if(Config::has('website.languages.' . $language)) {
+        if (Config::has('website.languages.' . $language)) {
             Session::put('exposia_language', $language);
         }
 
