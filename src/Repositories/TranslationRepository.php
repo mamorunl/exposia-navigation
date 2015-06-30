@@ -49,7 +49,7 @@ class TranslationRepository extends AbstractRepository
     public function update(array $data, PageTranslation $page, $language)
     {
         try {
-            NavigationNode::where('slug', $data['slug'])->where('id', '!=', $page->node->mainNode->id)->firstOrFail(); // @TODO fix this.. don't even know what this is
+            $d = NavigationNode::where('slug', $data['slug'])->where('id', '!=', $page->node->mainNode->id)->firstOrFail(); // @TODO fix this.. don't even know what this is
         } catch (ModelNotFoundException $e) {
             DB::transaction(function () use ($page, $data, $language) {
                 $node = $page->node;

@@ -49,10 +49,11 @@ class PageTranslationsController extends MainController
 
             $main_templates = TemplateFinder::getMainTemplates();
 
+            $language_code = $language;
             $language = Config::get('website.languages.' . $language);
 
             return view('exposia-navigation::translations.edit',
-                compact("page", "language", "templates", "template_data", "main_templates", "page_id"));
+                compact("page", "language", "templates", "template_data", "main_templates", "page_id", "language_code"));
         } catch (LanguageNotFoundException $e) {
             return $this->create($page, $language);
         }
@@ -72,10 +73,11 @@ class PageTranslationsController extends MainController
 
         $page_id = $page->id;
 
+        $language_code = $language;
         $language = Config::get('website.languages.' . $language);
 
         return view('exposia-navigation::translations.create',
-            compact("page", "language", "templates", "template_data", "page_id"));
+            compact("page", "language", "templates", "template_data", "page_id", "language_code"));
     }
 
     /**
