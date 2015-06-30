@@ -31,7 +31,7 @@ class AbstractNavigationNode extends Model
 
         foreach ($nodes as &$node) {
             try {
-                if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
+                if (Config::has('website.languages') && Session::has('exposia_language')) {
                     $node_translation = NavigationNodeTranslation::where('slug', $node->slug)->firstOrFail();
                     $node_translation->injected_navigation_id = $this->injected_navigation_id;
                     $node_array[] = $node_translation;
