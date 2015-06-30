@@ -255,8 +255,8 @@ class PageRepository extends AbstractRepository
 
         $page = $node->page;
 
-        if(!isset($page->main_template)) {
-            $page->main_template = (isset($node->mainNode) ? $node->mainNode->page->main_template : 'index');
+        if($node instanceof NavigationNodeTranslation) {
+            $page->main_template = (isset($node->mainNode->page->main_template) ? $node->mainNode->page->main_template : 'index');
         }
 
         return $page;
