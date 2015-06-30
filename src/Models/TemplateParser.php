@@ -156,7 +156,7 @@ class TemplateParser
                 $html .= $this->generateRow($row_data);
             }
         }
-        $html .= '</div>';
+        $html .= ' </div>';
 
         return $html;
     }
