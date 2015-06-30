@@ -28,13 +28,13 @@ class AbstractNavigationNode extends Model
             try {
                 if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
                     $node_translation = NavigationNodeTranslation::where('slug', $node->slug)->firstOrFail();
-                    $node_translation->injected_navigation_id = $this->id;
+                    $node_translation->injected_navigation_id = $this->injected_navigation_id;
                     $node_array[] = $node_translation;
                 } else {
                     throw new ModelNotFoundException;
                 }
             } catch (ModelNotFoundException $e) {
-                $node->injected_navigation_id = $this->id;
+                $node->injected_navigation_id = $this->injected_navigation_id;
                 $node_array[] = $node;
             }
         }
