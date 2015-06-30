@@ -41,7 +41,9 @@
         </table>
     </section>
 @stop
-
+@section('modal')
+@parent
+@stop
 @section('script')
     <script>
         $('.btn-confirm-delete').click(function(e) {
