@@ -44,7 +44,8 @@
 
 @section('script')
     <script>
-        $('.btn-confirm-delete').click(function() {
+        $('.btn-confirm-delete').click(function(e) {
+            e.preventDefault();
             var $link = $(this);
             bootbox.confirm({
                 message: "Weet u zeker dat u deze pagina wilt verwijderen?",

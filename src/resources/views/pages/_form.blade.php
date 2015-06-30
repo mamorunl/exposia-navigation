@@ -210,8 +210,9 @@
     <script>
         $(document).ready(function() {
             $('#name').blur(function() {
-                if($('#slug').length == 0) {
-                    $('#slug').val("/" + $(this).val().toLowerCase()
+                var $slug = $('#slug');
+                if($slug.length <= 1) {
+                    $slug.val("/" + $(this).val().toLowerCase()
                             .replace(/\s+/g, '-')           // Replace spaces with -
                             .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
                             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
