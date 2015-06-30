@@ -253,7 +253,13 @@ class PageRepository extends AbstractRepository
             }
         }
 
-        return $node->page;
+        $page = $node->page;
+
+        if(!isset($page->main_template)) {
+            $page->main_template = (isset($node->mainNode) ? $node->mainNode->page->main_template : 'index');
+        }
+
+        return $page;
     }
 
     /**
