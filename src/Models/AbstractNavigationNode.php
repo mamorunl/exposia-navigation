@@ -21,7 +21,12 @@ class AbstractNavigationNode extends Model
      */
     public function getChildren()
     {
-        $nodes = $this->children($this->injected_navigation_id);
+        if(isset($this->navigation_node_id) && $this->navigation_node_id > 0) {
+            $nodes = $this->mainNode->children($this->injected_navigation_id);
+        } else {
+            $nodes = $this->children($this->injected_navigation_id);
+        }
+
         $node_array = [];
 
         foreach ($nodes as &$node) {
