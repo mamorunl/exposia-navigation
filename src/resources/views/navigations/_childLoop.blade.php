@@ -24,6 +24,9 @@
             @endif
             <a href="#" class="remove-navigation-node btn btn-danger btn-xs">@lang('exposia::global.destroy')</a>
         </div>
+        <div>
+            <em class="text-muted"><small>{{ $node->slug }}</small></em>
+        </div>
     </div>
     <ol>
         @if(count($node->children($nav->id)) > 0)

@@ -15,7 +15,34 @@
                     <ul class="navigation draggable-list">
                         @foreach($pages as $page)
                             <li id="navigation-item-new-{{ $page->id }}" class="navigation-item" data-name="{{ $page->title }}" data-id="999{{ $page->id }}" data-navigationnodeid="{{ $page->node->id }}" data-slug="{{ $page->node->slug }}">
-                                <div>{{ $page->node->name }}</div>
+                                <div>{{ $page->node->name }}
+                                    <div class="pull-right">
+                                        @if(count(Config::get('website.languages')) > 0)
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    @lang('exposia-navigation::navigations.translations') <i class="fa fa-angle-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    @foreach(Config::get('website.languages') as $abbr => $lang)
+                                                        @if($abbr != Config::get('app.locale'))
+                                                            <li><a href="{{ route('admin.translations.edit', [$page->id, $abbr]) }}" title="@lang('exposia-navigation::pages.index.edit_language')"><i class="fa fa-language"></i> {{ $lang['name'] }}</a></li>
+                                                        @endif
+                                                    @endforeach
+
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        @if($page != null)
+                                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-default btn-xs">
+                                                @lang('exposia::global.edit')
+                                            </a>
+                                        @endif
+                                        <a href="#" class="remove-navigation-node btn btn-danger btn-xs">@lang('exposia::global.destroy')</a>
+                                    </div>
+                                    <div>
+                                        <em class="text-muted"><small>{{ $page->node->slug }}</small></em>
+                                    </div>
+                                </div>
                                 <ol></ol>
                             </li>
                         @endforeach
