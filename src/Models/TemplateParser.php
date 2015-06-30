@@ -4,6 +4,8 @@ namespace Exposia\Navigation\Models;
 
 use Exposia\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
 
 class TemplateParser
 {
@@ -102,6 +104,12 @@ class TemplateParser
         $dir = storage_path() . "/exposia/" . md5($html);
 
         file_put_contents($dir, $html);
+
+        if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
+            \App::setLocale(Session::get('exposia_language'));
+        } else {
+            \App::setLocale(Config::get('app.locale'));
+        }
 
         Blade::compile($dir);
 
