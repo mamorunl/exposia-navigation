@@ -106,7 +106,8 @@ class TemplateParser
         file_put_contents($dir, $html);
 
         $locale = Config::get('app.locale');
-        if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
+
+        if (Config::has('website.languages') && Session::has('exposia_language')) {
             \App::setLocale(Session::get('exposia_language'));
         } else {
             \App::setLocale($locale);
@@ -115,8 +116,6 @@ class TemplateParser
         Blade::compile($dir);
 
         unlink($dir);
-
-        \App::setLocale($locale);
 
         return Blade::getCompiledPath(Blade::getPath()); //$html;
     }
