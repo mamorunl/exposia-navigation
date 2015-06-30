@@ -2,17 +2,18 @@
     <div>
         {{ $node->name }}
         <div class="pull-right">
-            @if(count(Config::get('cms.translations')) > 0)
+            @if(count(Config::get('website.languages')) > 0)
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         @lang('exposia-navigation::navigations.translations') <i class="fa fa-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        @foreach(Config::get('cms.translations') as $language_code => $language_array)
-                            <li>
-                                <a href="{{ route('admin.translations.edit', [$node->id, $language_code, $nav->id]) }}">{{ $language_array['name'] }}</a>
-                            </li>
+                        @foreach(Config::get('website.languages') as $abbr => $lang)
+                            @if($abbr != Config::get('app.locale'))
+                                <li><a href="{{ route('admin.translations.edit', [$node->page->id, $abbr]) }}" title="@lang('exposia-navigation::pages.index.edit_language')"><i class="fa fa-language"></i> {{ $lang['name'] }}</a></li>
+                            @endif
                         @endforeach
+
                     </ul>
                 </div>
             @endif
