@@ -30,7 +30,7 @@
     </div>
     <ol>
         @if(count($node->children($nav->id)) > 0)
-            @foreach($node->getChildren($nav->id) as $child)
+            @foreach($node->children($nav->id) as $child)
                 @include('exposia-navigation::navigations._childLoop', ['node' => $child])
             @endforeach
         @endif

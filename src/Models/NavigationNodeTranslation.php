@@ -8,9 +8,7 @@
 
 namespace Exposia\Navigation\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class NavigationNodeTranslation extends Model
+class NavigationNodeTranslation extends AbstractNavigationNode
 {
     protected $table = 'cms_node_translations';
     protected $fillable = [

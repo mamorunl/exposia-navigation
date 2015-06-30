@@ -2,8 +2,8 @@
 /**
  * Created by RAPIDE Internet.
  * User: heppi_000
- * Date: 9-6-2015
- * Time: 16:34
+ * Date: 30-6-2015
+ * Time: 14:45
  */
 
 namespace Exposia\Navigation\Models;
@@ -13,39 +13,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 
-class Navigation extends Model
+class AbstractNavigationNode extends Model
 {
-    protected $table = "cms_navigations";
-
-    protected $fillable = [
-        'name'
-    ];
-
-    public $index_column = "name";
-    public $index_sort = "asc";
-
-    public function nodes()
-    {
-        return $this
-            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
-            ->orderBy('cms_navigation_navigation_nodes.sort_order', 'asc')
-            ->where('cms_navigation_navigation_nodes.parent_id', 0);
-    }
-
-    public function allnodes()
-    {
-        return $this
-            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
-            ->orderBy('sort_order', 'asc');
-    }
-
     /**
-     * Get the first batch of child nodes from this navigation
-     * @return mixed
+     * Return a list of child nodes with translations included.
+     * @return array
      */
-    public function getNodes()
+    public function getChildren()
     {
-        $nodes = $this->nodes;
+        $nodes = $this->children($this->injected_navigation_id);
         $node_array = [];
 
         foreach ($nodes as &$node) {
@@ -64,5 +40,22 @@ class Navigation extends Model
         }
 
         return $node_array;
+    }
+
+    /**
+     * Fetch the child nodes from the current node and
+     * the given navigation id
+     *
+     * @param $navigation_id
+     *
+     * @return mixed
+     */
+    public function children($navigation_id)
+    {
+        return $this->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes',
+            'parent_id', 'navigation_node_id')
+            ->where('cms_navigation_navigation_nodes.navigation_id', $navigation_id)
+            ->orderBy('sort_order', 'asc')
+            ->get();
     }
 }
