@@ -23,6 +23,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class PageRepository extends AbstractRepository
 {
+    protected $last_insert_id;
+
     /**
      * Render the template that was previously built
      * by the user.
@@ -186,7 +188,7 @@ class PageRepository extends AbstractRepository
                 $page->title = $data['title'];
                 $page->node_id = $node->id;
                 $page->template_data = $data['template_data'];
-                $page->save();
+                $this->last_insert_id = $page->save();
             });
 
             return true;
@@ -305,6 +307,9 @@ class PageRepository extends AbstractRepository
         return ['class_length' => $classes_only_result, 'custom_class' => $classes_without_result];
     }
 
+    /**
+     * @return array
+     */
     public function getFields()
     {
         return [
@@ -320,5 +325,10 @@ class PageRepository extends AbstractRepository
             'include_in_sitemap',
             'main_template'
         ];
+    }
+
+    public function getLastInsertId()
+    {
+        return $this->last_insert_id;
     }
 }

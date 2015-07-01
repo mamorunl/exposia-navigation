@@ -56,7 +56,7 @@ class PagesController extends Controller
         $page = PageRepository::create($data);
 
         if ($page) {
-            return Redirect::route('admin.pages.edit', $page->id)
+            return Redirect::route('admin.pages.edit', PageRepository::getLastInsertId())
                 ->with('success', 'Page saved');
         }
 
