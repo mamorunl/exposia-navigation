@@ -188,7 +188,9 @@ class PageRepository extends AbstractRepository
                 $page->title = $data['title'];
                 $page->node_id = $node->id;
                 $page->template_data = $data['template_data'];
-                $this->last_insert_id = $page->save();
+                $page->save();
+
+                $this->last_insert_id = $page->id;
             });
 
             return true;
