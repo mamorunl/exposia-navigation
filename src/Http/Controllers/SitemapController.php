@@ -17,6 +17,6 @@ class SitemapController extends Controller
     {
         $pages = PageRepository::listForSitemap();
 
-        return view('exposia-navigation::sitemap.index', ['pages' => $pages]);
+        return response(view('exposia-navigation::sitemap.index', ['pages' => $pages]))->header('Content-Type', 'application/xml');
     }
 }
