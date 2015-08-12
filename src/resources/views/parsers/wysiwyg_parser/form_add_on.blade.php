@@ -5,8 +5,12 @@
               id="wysiwyg_input_{{ $key }}">{{ $values['content'] }}</textarea>
 </div>
 @include('exposia-navigation::parsers.partials.modal_stop')
-@include('exposia-navigation::parsers.partials.script', ['modal_type' => 'wysiwyg', 'key' => $key])
 <script>
+    $('#wysiwyg_modal_{{ $key }}').on('hide.bs.modal', function (e) {
+        $('div[data-target=#wysiwyg_modal_{{ $key }}]').html(
+                tinymce.activeEditor.getContent()
+        );
+    });
     tinymce.init({
         selector: "#wysiwyg_input_{{ $key }}",
         plugins: [
