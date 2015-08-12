@@ -15,6 +15,16 @@
     .visual-editor-field:hover {
         border: 1px dotted #ccc;
     }
+    .btn-launch-settings {
+        display: none;
+        position: absolute;
+    }
+    .rg-col {
+        position: relative;
+    }
+    .rg-col:hover .btn-launch-settings {
+        display: inline-block;
+    }
 </style>
 <div class="row">
     <div class="col-md-9">
