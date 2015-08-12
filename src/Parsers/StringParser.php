@@ -27,10 +27,25 @@ class StringParser implements ParserInterface
 
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('exposia-navigation::parsers.string_parser.form', [
-            'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
-            'values'     => $this->getValues($values),
-            'xpo_id'     => $this->xpo_id
+        $xpo_key = isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4);
+        $view = View::make('exposia-navigation::parsers.string_parser.form', [
+            'key'    => $xpo_key,
+            'values' => $this->getValues($values),
+            'xpo_id' => $this->xpo_id
+        ])->render();
+
+        return [
+            'key'  => $xpo_key,
+            'view' => $view
+        ];
+    }
+
+    public function parseFormAddOn($values = [], $key = null)
+    {
+        return View::make('exposia-navigation::parsers.string_parser.form_add_on', [
+            'key'    => $key,
+            'values' => $this->getValues($values),
+            'xpo_id' => $this->xpo_id
         ])->render();
     }
 
@@ -42,6 +57,7 @@ class StringParser implements ParserInterface
     public function parseForDisplay($values = [], $key)
     {
         $values = $this->getValues($values);
+
         return $values['value'];
     }
 
@@ -56,7 +72,7 @@ class StringParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'value' => (isset($default['value']) ? trim($default['value']) : "")
+            'value' => (isset($default['value']) ? trim($default['value']) : "This is sample text. Replace it by clicking it.")
         ];
     }
 }

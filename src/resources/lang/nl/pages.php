@@ -7,9 +7,9 @@
  */
 
 return [
-    'menu_title'   => 'Pagina\'s',
-    'title'        => 'Pagina\'s',
-    'fields'       => [
+    'menu_title'     => 'Pagina\'s',
+    'title'          => 'Pagina\'s',
+    'fields'         => [
         'title'              => 'Paginatitel',
         'template'           => 'Template',
         'template_name'      => 'Template',
@@ -26,19 +26,24 @@ return [
         'canonical_url'      => 'Canonische URL',
         'main_template'      => 'Hoofdtemplate'
     ],
-    'create'       => [
+    'create'         => [
         'title'             => 'Pagina aanmaken',
         'page_settings'     => 'Pagina-instellingen',
         'seo_settings'      => 'SEO-instellingen',
         'advanced_settings' => 'Geavanceerde instellingen'
     ],
-    'edit'         => [
+    'edit'           => [
         'title' => 'Pagina bewerken',
     ],
-    'index'        => [
+    'index'          => [
         'title'         => 'Alle pagina\'s',
         'last_edit'     => 'Laatste aanpassing',
         'edit_language' => 'Vertaling wijzigen'
     ],
-    'editor_title' => 'Pagina opbouwen'
+    'editor_title'   => 'Pagina opbouwen',
+    'settings_modal' => [
+        'title'      => 'Instellingen van deze rij wijzigen',
+        'row_tab'    => 'Rij',
+        'column_tab' => 'Kolom'
+    ]
 ];

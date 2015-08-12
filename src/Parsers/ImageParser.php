@@ -46,11 +46,34 @@ class ImageParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('exposia-navigation::parsers.image_parser.form', [
-            'key'        => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
+        $xpo_key = isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4);
+        $view = View::make('exposia-navigation::parsers.image_parser.form', [
+            'key'        => $xpo_key,
             'attributes' => $this->getAttributes(),
             'values'     => $this->getValues($values),
             'xpo_id'     => $this->xpo_id
+        ])->render();
+
+        return [
+            'key'  => $xpo_key,
+            'view' => $view
+        ];
+    }
+
+    /**
+     * Generates the form add ons
+     *
+     * @param array $values
+     * @param null  $key
+     *
+     * @return mixed
+     */
+    public function parseFormAddOn($values = [], $key = null)
+    {
+        return View::make('exposia-navigation::parsers.image_parser.form_add_on', [
+            'key'        => $key,
+            'attributes' => $this->getAttributes(),
+            'values'     => $this->getValues($values)
         ])->render();
     }
 

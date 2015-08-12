@@ -7,7 +7,7 @@
  */
 
 return [
-    'image' => [
+    'image'    => [
         'title'       => 'Afbeelding wijzigen',
         'select_file' => 'Nieuwe afbeelding',
         'fields'      => [
@@ -21,6 +21,24 @@ return [
         'tabs'        => [
             'image' => 'Afbeelding',
             'link'  => 'Link'
+        ]
+    ],
+    'wysiwyg'  => [
+        'title'  => 'Tekstblok wijzigen',
+        'fields' => [
+            'content' => 'Tekst'
+        ]
+    ],
+    'fonticon' => [
+        'title'  => 'Icoon wijzigen',
+        'fields' => [
+            'value' => 'Icoon'
+        ]
+    ],
+    'string' => [
+        'title' => 'Element wijzigen',
+        'fields' => [
+            'content' => 'Tekst wijzigen'
         ]
     ]
 ];

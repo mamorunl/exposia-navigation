@@ -1,6 +1,24 @@
+<style>
+    /* Only temporarily! */
+    .p7 {
+        padding: 7px;
+    }
+
+    .visual-editor-field {
+        min-height: 32px;
+        cursor: pointer;
+        border: 1px solid transparent;
+    }
+    .visual-editor-field-inline {
+        display: inline-block;
+    }
+    .visual-editor-field:hover {
+        border: 1px dotted #ccc;
+    }
+</style>
 <div class="row">
     <div class="col-md-9">
-        <div class="panel panel-success">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     @lang('exposia-navigation::pages.create.page_settings')
@@ -73,7 +91,7 @@
     </div>
 
     <div class="col-md-3">
-        <div class="panel panel-info">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     @lang('exposia-navigation::pages.create.seo_settings')
@@ -152,7 +170,7 @@
             </div>
         </div>
 
-        <div class="panel panel-warning">
+        <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     @lang('exposia-navigation::pages.create.advanced_settings')
@@ -186,9 +204,8 @@
             <div class="modal-body" id="template_picker">
                 <div class="row">
                     @foreach($templates as $template_name => $image)
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <a href="#" data-templatename="{{ $template_name }}" class="text-center" style="display:block;">
-                                <h2>{{ ucwords($template_name) }}</h2>
                                 <img src="{{ $image }}" alt="" class="img-responsive">
                             </a>
                         </div>
@@ -197,6 +214,80 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">@lang('exposia::global.cancel')</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">@lang('exposia-navigation::pages.settings_modal.title')</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#row-settings" data-toggle="tab">
+                            @lang('exposia-navigation::pages.settings_modal.row_tab')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#col-settings" data-toggle="tab">
+                            @lang('exposia-navigation::pages.settings_modal.column_tab')
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="row-settings">
+                        <div class="form-group{!! ($errors->has('custom_class')) ? " has-error" : "" !!}">
+                            {!! Form::label('custom_class', 'Extra class name') !!}
+                            {!! Form::text('custom_class', null, ['class' => 'form-control']) !!}
+                            @if($errors->has('custom_class'))
+                                <div class="help-block">
+                                    {!! $errors->first('custom_class') !!}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="form-group{!! ($errors->has('has_container')) ? " has-error" : "" !!}">
+                            {!! Form::label('has_container', 'Container') !!}
+                            {!! Form::select('has_container', ['0' => trans('exposia-navigation::pages.settings_modal.fields.container_fluid'), 1 => trans('exposia-navigation::pages.settings_modal.fields.container')], null, ['class' => 'form-control']) !!}
+                            @if($errors->has('has_container'))
+                                <div class="help-block">
+                                    {!! $errors->first('has_container') !!}
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="form-group{!! ($errors->has('background_image')) ? " has-error" : "" !!}">
+                            {!! Form::label('background_image', 'Background image') !!}
+                            {!! Form::text('background_image', null, ['class' => 'form-control']) !!}
+                            @if($errors->has('background_image'))
+                            <div class="help-block">
+                                {!! $errors->first('background_image') !!}
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="col-settings">
+                        <div class="form-group{!! ($errors->has('custom_class_col')) ? " has-error" : "" !!}">
+                            {!! Form::label('custom_class_col', 'Extra class name') !!}
+                            {!! Form::text('custom_class_col', null, ['class' => 'form-control']) !!}
+                            @if($errors->has('custom_class_col'))
+                            <div class="help-block">
+                                {!! $errors->first('custom_class_col') !!}
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@lang('exposia::global.close')</button>
             </div>
         </div>
     </div>

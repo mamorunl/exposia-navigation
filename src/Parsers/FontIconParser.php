@@ -27,12 +27,27 @@ class FontIconParser implements ParserInterface
 
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('exposia-navigation::parsers.fonticon_parser.form', [
-            'key'    => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
+        $xpo_key = isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4);
+
+        $view = View::make('exposia-navigation::parsers.fonticon_parser.form', [
+            'key'    => $xpo_key,
+            'xpo_id' => $this->xpo_id,
+            'values' => $this->getValues($values)
+        ])->render();
+        return [
+            'key' => $xpo_key,
+            'view' => $view
+        ];
+    }
+
+    public function parseFormAddOn($values = [], $key = null)
+    {
+        return View::make('exposia-navigation::parsers.fonticon_parser.form_add_on', [
+            'key'    => $key,
             'values' => $this->getValues($values),
             'xpo_id' => $this->xpo_id,
             'icons'  => $this->getIcons()
-        ])->render();
+        ]);
     }
 
     public function parseForDatabase($values = [])
@@ -58,7 +73,7 @@ class FontIconParser implements ParserInterface
     private function getValues($default = [])
     {
         return [
-            'value' => (isset($default['value']) ? $default['value'] : "")
+            'value' => (isset($default['value']) ? $default['value'] : "fa fa-file-o")
         ];
     }
 

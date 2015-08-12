@@ -43,8 +43,11 @@ class TemplateParser
                     $values = $this->getDataForXPOId($xpo_id, $default_values);
                     $key_object = (isset($values['id']) ? $values['id'] : null);
                 }
-                $parsed_string = $parser->parseForForms((array)$object + $values, $key_object);
-                $template = str_replace($html_string, $parsed_string, $template);
+
+                $template_partial = $parser->parseForForms((array)$object + $values, $key_object);
+                $template = str_replace($html_string, $template_partial['view'], $template);
+
+                $template .= $parser->parseFormAddOn((array)$object + $values, $template_partial['key']);
             }
 
             $template = str_replace($html_string, "PARSER NOT FOUND", $template);

@@ -26,8 +26,22 @@ class PlainTextParser implements ParserInterface
      */
     public function parseForForms($values = [], $key = null)
     {
-        return View::make('exposia-navigation::parsers.plaintext_parser.form', [
-            'key'    => isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4),
+        $xpo_key = isset($key) ? $key : $this->xpo_id . "" . substr(md5(rand(0, 99999)), 0, 4);
+        $view = View::make('exposia-navigation::parsers.plaintext_parser.form', [
+            'key'    => $xpo_key,
+            'values' => $this->getValues($values),
+            'xpo_id' => $this->xpo_id
+        ])->render();
+        return [
+            'key' => $xpo_key,
+            'view' => $view
+        ];
+    }
+
+    public function parseFormAddOn($values = [], $key = null)
+    {
+        return View::make('exposia-navigation::parsers.plaintext_parser.form_add_on', [
+            'key'    => $key,
             'values' => $this->getValues($values),
             'xpo_id' => $this->xpo_id,
             'rows'   => (isset($this->json_data->rows) ? $this->json_data->rows : 12)
