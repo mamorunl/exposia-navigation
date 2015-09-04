@@ -49,7 +49,6 @@ class PagesController extends Controller
     public function store()
     {
         $template_array = json_decode(Input::get('serialized_template'));
-        var_dump($template_array);
         $json_parsed_data = PageRepository::beforeCreate($template_array);
         $data = Input::only(PageRepository::getFields());
         $data = $data + ['template_data' => $json_parsed_data];
