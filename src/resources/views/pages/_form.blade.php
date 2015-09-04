@@ -22,8 +22,11 @@
     .rg-col {
         position: relative;
     }
-    .rg-col:hover .btn-launch-settings {
+    .rg-col:hover > .btn-launch-settings {
         display: inline-block;
+    }
+    .canvas-wrapper .canvas .canvas {
+        display: none;
     }
 </style>
 <div class="row">
@@ -91,7 +94,7 @@
                     @lang('exposia-navigation::pages.warning_drag_drop')
                 </div>
                 <div class="row" style="padding:30px;">
-                    <div id="canvas" class="canvas-wrapper">
+                    <div id="canvas" class="canvas-wrapper canvas">
                         {!! isset($template_data) ? $template_data : "" !!}
                     </div>
                     <input type="hidden" value="" name="serialized_template" id="serialized_template">
@@ -252,12 +255,12 @@
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="row-settings">
-                        <div class="form-group{!! ($errors->has('custom_class')) ? " has-error" : "" !!}">
-                            {!! Form::label('custom_class', 'Extra class name') !!}
-                            {!! Form::text('custom_class', null, ['class' => 'form-control']) !!}
-                            @if($errors->has('custom_class'))
+                        <div class="form-group{!! ($errors->has('custom_class_row')) ? " has-error" : "" !!}">
+                            {!! Form::label('custom_class_row', 'Extra class name') !!}
+                            {!! Form::text('custom_class_row', null, ['class' => 'form-control']) !!}
+                            @if($errors->has('custom_class_row'))
                                 <div class="help-block">
-                                    {!! $errors->first('custom_class') !!}
+                                    {!! $errors->first('custom_class_row') !!}
                                 </div>
                             @endif
                         </div>
@@ -302,6 +305,8 @@
         </div>
     </div>
 </div>
+
+<div id="output"></div>
 
 @section('script')
     @parent
