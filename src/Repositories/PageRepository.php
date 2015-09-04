@@ -84,17 +84,18 @@ class PageRepository extends AbstractRepository
     {
         $parsedForDatabase = [];
         $parsedForDatabase[$key] = [
-            "class"         => $row[0],
+            "has_container" => $row[0],
+            "class"         => $row[1],
             "columns"       => [],
-            "has_container" => $row[2]
         ];
-        foreach ($row[1] as $col_key => $column) {
+        foreach ($row[2] as $col_key => $column) {
             // Column[0] = length
             // Column[1] = Template name
-            // Column[2] = Fields
-            // Column[3] = Subnodes
+            // Column[2] = Custom class
+            // Column[3] = Fields
+            // Column[4] = Subnodes
             $input = [];
-            foreach ($column[2] as $field) {
+            foreach ($column[3] as $field) {
                 $input[$field] = Input::get($field);
                 if (Request::hasFile($field . ".file")) {
                     $input[$field]['file'] = Request::file($field . ".file");
@@ -102,8 +103,11 @@ class PageRepository extends AbstractRepository
             }
 
             $parsedRow = [];
-            if (isset($column[3]) && count($column[3]) > 0) {
-                foreach ($column[3] as $row_key => $row_data) {
+            if (isset($column[4]) && count($column[4]) > 0) {
+                foreach ($column[4] as $row_key => $row_data) {
+                    if(count($row_data) == 0) {
+                        continue;
+                    }
                     $parsedRow = array_merge($parsedRow, $this->createArrayFromData($row_key, $row_data));
                 }
             }
