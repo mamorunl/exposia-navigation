@@ -34,25 +34,26 @@
                 $(this).prepend($settingsGroupHtml);
             });
 
-            rg.$el.sortable({
-                items: ".row:not(.rg-select-row)",
+            $('.canvas').sortable({
                 axis: 'y',
-                handle: ".rg-move-row",
+                cursor: "move",
                 forcePlaceholderSize: true,
+                handle: ".rg-move-row",
+                items: "> .row:not(.rg-select-row)",
                 opacity: 0.7,
                 revert: true,
-                tolerance: "pointer",
-                cursor: "move"
+                tolerance: "pointer"
             });
 
             rg.$el.find('.row:not(.rg-select-row)').sortable({
-                items: '.rg-col',
                 axis: 'x',
-                handle: ".rg-move-col",
+                cursor: "move",
+                items: '> .rg-col',
                 forcePlaceholderSize: true,
-                opacity: 0.7,  revert: true,
-                tolerance: "pointer",
-                cursor: "move"
+                handle: ".rg-move-col",
+                opacity: 0.7,
+                revert: true,
+                tolerance: "pointer"
             });
         };
 
