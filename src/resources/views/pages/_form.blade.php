@@ -317,7 +317,7 @@
         $(document).ready(function() {
             $('#name').blur(function() {
                 var $slug = $('#slug');
-                if($slug.length <= 1) {
+                if($slug.val().length <= 1) {
                     $slug.val("/" + $(this).val().toLowerCase()
                             .replace(/\s+/g, '-')           // Replace spaces with -
                             .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
