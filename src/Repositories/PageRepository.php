@@ -104,11 +104,13 @@ class PageRepository extends AbstractRepository
 
             $parsedRow = [];
             if (isset($column[4]) && count($column[4]) > 0) {
-                foreach ($column[4] as $row_key => $row_data) {
-                    if(count($row_data) == 0) {
+                foreach ($column[4] as $row_k => $row) {
+                    if(count($row) == 0) {
                         continue;
                     }
-                    $parsedRow = array_merge($parsedRow, $this->createArrayFromData($row_key, $row_data));
+                    foreach($row as $row_key => $row_data) {
+                        $parsedRow = array_merge($parsedRow, $this->createArrayFromData($row_key, $row_data));
+                    }
                 }
             }
 
