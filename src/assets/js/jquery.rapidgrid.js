@@ -54,7 +54,10 @@
         };
 
         rg.createSettingsButton = function () {
-            return '<a href="#" class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</a>'
+            return '<div class="btn-group btn-group-settings" role="group">' +
+                '<button class="btn btn-primary rg-move-row"><i class="fa fa-arrows"></i> Move</button>' +
+                '<button class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</button>' +
+                '</div>';
         };
 
         $('body')

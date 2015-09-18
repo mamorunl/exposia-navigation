@@ -137,7 +137,11 @@ class PageRepository extends AbstractRepository
         $html = '<div class="row" data-custom-class="' . $row['class'] . '" data-has-container="' . (isset($row['has_container']) ? $row['has_container'] : "0") . '">';
         foreach ($row['columns'] as $column) {
             $classes = $this->getClasses($column['class']);
-            $html .= '<div class="' . $classes['class_length'] . ' rg-col"><a href="#" class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</a>';
+            $html .= '<div class="' . $classes['class_length'] . ' rg-col"><div class="btn-group btn-group-settings" role="group">
+                <a href="#" class="btn btn-primary rg-move-row"><i class="fa fa-arrows-v"></i> Move row</a>
+                <a href="#" class="btn btn-primary rg-move-col"><i class="fa fa-arrows-h"></i> Move column</a>
+                <a href="#" class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</a>
+                </div>';
             $html .= '<div class="p7 xpo_data" data-custom-class="' . $classes['custom_class'] . '">';
             $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? '<xpodata data-templatename="' . $column['template_name'] . '"></xpodata>' : "";
             $html .= (isset($column['template_name']) && strlen($column['template_name']) > 0) ? TemplateParser::parseForInput($column['template_name'],
