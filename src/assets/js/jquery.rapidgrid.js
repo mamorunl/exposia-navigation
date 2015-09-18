@@ -18,8 +18,42 @@
         rg.$el = $(el);
         rg.options = options;
 
+        // Extra variables for internal use
+        rg.xpodataForBtn = null;
+        rg.currentCanvas = null;
+
         rg.init = function () {
             rg.$el.append(rg.createFirstRow());
+
+            rg.initializeCanvas();
+        };
+
+        rg.initializeCanvas = function () {
+            $('.canvas .rg-col').each(function () {
+                $settingsGroupHtml = rg.createSettingsButton();
+                $(this).prepend($settingsGroupHtml);
+            });
+
+            rg.$el.sortable({
+                items: ".row:not(.rg-select-row)",
+                axis: 'y',
+                handle: ".rg-move-row",
+                forcePlaceholderSize: true,
+                opacity: 0.7,
+                revert: true,
+                tolerance: "pointer",
+                cursor: "move"
+            });
+
+            rg.$el.find('.row:not(.rg-select-row)').sortable({
+                items: '.rg-col',
+                axis: 'x',
+                handle: ".rg-move-col",
+                forcePlaceholderSize: true,
+                opacity: 0.7,  revert: true,
+                tolerance: "pointer",
+                cursor: "move"
+            });
         };
 
         rg.createFirstRow = function () {
@@ -48,46 +82,47 @@
                 '</div>';
         };
 
-        rg.createCanvas = function() {
-            return '<div class="canvas">'+ rg.createFirstRow() +'</div>';
+        rg.createCanvas = function () {
+            return '<div class="canvas">' + rg.createFirstRow() + '</div>';
 
         };
 
         rg.createSettingsButton = function () {
             return '<div class="btn-group btn-group-settings" role="group">' +
-                '<button class="btn btn-primary rg-move-row"><i class="fa fa-arrows"></i> Move</button>' +
-                '<button class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</button>' +
+                '<a href="#" class="btn btn-primary rg-move-row"><i class="fa fa-arrows-v"></i> Move row</a>' +
+                '<a href="#" class="btn btn-primary rg-move-col"><i class="fa fa-arrows-h"></i> Move column</a>' +
+                '<a href="#" class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</a>' +
                 '</div>';
         };
 
         $('body')
             .on('click', '.btn-select-layout', function (e) {
                 e.preventDefault();
-                $button = $(this);
-                $modal = '<div class="modal fade" id="generated_modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                var $button = $(this);
+                var $modal = '<div class="modal fade" id="generated_modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
                     '<h4 class="modal-title">Pick your row layout</h4></div><div class="modal-body">';
-                for (buttonArray in rg.options.controlButtons) {
+                for (var buttonArray in rg.options.controlButtons) {
                     $modal += '<div class="row" style="margin-bottom: 7px;"><a href="#" class="rg-add-this-row" data-key="' + buttonArray + '">';
-                    for ($size in rg.options.controlButtons[buttonArray]) {
-                        $modal += '<div class="col-xs-' + rg.options.controlButtons[buttonArray][$size] + '"><div class="bg-primary text-center">' + rg.options.controlButtons[buttonArray][$size] + '</div></div>';
-                    }
+                    rg.options.controlButtons[buttonArray].forEach(function (size) {
+                        $modal += '<div class="col-xs-' + size + '"><div class="bg-primary text-center">' + size + '</div></div>';
+                    });
                     $modal += '</a></div>';
                 }
                 $modal += '</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
                 $('body').append($modal);
                 $('#generated_modal').modal();
-                $currentCanvas = $button.closest('.canvas');
+                rg.currentCanvas = $button.closest('.canvas');
             })
             .on('click', '.rg-add-this-row', function (e) {
                 e.preventDefault();
-                $id = $(this).data('key');
+                var $id = $(this).data('key');
                 $('#generated_modal').modal('hide');
-                $style = "";
-                for ($size in rg.options.controlButtons[$id]) {
-                    $style += rg.createCol(rg.options.controlButtons[$id][$size], '<a href="#" class="rg-pick-col-template btn btn-primary"><i class="fa fa-crosshairs"></i></a>');
-                }
+                var $style = "";
+                rg.options.controlButtons[$id].forEach(function (element) {
+                    $style += rg.createCol(element, '<a href="#" class="rg-pick-col-template btn btn-primary"><i class="fa fa-crosshairs"></i></a>');
+                });
                 $style = rg.createRow($style);
-                $currentCanvas.children('.rg-select-row').before($style);
+                rg.currentCanvas.children('.rg-select-row').before($style);
             })
             .on('click', '.rg-pick-col-template', function (e) {
                 e.preventDefault();
@@ -109,7 +144,8 @@
             })
             .on('click', '.btn-launch-settings', function (e) {
                 e.preventDefault();
-                $xpodataForBtn = $(this).siblings('.xpo_data');
+                rg.xpodataForBtn = $(this).parents('.btn-group-settings').siblings('.xpo_data');
+                var $xpodataForBtn = rg.xpodataForBtn;
                 $('#custom_class_col').val($xpodataForBtn.data('custom-class'));
                 $('#custom_class_row').val($xpodataForBtn.closest('.row').data('custom-class'));
                 $('#has_container').val($xpodataForBtn.closest('.row').data('has-container'));
@@ -120,6 +156,7 @@
          * Modal events
          */
         $('#settings-modal').on('hidden.bs.modal', function (e) {
+            var $xpodataForBtn = rg.xpodataForBtn;
             $xpodataForBtn.data('custom-class', $('#custom_class_col').val());
             $xpodataForBtn.closest('.row').data('custom-class', $('#custom_class_row').val());
             $xpodataForBtn.closest('.row').data('has-container', $('#has_container').val());

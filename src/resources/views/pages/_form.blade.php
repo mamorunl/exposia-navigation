@@ -327,28 +327,6 @@
                 }
             });
 
-
-            $('.canvas').sortable({
-                items: ".row:not(.rg-select-row)",
-                axis: 'y',
-                handle: ".rg-move-row",
-                forcePlaceholderSize: true,
-                opacity: 0.7,
-                revert: true,
-                tolerance: "pointer",
-                cursor: "move"
-            });
-
-            $('.canvas .row:not(.rg-select-row)').sortable({
-                items: '.rg-col',
-                axis: 'x',
-                handle: ".rg-move-col",
-                forcePlaceholderSize: true,
-                opacity: 0.7,  revert: true,
-                tolerance: "pointer",
-                cursor: "move"
-            });
-
         });
     </script>
     <script src="{{ asset('backend/assets/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
