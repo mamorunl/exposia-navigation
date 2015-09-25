@@ -176,13 +176,13 @@ class NavigationServiceProvider extends ServiceProvider
             'sefName' => 'navigation',
             'route'   => 'admin.navigations.index',
             'name'    => trans('exposia-navigation::navigations.menu_title'),
-            'icon'    => 'glyphicon glyphicon-sort'
+            'icon'    => 'fa fa-hand-o-up'
         ]);
         Exposia::addNavigationNode([
             'sefName' => 'pages',
             'route'   => 'admin.pages.index',
             'name'    => trans('exposia-navigation::pages.menu_title'),
-            'icon'    => 'glyphicon glyphicon-blackboard'
+            'icon'    => 'fa fa-edit'
         ]);
     }
 
