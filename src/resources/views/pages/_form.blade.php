@@ -284,6 +284,10 @@
                             </div>
                             @endif
                         </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o"></i> Delete row</button>
+                        </div>
                     </div>
 
                     <div class="tab-pane" id="col-settings">
@@ -295,6 +299,10 @@
                                 {!! $errors->first('custom_class_col') !!}
                             </div>
                             @endif
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-danger btn-reset-col"><i class="fa fa-refresh"></i> Reset column</button>
                         </div>
                     </div>
                 </div>
@@ -312,7 +320,7 @@
     @parent
     <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
     <script src="{{ asset('backend/assets/js/grid_manager.js') }}"></script>
-    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="{{ asset('backend/assets/vendor/jquery-ui-custom/jquery-ui.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#name').blur(function() {
@@ -325,6 +333,11 @@
                             .replace(/^-+/, '')             // Trim - from start of text
                             .replace(/-+$/, ''));            // Trim - from end of text
                 }
+            });
+
+            $('body').tooltip({
+                'selector': '[data-toggle=tooltip]',
+                'container': 'body'
             });
 
         });

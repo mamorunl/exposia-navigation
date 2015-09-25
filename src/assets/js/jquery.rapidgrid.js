@@ -90,10 +90,14 @@
 
         rg.createSettingsButton = function () {
             return '<div class="btn-group btn-group-settings" role="group">' +
-                '<a href="#" class="btn btn-primary rg-move-row"><i class="fa fa-arrows-v"></i> Move row</a>' +
-                '<a href="#" class="btn btn-primary rg-move-col"><i class="fa fa-arrows-h"></i> Move column</a>' +
-                '<a href="#" class="btn btn-primary btn-launch-settings"><i class="fa fa-cog"></i> Settings</a>' +
+                '<a href="#" class="btn btn-default rg-move-row" data-toggle="tooltip" data-placement="top" title="Move Row"><i class="fa fa-arrows-v"></i></a>' +
+                '<a href="#" class="btn btn-default rg-move-col" data-toggle="tooltip" data-placement="top" title="Move Column"><i class="fa fa-arrows-h"></i></a>' +
+                '<a href="#" class="btn btn-danger btn-launch-settings" data-toggle="tooltip" data-placement="top" title="Settings"><i class="fa fa-cog"></i></a>' +
                 '</div>';
+        };
+
+        rg.createSelectTemplateButton = function() {
+            return '<a href="#" class="rg-pick-col-template btn btn-primary"><i class="fa fa-crosshairs"></i></a>';
         };
 
         $('body')
@@ -120,7 +124,7 @@
                 $('#generated_modal').modal('hide');
                 var $style = "";
                 rg.options.controlButtons[$id].forEach(function (element) {
-                    $style += rg.createCol(element, '<a href="#" class="rg-pick-col-template btn btn-primary"><i class="fa fa-crosshairs"></i></a>');
+                    $style += rg.createCol(element, rg.createSelectTemplateButton());
                 });
                 $style = rg.createRow($style);
                 rg.currentCanvas.children('.rg-select-row').before($style);
@@ -151,19 +155,30 @@
                 $('#custom_class_row').val($xpodataForBtn.closest('.row').data('custom-class'));
                 $('#has_container').val($xpodataForBtn.closest('.row').data('has-container'));
                 $('#settings-modal').modal('show');
+            }).on('click', '.btn-delete-row', function(e) {
+                e.preventDefault();
+                $('#settings-modal').modal('hide');
+                rg.xpodataForBtn.closest('.row').fadeOut(800, function() {
+                    $(this).remove();
+                });
+            }).on('click', '.btn-reset-col', function(e) {
+                e.preventDefault();
+                var template_button = rg.createSelectTemplateButton();
+                rg.xpodataForBtn.removeClass('xpo_data').addClass('text-center').html(template_button);
+                $('#settings-modal').modal('hide');
             });
 
         /*
          * Modal events
          */
-        $('#settings-modal').on('hidden.bs.modal', function (e) {
+        $('#settings-modal').on('hidden.bs.modal', function () {
             var $xpodataForBtn = rg.xpodataForBtn;
             $xpodataForBtn.data('custom-class', $('#custom_class_col').val());
             $xpodataForBtn.closest('.row').data('custom-class', $('#custom_class_row').val());
             $xpodataForBtn.closest('.row').data('has-container', $('#has_container').val());
         });
 
-        $('#generated_modal').on('hidden.bs.modal', function (e) {
+        $('#generated_modal').on('hidden.bs.modal', function () {
             $(this).remove();
         });
 
