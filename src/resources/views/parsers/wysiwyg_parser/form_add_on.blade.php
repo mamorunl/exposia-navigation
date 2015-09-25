@@ -31,11 +31,14 @@
         },
         link_class_list: [
             {title: 'Geen', value: ''},
-            {title: 'Knop (primary)', value: 'btn btn-primary'},
-            {title: 'Knop (warning)', value: 'btn btn-warning'},
-            {title: 'Knop (info)', value: 'btn btn-info'},
-            {title: 'Knop (danger)', value: 'btn btn-danger'},
-            {title: 'Knop (success)', value: 'btn btn-success'}
+            @foreach(Config::get('theme.custom_classes') as $class => $description)
+                {title: '{{ $description }}', value: '{{ $class }}'},
+            @endforeach
         ]
+    });
+    $(document).on('focusin', function(e) {
+        if ($(e.target).closest(".mce-window").length) {
+            e.stopImmediatePropagation();
+        }
     });
 </script>

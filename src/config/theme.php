@@ -6,5 +6,19 @@
  * Time: 17:10
  */
 return [
-    'name' => 'default'
+    /**
+     * Theme name
+     */
+    'name'           => 'default',
+
+    /**
+     * Custom CSS classes to be assigned to a link
+     */
+    'custom_classes' => [
+        'btn btn-default' => 'Default button',
+        'btn btn-primary' => 'Primary button',
+        'btn btn-warning' => 'Warning button',
+        'btn btn-danger'  => 'Danger button',
+        'btn btn-info'    => 'Info button'
+    ]
 ];
