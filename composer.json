@@ -9,7 +9,7 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "laravel/framework": "5.0.*",
+    "laravel/framework": "5.*",
     "symfony/dom-crawler": "3.0.*@dev",
     "symfony/css-selector": "3.0.*@dev",
     "illuminate/html": "5.*",
