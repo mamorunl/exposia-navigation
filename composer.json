@@ -10,7 +10,7 @@
   "type": "project",
   "require": {
     "laravel/framework": "5.*",
-    "symfony/dom-crawler": "2.7.8@dev",
+    "symfony/dom-crawler": "2.7.*@dev",
     "symfony/css-selector": "3.0.*@dev",
     "illuminate/html": "5.*",
     "rapideinternet/exposia": "dev-master",
