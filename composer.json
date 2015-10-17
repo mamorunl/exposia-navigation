@@ -11,7 +11,7 @@
   "require": {
     "laravel/framework": "5.*",
     "symfony/dom-crawler": "2.7.*@dev",
-    "symfony/css-selector": "3.0.*@dev",
+    "symfony/css-selector": "2.7.*@dev",
     "illuminate/html": "5.*",
     "rapideinternet/exposia": "dev-master",
     "intervention/image": "dev-master",
