@@ -14,8 +14,7 @@
     "symfony/css-selector": "2.7.*@dev",
     "illuminate/html": "5.*",
     "rapideinternet/exposia": "dev-master",
-    "intervention/image": "dev-master",
-    "rapideinternet/laravel-searchable": "dev-master"
+    "intervention/image": "dev-master"
   },
   "repositories": [
     {
