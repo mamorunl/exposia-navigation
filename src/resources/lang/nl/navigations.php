@@ -7,7 +7,7 @@
  */
 
 return [
-    'menu_title'                  => 'Navigatie',
+    'menu_title'             => 'Navigatie',
     'translations'           => 'Vertalingen',
     'links'                  => 'Link|Links',
     'select'                 => 'Beheren',
@@ -16,7 +16,7 @@ return [
         'no_navs' => 'Er zijn nog geen menu\'s'
     ],
     'create'                 => [
-        'title' => 'Menu aanmaken'
+        'title' => 'Nieuw menu toevoegen'
     ],
     'edit'                   => [
         'title' => 'Menu wijzigen'
@@ -27,9 +27,9 @@ return [
     'page_create_widget'     => [
         'title' => 'Pagina aanmaken'
     ],
-    'show' => [
-        'title' => 'Menustructuur wijzigen',
-        'drag_to_rearrange'      => 'Sleep onderstaande blokken om de volgorde van het menu te wijzigen. Deze volgorde wordt pas actief als deze wordt opgeslagen, uw oude volgorde blijft dus actief totdat de nieuwe is opgeslagen.'
+    'show'                   => [
+        'title'             => 'Menustructuur wijzigen',
+        'drag_to_rearrange' => 'Sleep onderstaande blokken om de volgorde van het menu te wijzigen. Deze volgorde wordt pas actief als deze wordt opgeslagen, uw oude volgorde blijft dus actief totdat de nieuwe is opgeslagen.'
     ],
     'page_add_to_nav_widget' => [
         'title'       => 'Pagina aan navigatie toevoegen',

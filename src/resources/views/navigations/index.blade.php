@@ -1,7 +1,7 @@
 @extends('exposia::index')
 
 @section('title')
-    @choice('exposia-navigation::navigations.index.title', count($navigations)) <a href="{{ route('admin.navigations.create') }}" class="btn btn-primary pull-right">@lang('exposia::global.create')</a>
+    @choice('exposia-navigation::navigations.index.title', count($navigations))
 @stop
 
 @section('content')
@@ -26,4 +26,6 @@
         </div>
     @endforeach
     </div>
+
+    <a href="{{ route('admin.navigations.create') }}" class="huge-button" title="@lang('exposia::global.create')"><i class="material-icons">add</i></a>
 @stop

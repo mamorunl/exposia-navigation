@@ -13,7 +13,7 @@ use Exposia\Navigation\Models\Navigation;
 use Exposia\Navigation\Repositories\NavigationRepository;
 use Exposia\Navigation\Repositories\TranslationRepository;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Blade;
+use Blade;
 use Illuminate\Support\ServiceProvider;
 use Exposia\Navigation\Models\Page;
 use Exposia\Navigation\Models\TemplateFinder;
@@ -36,7 +36,7 @@ class NavigationServiceProvider extends ServiceProvider
     }
 
     /**
-     * The boot method gets ran when the app is booted up
+     * The boot method gets run when the app is booted up
      */
     public function boot()
     {
@@ -70,12 +70,15 @@ class NavigationServiceProvider extends ServiceProvider
         include_once(realpath(__DIR__ . '/Http/helpers.php'));
     }
 
+    /**
+     * Extend Blade to allow the use of @navigation
+     * in the view, so that a more pretty way to
+     * print the navigation is provided.
+     */
     protected function setupExtendBlade()
     {
-        Blade::extend(function ($view, $compiler) {
-            $pattern = $compiler->createMatcher('navigation');
-
-            return preg_replace($pattern, '<?php echo get_navigation$2; ?>', $view);
+        Blade::directive('navigation', function($arguments) {
+            return "<?php echo get_navigation$arguments; ?>";
         });
     }
 
@@ -176,13 +179,13 @@ class NavigationServiceProvider extends ServiceProvider
             'sefName' => 'navigation',
             'route'   => 'admin.navigations.index',
             'name'    => trans('exposia-navigation::navigations.menu_title'),
-            'icon'    => 'fa fa-hand-o-up'
+            'icon'    => 'explore'
         ]);
         Exposia::addNavigationNode([
             'sefName' => 'pages',
             'route'   => 'admin.pages.index',
             'name'    => trans('exposia-navigation::pages.menu_title'),
-            'icon'    => 'fa fa-edit'
+            'icon'    => 'text_format'
         ]);
     }
 
