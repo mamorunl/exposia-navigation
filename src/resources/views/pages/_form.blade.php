@@ -347,7 +347,7 @@
             $settings_bar.css({position: 'fixed', right: '30px'});
 
             $(window).resize(function() {
-                $('#extra-settings-sidebar > div').width($('#extra-settings-sidebar > div').width());
+                $settings_bar.width($settings_bar.width());
             });
 
             $('#canvas').rapidgrid({
