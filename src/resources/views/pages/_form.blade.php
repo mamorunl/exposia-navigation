@@ -342,7 +342,7 @@
     <script src="{{ asset('backend/assets/vendor/jquery-ui-custom/jquery-ui.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $settings_bar = $('#extra-settings-sidebar > div');
+            var $settings_bar = $('#extra-settings-sidebar > div');
             $settings_bar.width($settings_bar.width());
             $settings_bar.css({position: 'fixed', right: '30px'});
 
