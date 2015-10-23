@@ -1,8 +1,25 @@
 $(document).ready(function () {
+    var $really_submit = false;
+
+    $('form').submit(function(e) {
+        if($really_submit === false) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
     $('button[type=submit]').click(function (e) {
         e.preventDefault();
         var arr = traverseTemplate($('#canvas'));
+        $really_submit = true;
         $('#serialized_template').val(JSON.stringify(arr));
+
+        $('.modal').each(function() {
+            if(($(this).data('bs.modal') || {}).isShown) {
+                $really_submit = false;
+            }
+        });
+
         $('form').submit();
     });
 
