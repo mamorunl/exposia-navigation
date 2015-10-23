@@ -1,11 +1,4 @@
 $(document).ready(function () {
-
-    $('#canvas').rapidgrid({
-        controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]]
-    });
-
-
-
     $('button[type=submit]').click(function (e) {
         e.preventDefault();
         var arr = traverseTemplate($('#canvas'));

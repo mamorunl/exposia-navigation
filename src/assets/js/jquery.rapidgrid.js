@@ -16,7 +16,7 @@
     $.rapidgrid = function (el, options) {
         var rg = this;
         rg.$el = $(el);
-        rg.options = options;
+        rg.options = $.extend($.rapidgrid.defaultOptions, options);
 
         // Extra variables for internal use
         rg.xpodataForBtn = null;
@@ -105,17 +105,30 @@
                 e.preventDefault();
                 var $button = $(this);
                 var $modal = '<div class="modal fade" id="generated_modal" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-                    '<h4 class="modal-title">Pick your row layout</h4></div><div class="modal-body">';
+                    '<h4 class="modal-title">' + rg.options.translations.row_layout + '</h4></div><div class="modal-body"><ul class="nav nav-tabs" role="tablist">';
+
                 for (var buttonArray in rg.options.controlButtons) {
-                    $modal += '<div class="row" style="margin-bottom: 7px;"><a href="#" class="rg-add-this-row" data-key="' + buttonArray + '">';
-                    rg.options.controlButtons[buttonArray].forEach(function (size) {
-                        $modal += '<div class="col-xs-' + size + '"><div class="bg-primary text-center">' + size + '</div></div>';
-                    });
-                    $modal += '</a></div>';
+                    $modal += '<li role="presentation"><a href="#generated_modal_tab' + buttonArray + '" data-key="' + buttonArray + '" data-toggle="tab">' + rg.options.controlButtons[buttonArray].join('-') + '</a></li>';
                 }
-                $modal += '</div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
+
+                $modal += '</ul><div class="tab-content">';
+
+                for (var buttonArray in rg.options.controlButtons) {
+                    $modal += '<div role="tabpanel" class="tab-pane" id="generated_modal_tab' + buttonArray + '"><div class="row">';
+
+                    rg.options.controlButtons[buttonArray].forEach(function (size) {
+                        $modal += '<div class="col-xs-' + size + '"><div class="example-block bg-primary">' + size + ' (' + Math.floor((size/12)*100) + '%)</div></div>';
+                    });
+
+                    $modal += '</div><a href="#" data-key="' + buttonArray + '" class="rg-add-this-row huge-button"><i class="material-icons">add</i><br>' + rg.options.translations.add + '</a></div>';
+                }
+
+                $modal += '</div></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">' + rg.options.translations.close + '</button></div></div></div></div>';
+
                 $('body').append($modal);
+
                 $('#generated_modal').modal();
+
                 rg.currentCanvas = $button.closest('.canvas');
             })
             .on('click', '.rg-add-this-row', function (e) {
@@ -166,6 +179,8 @@
                 var template_button = rg.createSelectTemplateButton();
                 rg.xpodataForBtn.removeClass('xpo_data').addClass('text-center').html(template_button);
                 $('#settings-modal').modal('hide');
+            }).on('hidden.bs.modal', '#generated_modal', function () {
+                $(this).remove();
             });
 
         /*
@@ -176,10 +191,6 @@
             $xpodataForBtn.data('custom-class', $('#custom_class_col').val());
             $xpodataForBtn.closest('.row').data('custom-class', $('#custom_class_row').val());
             $xpodataForBtn.closest('.row').data('has-container', $('#has_container').val());
-        });
-
-        $('#generated_modal').on('hidden.bs.modal', function () {
-            $(this).remove();
         });
 
         /**
@@ -196,7 +207,12 @@
         controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [5, 7], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]],
 
         // Desktop class
-        colDesktopClass: "col-md-"
+        colDesktopClass: "col-md-",
+        translations: {
+            row_layout: 'Pick your row layout',
+            close: 'Close',
+            add: 'Add'
+        }
     };
 
     $.fn.rapidgrid = function (options) {

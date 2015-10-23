@@ -1,10 +1,13 @@
 @extends('exposia::index')
 
 @section('title')
- @lang('exposia-navigation::pages.index.title') <a href="{{ route('admin.pages.create') }}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> @lang('exposia::global.create')</a>
+ @lang('exposia-navigation::pages.index.title')
 @stop
 
 @section('content')
+    @if(count($pages) > 25)
+        <a href="{{ route('admin.pages.create') }}" class="huge-button" title="@lang('exposia::global.create')"><i class="material-icons">add</i></a>
+    @endif
     <section class="content paddingleft_right15">
         <table class="table-striped table">
             <thead>
@@ -40,6 +43,8 @@
             </tbody>
         </table>
     </section>
+
+    <a href="{{ route('admin.pages.create') }}" class="huge-button" title="@lang('exposia::global.create')"><i class="material-icons">add</i></a>
 @stop
 @section('modal')
 @parent

@@ -42,8 +42,9 @@ return [
     ],
     'editor_title'   => 'Pagina opbouwen',
     'settings_modal' => [
-        'title'      => 'Instellingen van deze rij wijzigen',
-        'row_tab'    => 'Rij',
-        'column_tab' => 'Kolom'
+        'title'             => 'Instellingen van deze rij wijzigen',
+        'row_tab'           => 'Rij',
+        'column_tab'        => 'Kolom',
+        'select_row_layout' => 'Selecteer een layout'
     ]
 ];
