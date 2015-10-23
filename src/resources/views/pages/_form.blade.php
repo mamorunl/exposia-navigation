@@ -361,6 +361,7 @@
 
             $('#name').blur(function () {
                 var $slug = $('#slug');
+
                 if ($slug.val().length <= 1) {
                     $slug.val("/" + $(this).val().toLowerCase()
                                     .replace(/\s+/g, '-')           // Replace spaces with -
