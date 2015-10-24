@@ -18,11 +18,8 @@ return [
     */
 
     'roles'  => [
-        'page-admin'  => [
-            'name'   => 'Page admin',
-        ],
-        'page-editor' => [
-            'name'   => 'Page editor',
+        'editor' => [
+            'name'   => 'Editor',
         ],
         'translator'  => [
             'name'   => 'Translator',
