@@ -23,3 +23,5 @@
 /_ide_helper.php
 /npm-debug.log.dc278a60e5cec6480b5bb2eda0762f36
 phpspec.yml
+/.env.example
+/npm-debug*
