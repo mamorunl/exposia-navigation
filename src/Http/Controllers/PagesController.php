@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
+use Exposia\Facades\Exposia;
 use Exposia\Http\Controllers\Controller;
 use Exposia\Http\Traits\AuthorizesResource;
 use Exposia\Navigation\Exceptions\LanguageNotFoundException;
@@ -31,6 +32,7 @@ class PagesController extends Controller
     {
         parent::__construct();
         $this->authorizeResource($router, new Page);
+        Exposia::setActive('pages');
     }
 
     /**

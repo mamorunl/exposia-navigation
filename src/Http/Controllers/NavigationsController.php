@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
+use Exposia\Facades\Exposia;
 use Exposia\Http\Controllers\Controller;
 use Exposia\Http\Traits\AuthorizesResource;
 use Exposia\Navigation\Facades\NavigationRepository;
@@ -26,6 +27,7 @@ class NavigationsController extends Controller
     {
         parent::__construct();
         $this->authorizeResource($router, new Navigation);
+        Exposia::setActive('navigation');
     }
     /**
      * @return \Illuminate\View\View
