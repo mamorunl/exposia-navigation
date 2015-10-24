@@ -1,6 +1,6 @@
 {
   "name": "rapideinternet/exposia-navigation",
-  "description": "Exposias Navigation package.",
+  "description": "Exposia's Navigation module.",
   "keywords": [
     "framework",
     "laravel",
@@ -20,10 +20,6 @@
     {
       "type": "vcs",
       "url": "https://github.com/rapideinternet/exposia"
-    },
-    {
-      "type": "vcs",
-      "url":  "git@github.com:rapideinternet/laravel-searchable.git"
     }
   ],
   "require-dev": {
