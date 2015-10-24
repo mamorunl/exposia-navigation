@@ -25,11 +25,14 @@ class TemplateFinder
     public function __construct(Repository $config, Filesystem $files)
     {
         $this->config = $config;
+
         $this->files = $files;
 
         $views_dir = $this->config->get('view.paths');
+
         $this->base_dir = $views_dir[0] . "/" . $this->config->get('theme.name');
-        $this->templates_dir = $views_dir[0] . "/" . $this->config->get('theme.name') . "/pages";
+
+        $this->templates_dir = $this->base_dir . "/pages";
     }
 
     /**

@@ -8,16 +8,25 @@
 
 namespace Exposia\Navigation\Http\Controllers;
 
-use Exposia\Http\Controllers\MainController;
+use Exposia\Http\Controllers\Controller;
+use Exposia\Http\Traits\AuthorizesResource;
 use Exposia\Navigation\Facades\NavigationRepository;
 use Exposia\Navigation\Facades\PageRepository;
+use Exposia\Navigation\Models\Navigation;
 use Exposia\Navigation\Models\NavigationNode;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
-class NavigationsController extends MainController
+class NavigationsController extends Controller
 {
+    use AuthorizesResource;
+    public function __construct(Router $router)
+    {
+        parent::__construct();
+        $this->authorizeResource($router, new Navigation);
+    }
     /**
      * @return \Illuminate\View\View
      */

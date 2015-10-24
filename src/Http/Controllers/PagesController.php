@@ -9,9 +9,12 @@
 namespace Exposia\Navigation\Http\Controllers;
 
 use Exposia\Http\Controllers\Controller;
+use Exposia\Http\Traits\AuthorizesResource;
 use Exposia\Navigation\Exceptions\LanguageNotFoundException;
 use Exposia\Navigation\Facades\TemplateParser;
+use Exposia\Navigation\Models\Page;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
@@ -23,11 +26,11 @@ use InvalidArgumentException;
 
 class PagesController extends Controller
 {
-    public function __construct()
+    use AuthorizesResource;
+    public function __construct(Router $router)
     {
-        $this->middleware('auth', ['except' => ['show', 'updateActiveLanguage']]);
-        $this->middleware('role', ['except' => ['show', 'updateActiveLanguage']]);
         parent::__construct();
+        $this->authorizeResource($router, new Page);
     }
 
     /**

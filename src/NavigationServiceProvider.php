@@ -32,7 +32,9 @@ class NavigationServiceProvider extends ServiceProvider
     {
         Exposia::mergeConfigFrom($this->app, realpath(__DIR__ . '/config/permissions.php'), 'permissions');
 
-        \App::register('Intervention\Image\ImageServiceProvider');
+        $this->app->register('Intervention\Image\ImageServiceProvider');
+
+        $this->app->register('Exposia\Navigation\Providers\AuthServiceProvider');
     }
 
     /**

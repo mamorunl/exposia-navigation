@@ -7,40 +7,7 @@
  */
 
 return [
-    /*
-      |--------------------------------------------------------------------------
-      | Route access
-      |--------------------------------------------------------------------------
-      |
-      | The specific routes with their
-      |
-      */
 
-    'routes' => [
-        'admin' => [
-            'pages'        => [
-                'index'   => 'page-editor',
-                'edit'    => 'page-editor',
-                'update'  => 'page-editor',
-                'create'  => 'page-admin',
-                'store'   => 'page-admin',
-                'destroy' => 'page-admin',
-            ],
-            'navigations'  => [
-                'index'         => 'page-admin',
-                'show'          => 'page-admin',
-                'edit'          => 'page-admin',
-                'update'        => 'page-admin',
-                'create'        => 'page-admin',
-                'store'         => 'page-admin',
-                'save-sequence' => 'page-admin'
-            ],
-            'translations' => [
-                'edit'   => 'translator',
-                'update' => 'translator'
-            ]
-        ]
-    ],
     /*
     |--------------------------------------------------------------------------
     | Roles
@@ -53,15 +20,12 @@ return [
     'roles'  => [
         'page-admin'  => [
             'name'   => 'Page admin',
-            'parent' => 'admin',
         ],
         'page-editor' => [
             'name'   => 'Page editor',
-            'parent' => 'page-admin',
         ],
         'translator'  => [
             'name'   => 'Translator',
-            'parent' => 'page-admin'
         ]
     ]
 ];
