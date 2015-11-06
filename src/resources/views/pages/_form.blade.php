@@ -18,6 +18,7 @@
     .btn-group-settings {
         display: none;
         position: absolute;
+        top: -34px;
     }
 
     .rg-col {
@@ -220,11 +221,10 @@
             </div>
             <div class="modal-body" id="template_picker">
                 <div class="row">
-                    @foreach($templates as $template_name => $image)
+                    @foreach($templates as $template_name => $preview)
                         <div class="col-md-3">
-                            <a href="#" data-templatename="{{ $template_name }}" class="text-center"
-                               style="display:block;">
-                                <img src="{{ $image }}" alt="" class="img-responsive">
+                            <a href="#" data-templatename="{{ $template_name }}" style="display:block;">
+                                {!! $preview !!}
                             </a>
                         </div>
                     @endforeach

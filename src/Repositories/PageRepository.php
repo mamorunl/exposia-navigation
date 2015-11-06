@@ -115,7 +115,7 @@ class PageRepository extends AbstractRepository
             }
 
             $parsedForDatabase[$key]['columns'][$col_key] = [
-                'class'         => trim($column[0]),
+                'class'         => trim($column[0]) . " " . trim($column[2]),
                 'template_name' => (!isset($column[1]) || is_null($column[1]) ? "" : trim($column[1])),
                 'template_data' => (!isset($column[1]) || is_null($column[1]) ? "{}" : TemplateParser::parseForDatabase($column[1],
                     $input)),

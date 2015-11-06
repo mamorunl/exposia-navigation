@@ -13,5 +13,7 @@
 @include('exposia-navigation::parsers.partials.script', ['modal_type' => 'fonticon', 'key' => $key])
 
 <script>
-    $('#{{ $key }}').selectpicker();
+    $(document).ready(function() {
+        $('#{{ $key }}').selectpicker();
+    });
 </script>

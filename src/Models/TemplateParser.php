@@ -2,6 +2,7 @@
 
 namespace Exposia\Navigation\Models;
 
+use Exposia\Navigation\Exceptions\TemplateNotFoundException;
 use Exposia\Navigation\Facades\TemplateFinder as TemplateFinderFacade;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
@@ -166,8 +167,13 @@ class TemplateParser
 
     public function parseForDisplay($template_name, $default_values = [])
     {
-        $template = TemplateFinderFacade::readTemplate($template_name);
-        $json = TemplateFinderFacade::readConfig($template_name);
+        try {
+            $template = TemplateFinderFacade::readTemplate($template_name);
+            $json = TemplateFinderFacade::readConfig($template_name);
+        } catch(TemplateNotFoundException $e) {
+            $template = "";
+            $json = [];
+        }
         $result = $this->getAllXpoTags($template);
 
         // Result 0 = Full strings,

@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Models;
 
+use Exposia\Navigation\Facades\TemplateParser as TemplateParserFacade;
 use Illuminate\Config\Repository;
 use Exposia\Navigation\Exceptions\TemplateNotFoundException;
 use Illuminate\Filesystem\Filesystem;
@@ -37,6 +38,7 @@ class TemplateFinder
 
     /**
      * Return all templates in array form
+     *
      * @return array
      */
     public function getTemplates()
@@ -45,8 +47,15 @@ class TemplateFinder
         $templates = [];
 
         foreach ($folders as $folder) {
+            $template_name_parts = explode("/", $folder);
+            $template_name = end($template_name_parts);
             $folder_name = str_replace($this->templates_dir . "/", "", $folder);
-            $templates[$folder_name] = "data:image/jpeg;base64," . base64_encode(file_get_contents($folder . '/preview.jpg'));
+
+            if(file_exists($folder . '/preview.css')) {
+                $templates[$folder_name] = '<style>' . file_get_contents($folder . '/preview.css') . '</style>' . str_replace("<a", "<span", TemplateParserFacade::parseForDisplay($template_name, []));
+            } elseif (file_exists($folder . '/preview.jpg')) {
+                $templates[$folder_name] = '<img src="data:image/jpeg;base64,' . base64_encode(file_get_contents($folder . '/preview.jpg')) . '" alt="" class="img-responsive">';
+            }
         }
 
         return $templates;
@@ -54,11 +63,13 @@ class TemplateFinder
 
     /**
      * Returns the main templates
+     *
      * @return mixed
      */
     public function getMainTemplates()
     {
         $files = File::files($this->templates_dir);
+        $files_array = [];
         foreach ($files as $file) {
             $file_array = explode("/", $file);
             $file_piece = end($file_array);
@@ -78,7 +89,7 @@ class TemplateFinder
      */
     public function templateExists($template_name)
     {
-        if (!isset($template_name) || !$this->files->exists($this->templates_dir . '/' . $template_name)) {
+        if (! isset($template_name) || empty($template_name) || ! $this->files->exists($this->templates_dir . '/' . $template_name)) {
             return false;
         }
 
@@ -93,7 +104,7 @@ class TemplateFinder
      */
     public function readTemplate($template_name)
     {
-        if (!$this->templateExists($template_name)) {
+        if (! $this->templateExists($template_name)) {
             throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 
@@ -108,7 +119,7 @@ class TemplateFinder
      */
     public function readConfig($template_name)
     {
-        if (!$this->templateExists($template_name)) {
+        if (! $this->templateExists($template_name)) {
             throw new TemplateNotFoundException('Template \'' . $template_name . '\' not found');
         }
 
