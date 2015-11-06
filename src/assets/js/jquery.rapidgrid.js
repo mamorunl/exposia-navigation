@@ -2,10 +2,6 @@
  * Created by heppi_000 on 24-7-2015.
  */
 
-/**
- * Created by heppi_000 on 13-5-2015.
- */
-
 (function ($) {
 
     /**
@@ -58,11 +54,9 @@
         };
 
         rg.createFirstRow = function () {
-            return '<div class="row rg-select-row" style="border: 1px dotted #ccc;">' +
+            return '<div class="row rg-select-row">' +
                 '<div class="col-md-12 text-center">' +
-                '<div class="p7">' +
-                '<button type="button" class="btn btn-primary btn-select-layout" title="Add new row"><i class="fa fa-plus"></i></button>' +
-                '</div>' +
+                '<a href="#" class="huge-button btn-select-layout" title="Add new row"><i class="material-icons">add</i></a>' +
                 '</div>' +
                 '</div>';
         };
@@ -76,7 +70,7 @@
         rg.createCol = function ($col_size, $innerHTML) {
             return '<div class="col-md-' + $col_size + ' rg-col">' +
                 rg.createSettingsButton() +
-                '<div class="text-center p7" data-custom-class="">' +
+                '<div class="text-center" data-custom-class="">' +
                 $innerHTML +
                 '</div>' +
                 ($col_size != 12 ? rg.createCanvas() : "") +
@@ -97,7 +91,7 @@
         };
 
         rg.createSelectTemplateButton = function() {
-            return '<a href="#" class="rg-pick-col-template btn btn-primary"><i class="fa fa-crosshairs"></i></a>';
+            return '<a href="#" class="rg-pick-col-template huge-button"><i class="material-icons">extension</i></a>';
         };
 
         $('body')
@@ -152,7 +146,7 @@
                 $('#set-template-modal').modal('hide');
                 $btn.parent().removeClass('text-center');
                 $btn.parent().addClass('xpo_data');
-                $btn.children('i').attr('class', 'fa fa-spinner fa-spin');
+                $btn.children('i').addClass('fa-spin').text('toys');
                 var template_name = $(this).data('templatename');
 
                 $.get("/ajax/gettemplate/" + template_name, function (data) {
@@ -169,19 +163,19 @@
                 $('#has_container').val($xpodataForBtn.closest('.row').data('has-container'));
                 $('#settings-modal').modal('show');
             }).on('click', '.btn-delete-row', function(e) {
-                e.preventDefault();
-                $('#settings-modal').modal('hide');
-                rg.xpodataForBtn.closest('.row').fadeOut(800, function() {
-                    $(this).remove();
-                });
-            }).on('click', '.btn-reset-col', function(e) {
-                e.preventDefault();
-                var template_button = rg.createSelectTemplateButton();
-                rg.xpodataForBtn.removeClass('xpo_data').addClass('text-center').html(template_button);
-                $('#settings-modal').modal('hide');
-            }).on('hidden.bs.modal', '#generated_modal', function () {
+            e.preventDefault();
+            $('#settings-modal').modal('hide');
+            rg.xpodataForBtn.closest('.row').fadeOut(800, function() {
                 $(this).remove();
             });
+        }).on('click', '.btn-reset-col', function(e) {
+            e.preventDefault();
+            var template_button = rg.createSelectTemplateButton();
+            rg.xpodataForBtn.removeClass('xpo_data').addClass('text-center').html(template_button);
+            $('#settings-modal').modal('hide');
+        }).on('hidden.bs.modal', '#generated_modal', function () {
+            $(this).remove();
+        });
 
         /*
          * Modal events

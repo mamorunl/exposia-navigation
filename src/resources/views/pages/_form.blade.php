@@ -1,8 +1,5 @@
 <style>
     /* Only temporarily! */
-    .p7 {
-        padding: 7px;
-    }
 
     .visual-editor-field {
         min-height: 32px;
@@ -111,107 +108,101 @@
     </div>
 
     <div class="col-md-3" id="extra-settings-sidebar">
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        @lang('exposia-navigation::pages.create.advanced_settings')
-                    </h3>
-                </div>
-
-                <div class="panel-body">
-                    <div class="form-group{!! ($errors->has('main_template')) ? " has-error" : "" !!}">
-                        {!! Form::label('main_template', trans('exposia-navigation::pages.fields.main_template')) !!}
-                        {!! Form::select('main_template', $main_templates, (isset($page) ? $page->main_template : 'index'), ['class' => 'form-control']) !!}
-                        @if($errors->has('main_template'))
-                            <div class="help-block">
-                                {!! $errors->first('main_template') !!}
-                            </div>
-                        @endif
-                    </div>
-                </div>
-                <div class="panel-footer text-right">
-                    <button type="submit" class="btn btn-primary"><i
-                                class="material-icons">done</i> @lang('exposia::global.save')</button>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @lang('exposia-navigation::pages.create.advanced_settings')
+                </h3>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        @lang('exposia-navigation::pages.create.seo_settings')
-                    </h3>
+            <div class="panel-body">
+                <div class="form-group{!! ($errors->has('main_template')) ? " has-error" : "" !!}">
+                    {!! Form::label('main_template', trans('exposia-navigation::pages.fields.main_template')) !!}
+                    {!! Form::select('main_template', $main_templates, (isset($page) ? $page->main_template : 'index'), ['class' => 'form-control']) !!}
+                    @if($errors->has('main_template'))
+                        <div class="help-block">
+                            {!! $errors->first('main_template') !!}
+                        </div>
+                    @endif
                 </div>
-                <div class="panel-body">
-                    <div class="form-group{!! ($errors->has('seo_title')) ? " has-error" : "" !!}">
-                        {!! Form::label('seo_title', trans('exposia-navigation::pages.fields.seo_title')) !!}
-                        {!! Form::text('seo_title', null, ['class' => 'form-control']) !!}
-                        @if($errors->has('seo_title'))
-                            <div class="help-block">
-                                {!! $errors->first('seo_title') !!}
-                            </div>
-                        @endif
-                    </div>
+            </div>
+        </div>
 
-                    <div class="form-group{!! ($errors->has('meta_description')) ? " has-error" : "" !!}">
-                        {!! Form::label('meta_description', trans('exposia-navigation::pages.fields.meta_description')) !!}
-                        {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'rows' => 3]) !!}
-                        @if($errors->has('meta_description'))
-                            <div class="help-block">
-                                {!! $errors->first('meta_description') !!}
-                            </div>
-                        @endif
-                    </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    @lang('exposia-navigation::pages.create.seo_settings')
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group{!! ($errors->has('seo_title')) ? " has-error" : "" !!}">
+                    {!! Form::label('seo_title', trans('exposia-navigation::pages.fields.seo_title')) !!}
+                    {!! Form::text('seo_title', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('seo_title'))
+                        <div class="help-block">
+                            {!! $errors->first('seo_title') !!}
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="form-group{!! ($errors->has('meta_keywords')) ? " has-error" : "" !!}">
-                        {!! Form::label('meta_keywords', trans('exposia-navigation::pages.fields.meta_keywords')) !!}
-                        {!! Form::text('meta_keywords', null, ['class' => 'form-control']) !!}
-                        @if($errors->has('meta_keywords'))
-                            <div class="help-block">
-                                {!! $errors->first('meta_keywords') !!}
-                            </div>
-                        @endif
-                    </div>
+                <div class="form-group{!! ($errors->has('meta_description')) ? " has-error" : "" !!}">
+                    {!! Form::label('meta_description', trans('exposia-navigation::pages.fields.meta_description')) !!}
+                    {!! Form::textarea('meta_description', null, ['class' => 'form-control', 'rows' => 3]) !!}
+                    @if($errors->has('meta_description'))
+                        <div class="help-block">
+                            {!! $errors->first('meta_description') !!}
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="form-group{!! ($errors->has('include_in_sitemap')) ? " has-error" : "" !!}">
-                        {!! Form::label('include_in_sitemap', trans('exposia-navigation::pages.fields.include_in_sitemap')) !!}
-                        {!! Form::select('include_in_sitemap', [1 => trans('exposia::global.yes'), 0 => trans('exposia::global.no')], null, ['class' => 'form-control']) !!}
-                        @if($errors->has('include_in_sitemap'))
-                            <div class="help-block">
-                                {!! $errors->first('include_in_sitemap') !!}
-                            </div>
-                        @endif
-                    </div>
+                <div class="form-group{!! ($errors->has('meta_keywords')) ? " has-error" : "" !!}">
+                    {!! Form::label('meta_keywords', trans('exposia-navigation::pages.fields.meta_keywords')) !!}
+                    {!! Form::text('meta_keywords', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('meta_keywords'))
+                        <div class="help-block">
+                            {!! $errors->first('meta_keywords') !!}
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="form-group{!! ($errors->has('robots_index')) ? " has-error" : "" !!}">
-                        {!! Form::label('robots_index', trans('exposia-navigation::pages.fields.robots_index')) !!}
-                        {!! Form::select('robots_index', ['index' => 'index', 'noindex' => 'noindex'], null, ['class' => 'form-control']) !!}
-                        @if($errors->has('robots_index'))
-                            <div class="help-block">
-                                {!! $errors->first('robots_index') !!}
-                            </div>
-                        @endif
-                    </div>
+                <div class="form-group{!! ($errors->has('include_in_sitemap')) ? " has-error" : "" !!}">
+                    {!! Form::label('include_in_sitemap', trans('exposia-navigation::pages.fields.include_in_sitemap')) !!}
+                    {!! Form::select('include_in_sitemap', [1 => trans('exposia::global.yes'), 0 => trans('exposia::global.no')], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('include_in_sitemap'))
+                        <div class="help-block">
+                            {!! $errors->first('include_in_sitemap') !!}
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="form-group{!! ($errors->has('robots_follow')) ? " has-error" : "" !!}">
-                        {!! Form::label('robots_follow', trans('exposia-navigation::pages.fields.robots_follow')) !!}
-                        {!! Form::select('robots_follow', ['follow' => 'follow', 'nofollow' => 'nofollow'], null, ['class' => 'form-control']) !!}
-                        @if($errors->has('robots_follow'))
-                            <div class="help-block">
-                                {!! $errors->first('robots_follow') !!}
-                            </div>
-                        @endif
-                    </div>
+                <div class="form-group{!! ($errors->has('robots_index')) ? " has-error" : "" !!}">
+                    {!! Form::label('robots_index', trans('exposia-navigation::pages.fields.robots_index')) !!}
+                    {!! Form::select('robots_index', ['index' => 'index', 'noindex' => 'noindex'], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('robots_index'))
+                        <div class="help-block">
+                            {!! $errors->first('robots_index') !!}
+                        </div>
+                    @endif
+                </div>
 
-                    <div class="form-group{!! ($errors->has('canonical_url')) ? " has-error" : "" !!}">
-                        {!! Form::label('canonical_url', trans('exposia-navigation::pages.fields.canonical_url')) !!}
-                        {!! Form::text('canonical_url', null, ['class' => 'form-control']) !!}
-                        @if($errors->has('canonical_url'))
-                            <div class="help-block">
-                                {!! $errors->first('canonical_url') !!}
-                            </div>
-                        @endif
-                    </div>
+                <div class="form-group{!! ($errors->has('robots_follow')) ? " has-error" : "" !!}">
+                    {!! Form::label('robots_follow', trans('exposia-navigation::pages.fields.robots_follow')) !!}
+                    {!! Form::select('robots_follow', ['follow' => 'follow', 'nofollow' => 'nofollow'], null, ['class' => 'form-control']) !!}
+                    @if($errors->has('robots_follow'))
+                        <div class="help-block">
+                            {!! $errors->first('robots_follow') !!}
+                        </div>
+                    @endif
+                </div>
+
+                <div class="form-group{!! ($errors->has('canonical_url')) ? " has-error" : "" !!}">
+                    {!! Form::label('canonical_url', trans('exposia-navigation::pages.fields.canonical_url')) !!}
+                    {!! Form::text('canonical_url', null, ['class' => 'form-control']) !!}
+                    @if($errors->has('canonical_url'))
+                        <div class="help-block">
+                            {!! $errors->first('canonical_url') !!}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -224,7 +215,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">@lang('exposia-navigation::pages.select_template.title')</h4>
             </div>
             <div class="modal-body" id="template_picker">
@@ -252,7 +243,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">@lang('exposia-navigation::pages.settings_modal.title')</h4>
             </div>
             <div class="modal-body">
@@ -333,8 +324,21 @@
     </div>
 </div>
 
-<div id="output"></div>
-
+<div id="save-bar-padding"></div>
+<div id="save-bar">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ URL::previous() }}" class="btn btn-danger">
+                <i class="material-icons">keyboard_backspace</i> @lang('exposia::global.cancel')
+            </a>
+        </div>
+        <div class="col-md-6 text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="material-icons">done</i> @lang('exposia::global.save')
+            </button>
+        </div>
+    </div>
+</div>
 @section('script')
     @parent
     <script src="{{ asset('backend/assets/js/jquery.rapidgrid.js') }}"></script>
@@ -342,14 +346,6 @@
     <script src="{{ asset('backend/assets/vendor/jquery-ui-custom/jquery-ui.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            var $settings_bar = $('#extra-settings-sidebar > div');
-            $settings_bar.width($settings_bar.width());
-            $settings_bar.css({position: 'fixed', right: '30px'});
-
-            $(window).resize(function() {
-                $settings_bar.width($settings_bar.width());
-            });
-
             $('#canvas').rapidgrid({
                 controlButtons: [[12], [8, 4], [9, 3], [5, 2, 5], [6, 6], [4, 4, 4], [3, 3, 3, 3], [2, 2, 2, 2, 2, 2]],
                 translations: {
@@ -364,11 +360,11 @@
 
                 if ($slug.val().length <= 1) {
                     $slug.val("/" + $(this).val().toLowerCase()
-                                    .replace(/\s+/g, '-')           // Replace spaces with -
-                                    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-                                    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-                                    .replace(/^-+/, '')             // Trim - from start of text
-                                    .replace(/-+$/, ''));            // Trim - from end of text
+                            .replace(/\s+/g, '-')           // Replace spaces with -
+                            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                            .replace(/^-+/, '')             // Trim - from start of text
+                            .replace(/-+$/, ''));            // Trim - from end of text
                 }
             });
 

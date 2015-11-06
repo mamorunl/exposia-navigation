@@ -41,11 +41,11 @@
     float: none !important;
 }
 
-#canvas .canvas .rg-col {
+/*#canvas .canvas .rg-col {
     padding-top: 0;
     padding-bottom: 0;
     border: 1px solid #777;
-}
+}*/
 
 #canvas .canvas .rg-col:before {
     display: block;
@@ -104,6 +104,10 @@
     transition: transform 0.5s ease;
     backface-visibility: hidden;
     height: 0;
+}
+
+.rg-select-row {
+    margin-top: 7px;
 }
 
 /**
