@@ -79,7 +79,7 @@ class NavigationsController extends Controller
     public function show($id)
     {
         $nav = NavigationRepository::find($id);
-        $pages = PageRepository::listForNavigation(135, $id);
+        $pages = PageRepository::listForNavigation($id);
 
         return view('exposia-navigation::navigations.show', compact("nav", "pages"));
     }
