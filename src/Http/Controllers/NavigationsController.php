@@ -15,6 +15,7 @@ use Exposia\Navigation\Facades\NavigationRepository;
 use Exposia\Navigation\Facades\PageRepository;
 use Exposia\Navigation\Models\Navigation;
 use Exposia\Navigation\Models\NavigationNode;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Redirect;
@@ -80,8 +81,9 @@ class NavigationsController extends Controller
     {
         $nav = NavigationRepository::find($id);
         $pages = PageRepository::listForNavigation($id);
+        $nodes = NavigationRepository::listForNavigation($id);
 
-        return view('exposia-navigation::navigations.show', compact("nav", "pages"));
+        return view('exposia-navigation::navigations.show', compact("nav", "pages", "nodes"));
     }
 
     /**
@@ -147,6 +149,7 @@ class NavigationsController extends Controller
             if (is_array($subdata)) {
                 $this->saveChildSequence($subdata, $parentID);
             }
+
             if (is_object($subdata)) {
                 $index++;
                 $node = NavigationNode::findOrFail($subdata->navigationnodeid);
@@ -154,10 +157,50 @@ class NavigationsController extends Controller
                     'parent_id'  => $parentID,
                     'sort_order' => $index
                 ]);
+
                 if (isset($subdata->children) && count($subdata->children) > 0) {
                     $this->saveChildSequence($subdata->children, $node->id);
                 }
             }
         }
+    }
+
+    public function storeNode(Request $request)
+    {
+        $fields = $request->only('name', 'slug', 'target');
+
+        $fields['slug'] = parse_url($fields['slug'], PHP_URL_SCHEME) === null && strpos($fields['slug'], '.') !== false ?
+            "http://" . $fields['slug'] : $fields['slug'];
+        
+        
+        $validator = Validator::make($fields, NavigationNode::$rules);
+
+        if($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        NavigationNode::create($fields);
+
+        return redirect()
+            ->back();
+    }
+
+    public function destroyNode($navigation_node_id)
+    {
+        try {
+            $node = NavigationNode::findOrFail($navigation_node_id);
+            if($node->page != null) {
+                throw new \Exception;
+            }
+        } catch(\Exception $e) {
+            return redirect()->back();
+        }
+
+        $node->delete();
+
+        return redirect()->back();
     }
 }

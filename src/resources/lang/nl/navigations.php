@@ -39,6 +39,15 @@ return [
             'all'    => 'Alle pagina\'s'
         ]
     ],
+    'node_add_to_nav_widget' => [
+        'title'       => 'Link aan navigatie toevoegen',
+        'drag_to_add' => 'Sleep het blok naar de navigatie om toe te voegen',
+        'modal_title' => 'Nieuwe link toevoegen',
+        'tab'         => [
+            'recent' => 'Meest recent aangepast',
+            'all'    => 'Alle pagina\'s'
+        ]
+    ],
     'create_node'            => [
         'title' => 'Nieuwe externe link'
     ],

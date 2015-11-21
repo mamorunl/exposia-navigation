@@ -8,6 +8,7 @@
 
 namespace Exposia\Navigation\Repositories;
 
+use Exposia\Navigation\Models\NavigationNode;
 use Exposia\Repositories\AbstractRepository;
 
 class NavigationRepository extends AbstractRepository
@@ -29,5 +30,23 @@ class NavigationRepository extends AbstractRepository
         }
 
         return false;
+    }
+
+    /**
+     * @param $navigation_id
+     *
+     * @return mixed
+     */
+    public function listForNavigation($navigation_id)
+    {
+        $nodes = NavigationNode::whereHas('navigation', function ($q) use ($navigation_id) {
+                $q->where('navigation_id', $navigation_id);
+            })
+            ->orWhereHas('page', function() {
+
+            })
+            ->lists('id');
+
+        return NavigationNode::whereNotIn('id', $nodes)->get();
     }
 }

@@ -64,6 +64,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('navigations/{id}/format',
         ['as' => 'admin.navigations.save-sequence', 'uses' => 'NavigationsController@saveSequence']);
 
+    Route::post('navigation/addnode',
+        ['as' => 'admin.navigationnodes.store', 'uses' => 'NavigationsController@storeNode']);
+
+    Route::delete('navigation/delnode/{id}',
+        ['as' => 'admin.navigationnodes.destroy', 'uses' => 'NavigationsController@destroyNode']);
+
     Route::get('pages/{id}/{language}/edit', [
         'as'   => 'admin.translations.edit',
         'uses' => 'PageTranslationsController@edit'

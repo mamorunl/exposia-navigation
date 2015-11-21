@@ -16,7 +16,19 @@ class NavigationNode extends AbstractNavigationNode
         'slug'
     ];
 
-    public function page() {
+    public static $rules = [
+        'name' => 'required',
+        'slug' => 'required',
+        'target' => 'required'
+    ];
+
+    /**
+     * Relationship node > page
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function page()
+    {
         return $this->hasOne('Exposia\Navigation\Models\Page', 'node_id');
     }
 
@@ -25,8 +37,26 @@ class NavigationNode extends AbstractNavigationNode
 //        return $this->children($navigation_id);
 //    }
 
+    /**
+     * Relationship node > navigation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function navigation()
     {
         return $this->belongsToMany('\Exposia\Navigation\Models\Navigation', 'cms_navigation_navigation_nodes');
+    }
+
+    /**
+     * Returns the allowed targets for links
+     *
+     * @return array
+     */
+    public static function getTargets()
+    {
+        return [
+            '_self'  => trans('exposia::global.no'),
+            '_blank' => trans('exposia::global.yes')
+        ];
     }
 }

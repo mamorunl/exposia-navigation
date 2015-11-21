@@ -47,6 +47,35 @@
                             </li>
                         @endforeach
                     </ul>
+
+                    {!! $pages->render() !!}
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="panel-node">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@lang('exposia-navigation::navigations.node_add_to_nav_widget.title')</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="navigation draggable-list">
+                        @foreach($nodes as $node)
+                            <li id="navigation-item-new-{{ $node->id }}" class="navigation-item" data-navigationnodeid="{{ $node->id }}" data-slug="{{ $node->slug }}">
+                                <div>{{ $node->name }}
+                                    <div class="pull-right">
+                                        <a href="#" class="btn-confirm-delete btn btn-danger btn-xs">@lang('exposia::global.destroy')</a>
+                                        <a href="#" class="remove-navigation-node btn btn-danger btn-xs">@lang('exposia::global.destroy')</a>
+                                        {!! Form::open(['method' => 'delete', 'route' => ['admin.navigationnodes.destroy', $node->id]]) !!}
+                                        {!! Form::close() !!}
+                                    </div>
+                                    <div>
+                                        <em class="text-muted"><small>{{ $node->slug }}</small></em>
+                                    </div>
+                                </div>
+                                <ol></ol>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <a href="#add-node-modal" data-toggle="modal" data-target="#add-node-modal" class="huge-button"><i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
@@ -80,6 +109,55 @@
 @stop
 
 @section('script')
+    <div class="modal fade" id="add-node-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {!! Form::open(['method' => 'post', 'route' => 'admin.navigationnodes.store']) !!}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">@lang('exposia-navigation::navigations.node_add_to_nav_widget.modal_title')</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        {!! Form::label('name', trans('exposia-navigation::pages.fields.name')) !!}
+                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        @if($errors->has('name'))
+                            <div class="help-block">
+                                {!! $errors->first('name') !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
+                        {!! Form::label('slug', trans('exposia-navigation::pages.fields.slug')) !!}
+                        {!! Form::text('slug', null, ['class' => 'form-control']) !!}
+                        @if($errors->has('slug'))
+                            <div class="help-block">
+                                {!! $errors->first('slug') !!}
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="form-group{{ $errors->has('target') ? ' has-error' : '' }}">
+                        {!! Form::label('target', trans('exposia-navigation::pages.fields.target')) !!}
+                        {!! Form::select('target', Exposia\Navigation\Models\NavigationNode::getTargets(), null, ['class' => 'form-control']) !!}
+                        @if($errors->has('target'))
+                            <div class="help-block">
+                                {!! $errors->first('target') !!}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">@lang('exposia::global.close')</button>
+                    <button type="submit" class="btn btn-primary">@lang('exposia::global.save')</button>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+    </div>
     <script src="/backend/assets/vendor/jquery-sortable/jquery-sortable.js"></script>
     <script>
         $(document).ready(function() {
@@ -100,11 +178,27 @@
             e.preventDefault();
             $(this).closest('li').remove();
         });
+
+        $('.btn-confirm-delete').click(function(e) {
+            e.preventDefault();
+            var $link = $(this);
+            bootbox.confirm({
+                message: "{{ trans('exposia::global.confirm_destroy', ['resource' => 'deze link']) }}",
+                callback: function(result) {
+                    if(result) {
+                        $link.siblings('form').submit();
+                    }
+                }
+            });
+        });
     </script>
 @stop
 
 @section('style')
     <style type="text/css">
+        #panel-node .remove-navigation-node, #draggable-navigation .btn-confirm-delete {
+            display: none;
+        }
     body.dragging, body.dragging * {
     cursor: move !important;
     }

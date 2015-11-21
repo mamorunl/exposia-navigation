@@ -105,10 +105,10 @@ class PageRepository extends AbstractRepository
             $parsedRow = [];
             if (isset($column[4]) && count($column[4]) > 0) {
                 foreach ($column[4] as $row_k => $row) {
-                    if(count($row) == 0) {
+                    if (count($row) == 0) {
                         continue;
                     }
-                    foreach($row as $row_key => $row_data) {
+                    foreach ($row as $row_key => $row_data) {
                         $parsedRow = array_merge($parsedRow, $this->createArrayFromData($row_key, $row_data));
                     }
                 }
@@ -116,8 +116,8 @@ class PageRepository extends AbstractRepository
 
             $parsedForDatabase[$key]['columns'][$col_key] = [
                 'class'         => trim($column[0]) . " " . trim($column[2]),
-                'template_name' => (!isset($column[1]) || is_null($column[1]) ? "" : trim($column[1])),
-                'template_data' => (!isset($column[1]) || is_null($column[1]) ? "{}" : TemplateParser::parseForDatabase($column[1],
+                'template_name' => (! isset($column[1]) || is_null($column[1]) ? "" : trim($column[1])),
+                'template_data' => (! isset($column[1]) || is_null($column[1]) ? "{}" : TemplateParser::parseForDatabase($column[1],
                     $input)),
                 'nested_rows'   => $parsedRow
             ];
@@ -168,12 +168,13 @@ class PageRepository extends AbstractRepository
      */
     public function create($data = [])
     {
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             throw new BadRequestHttpException('Data should be an array');
         }
 
         try {
-            NavigationNode::where('slug', Input::get('slug'))->firstOrFail();
+            NavigationNode::where('slug', Input::get('slug'))
+                ->firstOrFail();
         } catch (ModelNotFoundException $e) {
             DB::transaction(function () use ($data) {
                 $node = new NavigationNode;
@@ -208,14 +209,16 @@ class PageRepository extends AbstractRepository
      */
     public function update($id, $data = [])
     {
-        if (!is_array($data)) {
+        if (! is_array($data)) {
             throw new BadRequestHttpException('Data should be an array');
         }
 
         $page = $this->find($id);
 
         try {
-            NavigationNode::where('slug', $data['slug'])->where('id', '!=', $page->node->id)->firstOrFail();
+            NavigationNode::where('slug', $data['slug'])
+                ->where('id', '!=', $page->node->id)
+                ->firstOrFail();
         } catch (ModelNotFoundException $e) {
             DB::transaction(function () use ($page, $data) {
                 $node = $page->node;
@@ -245,19 +248,24 @@ class PageRepository extends AbstractRepository
      */
     public function findBySlug($slug)
     {
-        $node = NavigationNode::where('slug', $slug)->orWhere('slug', "/" . $slug)->firstOrFail();
+        $node = NavigationNode::where('slug', $slug)
+            ->orWhere('slug', "/" . $slug)
+            ->firstOrFail();
 
         if (Config::has('website.languages') && Session::has('exposia_language') && Session::get('exposia_language') != Config::get('app.locale')) {
             try {
-                $node = NavigationNodeTranslation::where('slug', $slug)->orWhere('slug', '/' . $slug)->where('language',
-                    Session::get('exposia_language'))->firstOrFail();
+                $node = NavigationNodeTranslation::where('slug', $slug)
+                    ->orWhere('slug', '/' . $slug)
+                    ->where('language',
+                        Session::get('exposia_language'))
+                    ->firstOrFail();
             } catch (ModelNotFoundException $e) {
             }
         }
 
         $page = $node->page;
 
-        if($node instanceof NavigationNodeTranslation) {
+        if ($node instanceof NavigationNodeTranslation) {
             $page->main_template = (isset($node->mainNode->page->main_template) ? $node->mainNode->page->main_template : 'index');
         }
 
@@ -270,25 +278,33 @@ class PageRepository extends AbstractRepository
      *
      * @param     $navigation_id
      *
+     * @param int $limit
+     *
      * @return mixed
      */
-    public function listForNavigation($navigation_id)
+    public function listForNavigation($navigation_id, $limit = 5)
     {
-        $pages = $this->model->whereHas('node.navigation', function ($q) use ($navigation_id) {
-            $q->where('navigation_id', $navigation_id);
-        })->lists('id');
+        $pages = $this->model
+            ->whereHas('node.navigation', function ($q) use ($navigation_id) {
+                $q->where('navigation_id', $navigation_id);
+            })
+            ->lists('id');
 
-        return $this->model->whereNotIn('id', $pages)->get();
+        return $this->model
+            ->whereNotIn('id', $pages)
+            ->paginate($limit);
     }
 
     /**
      * Return a list of objects to show
      * at the sitemap.index page (RSS feed)
+     *
      * @return mixed
      */
     public function listForSitemap()
     {
-        return $this->model->where('include_in_sitemap', 1)->get();
+        return $this->model->where('include_in_sitemap', 1)
+            ->get();
     }
 
     /**
