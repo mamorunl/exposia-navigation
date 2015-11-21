@@ -222,9 +222,9 @@
             <div class="modal-body" id="template_picker">
                 <div class="row">
                     @foreach($templates as $template_name => $preview)
-                        <div class="col-md-3">
-                            <a href="#" data-templatename="{{ $template_name }}" style="display:block;">
-                                {!! $preview !!}
+                        <div class="col-md-2">
+                            <a href="#" data-templatename="{{ $template_name }}" style="display:block;" title="{{ $template_name }}">
+                                <img src="{!! $preview !!}" alt="{{ $template_name }}" class="img-responsive">
                             </a>
                         </div>
                     @endforeach

@@ -47,15 +47,14 @@ class TemplateFinder
         $templates = [];
 
         foreach ($folders as $folder) {
-            $template_name_parts = explode("/", $folder);
-            $template_name = end($template_name_parts);
             $folder_name = str_replace($this->templates_dir . "/", "", $folder);
 
-            if(file_exists($folder . '/preview.css')) {
-                $templates[$folder_name] = '<style>' . file_get_contents($folder . '/preview.css') . '</style>' . str_replace("<a", "<span", TemplateParserFacade::parseForDisplay($template_name, []));
-            } elseif (file_exists($folder . '/preview.jpg')) {
-                $templates[$folder_name] = '<img src="data:image/jpeg;base64,' . base64_encode(file_get_contents($folder . '/preview.jpg')) . '" alt="" class="img-responsive">';
+            if (file_exists($folder . '/preview.jpg')) {
+                $templates[$folder_name] = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($folder . '/preview.jpg'));
+            } elseif (file_exists($folder . '/preview.png')) {
+                $templates[$folder_name] = 'data:image/png;base64,' . base64_encode(file_get_contents($folder . '/preview.png'));
             }
+
         }
 
         return $templates;
