@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-success">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">@lang('exposia-navigation::navigations.page_add_to_nav_widget.title')</h3>
                 </div>
