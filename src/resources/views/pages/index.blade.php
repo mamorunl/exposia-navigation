@@ -9,7 +9,7 @@
         <a href="{{ route('admin.pages.create') }}" class="huge-button" title="@lang('exposia::global.create')"><i class="material-icons">add</i></a>
     @endif
     <section class="content paddingleft_right15">
-        <table class="table-striped table">
+        <table class="table-striped table" id="pages-table">
             <thead>
             <tr>
                 <th class="col-xs-5">@lang('exposia-navigation::pages.fields.title')</th>
@@ -49,8 +49,38 @@
 @section('modal')
 @parent
 @stop
+
+@section('style')
+    <link href="/backend/assets/js/bootstrap-datatables/datatables.min.css" rel="stylesheet">
+@stop
+
 @section('script')
+    <script src="/backend/assets/js/bootstrap-datatables/datatables.min.js"></script>
     <script>
+        $(function() {
+            $('#pages-table').DataTable({
+                pageLength: 25,
+                language: {
+                    "sProcessing": "{{ trans('exposia-navigation::pages.index.datatables.sProcessing') }}",
+                    "sLengthMenu": "{{ trans('exposia-navigation::pages.index.datatables.sLengthMenu') }}",
+                    "sZeroRecords": "{{ trans('exposia-navigation::pages.index.datatables.sZeroRecords') }}",
+                    "sInfo": "{{ trans('exposia-navigation::pages.index.datatables.sInfo') }}",
+                    "sInfoEmpty": "{{ trans('exposia-navigation::pages.index.datatables.sInfoEmpty') }}",
+                    "sInfoFiltered": "{{ trans('exposia-navigation::pages.index.datatables.sInfoFiltered') }}",
+                    "sInfoPostFix": "{{ trans('exposia-navigation::pages.index.datatables.sInfoPostFix') }}",
+                    "sSearch": "{{ trans('exposia-navigation::pages.index.datatables.sSearch') }}",
+                    "sEmptyTable": "{{ trans('exposia-navigation::pages.index.datatables.sEmptyTable') }}",
+                    "sInfoThousands": "{{ trans('exposia-navigation::pages.index.datatables.sInfoThousands') }}",
+                    "sLoadingRecords": "{{ trans('exposia-navigation::pages.index.datatables.sLoadingRecords') }}",
+                    "oPaginate": {
+                        "sFirst": "{{ trans('exposia-navigation::pages.index.datatables.oPaginate.sFirst') }}",
+                        "sLast": "{{ trans('exposia-navigation::pages.index.datatables.oPaginate.sLast') }}",
+                        "sNext": "{{ trans('exposia-navigation::pages.index.datatables.oPaginate.sNext') }}",
+                        "sPrevious": "{{ trans('exposia-navigation::pages.index.datatables.oPaginate.sPrevious') }}"
+                    }
+                }
+            });
+        });
         $('.btn-confirm-delete').click(function(e) {
             e.preventDefault();
             var $link = $(this);

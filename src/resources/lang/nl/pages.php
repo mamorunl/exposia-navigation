@@ -38,7 +38,26 @@ return [
     'index'          => [
         'title'         => 'Alle pagina\'s',
         'last_edit'     => 'Laatste aanpassing',
-        'edit_language' => 'Vertaling wijzigen'
+        'edit_language' => 'Vertaling wijzigen',
+        'datatables' => [
+            'sProcessing' => 'Bezig...',
+            'sLengthMenu' => '_MENU_ resultaten weergeven',
+            'sZeroRecords' => 'Geen resultaten gevonden',
+            'sInfo' => '_START_ tot _END_ van _TOTAL_ resultaten',
+            'sInfoEmpty' => 'Geen resultaten om weer te geven',
+            'sInfoFiltered' => ' (gefilterd uit _MAX_ resultaten)',
+            'sInfoPostFix' => '',
+            'sSearch' => 'Zoeken:',
+            'sEmptyTable' => 'Geen resultaten aanwezig in de tabel',
+            'sInfoThousands' => '.',
+            'sLoadingRecords' => 'Een moment geduld aub - bezig met laden...',
+            'oPaginate' => [
+                'sFirst' => 'Eerste',
+                'sLast' => 'Laatste',
+                'sNext' => 'Volgende',
+                'sPrevious' => 'Vorige'
+            ]
+        ]
     ],
     'editor_title'   => 'Pagina opbouwen',
     'settings_modal' => [
