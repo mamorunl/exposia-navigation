@@ -31,6 +31,7 @@ class PagesController extends Controller
     public function __construct(Router $router)
     {
         parent::__construct();
+        $this->disable_authorization = "show";
         $this->authorizeResource($router, new Page);
         Exposia::setActive('pages');
     }
