@@ -28,11 +28,7 @@
     "benconstable/phpspec-laravel": "~2.0"
   },
   "autoload": {
-    "classmap": [
-      "database"
-    ],
     "psr-4": {
-      "App\\": "app/",
       "Exposia\\Navigation\\": "src/"
     }
   }
