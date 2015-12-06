@@ -11,34 +11,12 @@
                 tinymce.activeEditor.getContent()
         );
     });
-    tinymce.init({
-        selector: "#wysiwyg_input_{{ $key }}",
-        plugins: [
-            "autolink link table"
-        ],
-        content_css: "",
-        toolbar: "styleselect | bullist numlist | link | table",
 
-        relative_urls: false,
-        menubar: false,
-        statusbar: false,
-        extended_valid_elements: "table[*]",
-        invalid_elements: "span",
-        valid_styles: {
-            "*": "text-align",
-            "a": "",
-            "strong": ""
-        },
-        link_class_list: [
-            {title: 'Geen', value: ''},
-            @foreach(Config::get('theme.custom_classes') as $class => $description)
-                {title: '{{ $description }}', value: '{{ $class }}'},
-            @endforeach
-        ]
-    });
     $(document).on('focusin', function(e) {
         if ($(e.target).closest(".mce-window").length) {
             e.stopImmediatePropagation();
         }
     });
 </script>
+
+@include('exposia::static.wysiwyg', ['selector' => '#wysiwyg_input_' . $key])
