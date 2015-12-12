@@ -23,8 +23,8 @@ return [
     'home' => '/home',
 
     'translations' => [
-        'en' => [
-            'title' => 'English'
-        ]
+        //'en' => [
+        //    'title' => 'English'
+        //]
     ]
 ];
