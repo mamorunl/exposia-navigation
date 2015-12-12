@@ -20,5 +20,11 @@ return [
      * If the visitor goes to the URL (without a page slug specified)
      * the below page is loaded. This prevents duplicate content on / and /home
      */
-    'home' => '/home'
+    'home' => '/home',
+
+    'translations' => [
+        'en' => [
+            'title' => 'English'
+        ]
+    ]
 ];
