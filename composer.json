@@ -13,7 +13,7 @@
     "symfony/dom-crawler": "2.7.*@dev",
     "symfony/css-selector": "2.7.*@dev",
     "illuminate/html": "5.*",
-    "rapideinternet/exposia": "dev-master",
+    "rapideinternet/exposia": "dev-master"
 
   },
   "repositories": [
