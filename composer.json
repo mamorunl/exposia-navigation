@@ -14,7 +14,7 @@
     "symfony/css-selector": "2.7.*@dev",
     "illuminate/html": "5.*",
     "rapideinternet/exposia": "dev-master",
-    "intervention/image": "2.3.*"
+
   },
   "repositories": [
     {
