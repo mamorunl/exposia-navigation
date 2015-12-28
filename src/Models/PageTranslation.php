@@ -11,9 +11,8 @@ namespace Exposia\Navigation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PageTranslation extends Model {
-    protected $table = 'cms_page_translations';
-
+class PageTranslation extends Model
+{
     protected $fillable = [
         'title',
         'template_data',

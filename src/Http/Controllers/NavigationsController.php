@@ -58,7 +58,7 @@ class NavigationsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), ['name' => 'required|unique:cms_navigations']);
+        $validator = Validator::make($request->all(), ['name' => 'required|unique:navigations']);
         if ($validator->fails()) {
             return Redirect::back()
                 ->withErrors()
@@ -106,7 +106,7 @@ class NavigationsController extends Controller
      */
     public function update($id, Request $request)
     {
-        $validator = Validator::make($request->all(), ['name' => 'required|unique:cms_navigation_nodes,name,' . $id]);
+        $validator = Validator::make($request->all(), ['name' => 'required|unique:navigation_nodes,name,' . $id]);
         if ($validator->fails()) {
             return Redirect::back()
                 ->withErrors($validator)

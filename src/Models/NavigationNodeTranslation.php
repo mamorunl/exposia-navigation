@@ -10,7 +10,6 @@ namespace Exposia\Navigation\Models;
 
 class NavigationNodeTranslation extends AbstractNavigationNode
 {
-    protected $table = 'cms_node_translations';
     protected $fillable = [
         'name',
         'slug',
@@ -18,7 +17,8 @@ class NavigationNodeTranslation extends AbstractNavigationNode
         'navigation_node_id'
     ];
 
-    public function page() {
+    public function page()
+    {
         return $this->hasOne('Exposia\Navigation\Models\PageTranslation', 'node_id');
     }
 

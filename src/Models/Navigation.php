@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Session;
 
 class Navigation extends Model
 {
-    protected $table = "cms_navigations";
-
     protected $fillable = [
         'name'
     ];
@@ -27,15 +25,15 @@ class Navigation extends Model
     public function nodes()
     {
         return $this
-            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
-            ->orderBy('cms_navigation_navigation_nodes.sort_order', 'asc')
-            ->where('cms_navigation_navigation_nodes.parent_id', 0);
+            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode')
+            ->orderBy('navigation_navigation_node.sort_order', 'asc')
+            ->where('navigation_navigation_node.parent_id', 0);
     }
 
     public function allnodes()
     {
         return $this
-            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes')
+            ->belongsToMany('\Exposia\Navigation\Models\NavigationNode')
             ->orderBy('sort_order', 'asc');
     }
 

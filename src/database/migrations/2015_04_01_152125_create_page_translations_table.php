@@ -12,7 +12,7 @@ class CreatePageTranslationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cms_page_translations', function(Blueprint $table)
+		Schema::create('page_translations', function(Blueprint $table)
 		{
 			$table->increments('id');
             $table->integer('node_id');
@@ -29,7 +29,7 @@ class CreatePageTranslationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cms_page_translations');
+		Schema::drop('page_translations');
 	}
 
 }

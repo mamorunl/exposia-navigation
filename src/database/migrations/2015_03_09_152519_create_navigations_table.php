@@ -12,7 +12,7 @@ class CreateNavigationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cms_navigations', function(Blueprint $table)
+		Schema::create('navigations', function(Blueprint $table)
 		{
 			$table->increments('id');
             $table->string('name');
@@ -28,7 +28,7 @@ class CreateNavigationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cms_navigations');
+		Schema::drop('navigations');
 	}
 
 }

@@ -12,7 +12,7 @@ class AddTargetToNavigationNodesTable extends Migration
      */
     public function up()
     {
-        Schema::table('cms_navigation_nodes', function (Blueprint $table) {
+        Schema::table('navigation_nodes', function (Blueprint $table) {
             $table->string('target');
         });
     }

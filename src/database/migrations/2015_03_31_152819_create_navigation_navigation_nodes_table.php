@@ -12,7 +12,7 @@ class CreateNavigationNavigationNodesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cms_navigation_navigation_nodes', function($table) {
+		Schema::create('navigation_navigation_node', function($table) {
             $table->integer('navigation_id');
             $table->integer('navigation_node_id');
             $table->integer('sort_order');
@@ -28,7 +28,7 @@ class CreateNavigationNavigationNodesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cms_navigation_navigation_nodes');
+		Schema::drop('navigation_navigation_nodes');
 	}
 
 }

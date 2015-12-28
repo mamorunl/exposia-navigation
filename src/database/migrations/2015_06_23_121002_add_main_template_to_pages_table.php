@@ -12,7 +12,7 @@ class AddMainTemplateToPagesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('cms_pages', function(Blueprint $table)
+		Schema::table('pages', function(Blueprint $table)
 		{
 			$table->string('main_template');
 		});
@@ -25,7 +25,7 @@ class AddMainTemplateToPagesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('cms_pages', function(Blueprint $table)
+		Schema::table('pages', function(Blueprint $table)
 		{
 			$table->dropColumn('main_template');
 		});

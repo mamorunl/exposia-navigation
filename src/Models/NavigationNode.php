@@ -10,15 +10,14 @@ namespace Exposia\Navigation\Models;
 
 class NavigationNode extends AbstractNavigationNode
 {
-    protected $table = 'cms_navigation_nodes';
     protected $fillable = [
         'name',
         'slug'
     ];
 
     public static $rules = [
-        'name' => 'required',
-        'slug' => 'required',
+        'name'   => 'required',
+        'slug'   => 'required',
         'target' => 'required'
     ];
 
@@ -44,7 +43,7 @@ class NavigationNode extends AbstractNavigationNode
      */
     public function navigation()
     {
-        return $this->belongsToMany('\Exposia\Navigation\Models\Navigation', 'cms_navigation_navigation_nodes');
+        return $this->belongsToMany('\Exposia\Navigation\Models\Navigation');
     }
 
     /**

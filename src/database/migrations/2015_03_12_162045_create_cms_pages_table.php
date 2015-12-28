@@ -12,7 +12,7 @@ class CreateCmsPagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cms_pages', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->text('template_data');
@@ -27,6 +27,6 @@ class CreateCmsPagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cms_pages');
+        Schema::drop('pages');
     }
 }

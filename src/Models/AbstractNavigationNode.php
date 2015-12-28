@@ -57,9 +57,9 @@ class AbstractNavigationNode extends Model
      */
     public function children($navigation_id)
     {
-        return $this->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'cms_navigation_navigation_nodes',
+        return $this->belongsToMany('\Exposia\Navigation\Models\NavigationNode', 'navigation_navigation_node',
             'parent_id', 'navigation_node_id')
-            ->where('cms_navigation_navigation_nodes.navigation_id', $navigation_id)
+            ->where('navigation_navigation_node.navigation_id', $navigation_id)
             ->orderBy('sort_order', 'asc')
             ->get();
     }

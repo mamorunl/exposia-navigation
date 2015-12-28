@@ -12,7 +12,7 @@ class CreateNodeTranslationsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cms_node_translations', function(Blueprint $table)
+		Schema::create('node_translations', function(Blueprint $table)
 		{
 			$table->increments('id');
             $table->string('name');
@@ -30,7 +30,7 @@ class CreateNodeTranslationsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cms_node_translations');
+		Schema::drop('node_translations');
 	}
 
 }

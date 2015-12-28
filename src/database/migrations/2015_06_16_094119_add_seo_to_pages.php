@@ -12,7 +12,7 @@ class AddSeoToPages extends Migration
      */
     public function up()
     {
-        Schema::table('cms_pages', function (Blueprint $table) {
+        Schema::table('pages', function (Blueprint $table) {
             $table->string('meta_keywords');
             $table->text('meta_description');
             $table->string('seo_title');
@@ -29,7 +29,7 @@ class AddSeoToPages extends Migration
      */
     public function down()
     {
-        Schema::table('cms_pages', function (Blueprint $table) {
+        Schema::table('pages', function (Blueprint $table) {
             $table->dropColumn('meta_keywords');
             $table->dropColumn('meta_description');
             $table->dropColumn('seo_title');
