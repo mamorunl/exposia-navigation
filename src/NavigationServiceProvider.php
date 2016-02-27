@@ -151,7 +151,10 @@ class NavigationServiceProvider extends ServiceProvider
     protected function setupPublishers()
     {
         $this->publishes([
-            realpath(__DIR__ . '/database/migrations') => $this->app->databasePath() . '/migrations',
+            realpath(__DIR__ . '/database/migrations') => $this->app->databasePath() . '/migrations'
+        ], 'database');
+
+        $this->publishes([
             realpath(__DIR__ . '/config/website.php')  => $this->app->configPath() . '/website.php',
             realpath(__DIR__ . '/config/theme.php')    => $this->app->configPath() . '/theme.php'
         ], 'settings');
